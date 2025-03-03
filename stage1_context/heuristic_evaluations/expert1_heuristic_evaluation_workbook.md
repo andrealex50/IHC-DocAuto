@@ -40,8 +40,7 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+
 # 5 Error Prevention
 >	- Quando é introduzida uma matrícula inválida é apresentada uma mensagem de erro.
 >   - Ao selecionar um carro, o sistema exibe informações detalhadas sobre o modelo, permitindo ao utilizador validar se escolheu corretamente antes de continuar.
@@ -49,8 +48,7 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+
 # 6 Recognition Rather than Recall
 >	- Utiliza categorias claras que facilitam a navegação sem que o utilizador precise memorizar onde encontrar os produtos.
 >   - Depois de selecionar um veículo, ele fica guardado na garagem, semelhante às peças procuradas previamente que ficam na secção “Artigos visualizados recentemente”.
@@ -58,16 +56,14 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+
 # 7 Flexibility and Efficiency of Use
 >	- A barra de pesquisa pode ser usada por utilizadores mais experientes que sabem do que estão à procura, como mecânicos, podem apenas digitar o nome da peça e aceder mais rapidamente a essa peça.
 >   - Um utilizador com conta, pode também guardar peças na sua Lista de desejos, o que aumenta a eficiência para utilizadores que comprar regularmente os mesmos produtos.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+
 # 8 Aesthetic and Minimalist Design
 >	- O site, no geral, apresenta um design minimalista tendo em conta o seu tema, utiliza 2 cores principais: laranja e cinzento escuro, e todo o site usa essas duas cores.
 >   - Não tem excesso de imagens e as imagens dos produtos são bem dimensionadas.
@@ -75,16 +71,14 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+
 # 9 Help Users Recognize, Diagnose, and Recover from Errors
 >	- Todas as mensagens de erro são compreensíveis para o utilizador.
 >   - Ao pesquisar uma peça na barra de pesquisa, caso essa peça não exista ou não esteja disponível, poderia ser apresentada uma mensagem a informar disso. No entanto, a ausência de resultados pode, por si só, ser suficiente.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+
 
 # 10 Help and Documentation
 >	- O site possui uma interface relativamente intuitiva, permitindo os utilizadores encontrarem facilmente as categorias e produtos, sem necessidade de um guia detalhado. Principalmente o menu de introduzir a matrícula, quando é aberta a página, para um utilizador que visita a página pela primeira vez, permite-lhe saltar as especificações todas ou perguntar ao suporte do site.
@@ -92,5 +86,4 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+
