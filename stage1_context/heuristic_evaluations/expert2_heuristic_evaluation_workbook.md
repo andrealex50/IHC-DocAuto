@@ -2,107 +2,73 @@
 Nielsen Norman Group available at: https://media.nngroup.com/media/articles/attachments/Heuristic_Evaluation_Workbook_-_Nielsen_Norman_Group.pdf
 -->
 
-**Evaluator**: [Evaluator Name]
-**Date**: [DD-MM-AAAA]
-**Product**: [SuperMaxiApp]
+**Evaluator**: Orlando Marinheiro
+**Date**: [23-02-2025]
+**Product**: [AutoDoc]
 
 
 Severity Scale adopted: [[severity_scale_heuristic_evaluation]]
 Summary of each usability heuristic: [here](https://media.nngroup.com/media/articles/attachments/Heuristic_Summary1-compressed.pdf)
 
 # 1 Visibility of System Status
->	The design should always keep users informed about what is going on, through appropriate feedback within a reasonable amount of time. 
->	- Does the design clearly communicate its state?
->	- Is feedback presented quickly after user actions?
+> O sistema fornece feedback para qualquer ação que é feita:
+> - É facil de entender em aba é que estamos no site.
+>- Estado dos botões alteram quando são clicados.
+> - Preço do carrinho de compras atualiza quando são adicionados novos produtos, o que facilita a experiência do utilizador, uma vez que o mesmo não necessita de ir ao carrinho todas as vezes que um produto é adicionado, não interrompedo a sua navegação no sistema.
 
-| **Issue**       | **Severity** | Recommendation |
-| --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
 
 # 2 Match Between System and The Real World
->	The design should speak the users' language. Use words, phrases, and concepts familiar to the user, rather than internal jargon. Follow real-world conventions, making information appear in a natural and logical order. 
->	- Will user be familiar with the terminology used in the design? 
->	- Do the design’s controls follow real-world conventions?
+>	O design deve ter uma linguagem que os utilizadores percebam facilmente, portanto, é importante utilizar palavras, frases e conceitos familiares ao utilizador, em vez de termos demasiado técnicos.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+| Uso de termos técnicos sem explicação. | 3            |Incluir descrições ou tooltips para termos técnicos.|
+
 
 # 3 User Control and Freedom
->	Users often perform actions by mistake. They need a clearly marked "emergency exit" to leave the unwanted action without having to go through an extended process. 
->	- Does the design allow users to go back a step in the process? 
->	- Are exit links easily discoverable? 
->	- Can users easily cancel an action? 
->	- Is Undo and Redo supported?
+> Os utilizadores realizam frequentemente ações por engano, precisando de uma saída facil para interromper o processo indesejado sem ter que passar por um processo extenso.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+|Falta de um botão de "Cancelar" durante o processo de checkout. | 3            | Adicionar opção de cancelar ou voltar durante o checkout. |
+
 
 # 4 Consistency and Standards
->	Users should not have to wonder whether different words, situations, or actions mean the same thing. Follow platform and industry conventions. 
->	- Does the design follow industry conventions? 
->	- Are visual treatments used consistently throughout the design?
+> Os utilizadores não devem de ter duvidas se certas palavras e ou ações dentro do sistema significam a mesma coisa.
+
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+|Variação no estilo dos botões em diferentes páginas.| 2            |Uniformizar o estilo dos botões em todas as páginas.|
+
 # 5 Error Prevention
->	Good error messages are important, but the best designs carefully prevent problems from occurring in the first place. Either eliminate error-prone conditions, or check for them and present users with a confirmation option before they commit to the action. 
->	- Does the design prevent slips by using helpful constraints? 
->	- Does the design warn users before they perform risky actions?
+> É importante apresentar aos utilizadores uma opção de confirmação antes de realizarem qualquer ação dentro do sistema.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+| Possibilidade de adicionar itens duplicados ao carrinho sem aviso. | 3            |Implementar alerta ao adicionar item já existente no carrinho|
+
 # 6 Recognition Rather than Recall
->	Minimize the user's memory load by making elements, actions, and options visible. The user should not have to remember information from one part of the interface to another. Information required to use the design (e.g. field labels or menu items) should be visible or easily retrievable when needed. 
->	- Does the design keep important information visible, so that users do not have to memorize it? 
->	- Does the design offer help in-context?
+> O utilizador não deve ter que lembrar informações de uma parte da interface para outra, isto é, as informações necessárias para usar o sistema (por exemplo, rótulos de campo ou itens de menu) devem ser visíveis ou facilmente recuperáveis quando necessário.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+|Campos de formulário sem rótulos persistentes e rótulos desaparecem ao digitar.| 2           | Manter rótulos visíveis ou usar placeholders que não desapareçam. |
+
 # 7 Flexibility and Efficiency of Use
->	Shortcuts — hidden from novice users — may speed up the interaction for the expert user such that the design can cater to both inexperienced and experienced users. Allow users to tailor frequent actions. 
->	- Does the design provide accelerators like keyboard shortcuts and touch gestures? 
->	- Is content and funtionality personalized or customized for individual users?
+> - Barra de pesquisa fácil de utilizar, permitindo a pesquisa imediata da peça sem dificuldade.
+> - Possibilidade de adição de veículos à "garagem" é uma grande ajuda para encontrar de forma rápida e eficiente peças para os veículos em questão, garantindo compatibilidade com os mesmos.
 
-| **Issue**       | **Severity** | Recommendation |
-| --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
 # 8 Aesthetic and Minimalist Design
->	Interfaces should not contain information that is irrelevant or rarely needed. Every extra unit of information in an interface competes with the relevant units of information and diminishes their relative visibility. 
->	- Is the visual design and content focused on the essentials? 
->	- Have all distracting, unnescessary elements been removed?
+>	No geral o site apresenta uma interface simples e facil de utilizar, com textos, imagens, botões e estrutura chamativa. O único ponto negativo, são os banners de publicidade que em certas abas são demasiado grandes, o que pode incomodar o utilizador.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+| Excesso de banners promocionais. | 2            | Reduzir o número de banners ou torná-los menos intrusivos. |
+
 # 9 Help Users Recognize, Diagnose, and Recover from Errors
->	Error messages should be expressed in plain language (no error codes), precisely indicate the problem, and constructively suggest a solution. 
->	- Does the design use traditional error message visuals, like bold, red text? 
->	- Does the design offer a solution that solves the error immediately?
+> - Mensagens de erro são bem detalhadas e faceis de compreender.
 
-| **Issue**       | **Severity** | Recommendation |
-| --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
 
 # 10 Help and Documentation
->	It’s best if the system doesn’t need any additional explanation. However, it may be necessary to provide documentation to help users understand how to complete their tasks. 
->	- Is help documentation easy to search? 
->	- Is help provided in context right at the moment when the user requires it?
-
-| **Issue**       | **Severity** | Recommendation |
-| --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+>- O sistema é simples e intuitivo no geral, não sendo necessário o uso de ajuda nem documentação para o manuseamento do mesmo. Todas as funcionalidades estão bem visiveis e para aquelas que são mais distintas e exclusivas, isto é, que poucos sites desta categoria contêm, apresentam uma breve descrição, indicando o objetivo da mesma.
