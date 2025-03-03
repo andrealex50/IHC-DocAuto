@@ -67,7 +67,7 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 | Excesso de banners promocionais. | 2            | Reduzir o número de banners ou torná-los menos intrusivos. |
 
 # 9 Help Users Recognize, Diagnose, and Recover from Errors
-> - Mensagens de erro são bem detalhadas e faceis de compreender.
+> - Mensagens de erro são bem detalhadas e fáceis de compreender.
 
 
 # 10 Help and Documentation
