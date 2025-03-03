@@ -59,39 +59,119 @@
 ### - Cognitive Walkthrough
 
 #### Method
-[Briefly described  the method you used for the Cognitive Walkthrough analysis. ]
+O método utilizado consistiu em dividir cada tarefa entre os elementos do grupo e, à medida que a executávamos, registávamos todos os passos realizados, guardando-os como sub-tarefas.
 
 #### Task Selection and Task Analysis
-
-[Which tasks did you select and why. What are the subtasks entailed for each ]
-
-
-| Task                        | Subtasks                               |
-| --------------------------- | -------------------------------------- |
-| **1. Buyng a grammar book** | Search for available grammar books     |
-|                             | Identify a specific book from the list |
-|                             | Add the selected book to the cart      |
-|                             | Proceeed to checkout                   |
+As tarefas foram selecionadas com base nas funcionalidades mais utilizadas e na experiência inicial ao abrir a página, de modo a simular a navegação de um utilizador comum.
 
 
 | Task                          | Subtasks                                |
 | ----------------------------- | --------------------------------------- |
-| **1. Booking a train ticket** | Select departure and destination cities |
-|                               | Choose travel date and time             |
-|                               | Pick a seat (if applicable)             |
-|                               | Confirm booking and make payment        |
+| **1. Comprar uma peça**       | Localizar tipo de peça                  |
+|                               | Filtrar os resultados                   |
+|                               | Escolher a peça                         |
+|                               | Adicionar ao carrinho                   |
+|                               | Criar conta                             |
+|                               | Selecionar método de pagamento          |
+|                               | Confirmar a compra                      |
+
+| Task                          | Subtasks                                |
+| ----------------------------- | --------------------------------------- |
+| **2. Pesquisar por matrícula** | Localizar campo de busca da matrícula   |
+|                               | Escrever uma matrícula existente no formato correto |
+|                               | Clicar em pesquisar                     |
+
+| Task                          | Subtasks                                |
+| ----------------------------- | --------------------------------------- |
+| **3. Pesquisar pelo modelo**  | Escolher as especificações
+|                               | Clicar em pesquisar                     |
+
+| Task                          | Subtasks                                |
+| ----------------------------- | --------------------------------------- |
+| **4. Criar conta**            | Localizar ícone de criar conta/iniciar sessão |
+|                               | Caso já tenha conta, inserir email e password para iniciar sessão |
+|                               | Para criar conta, selecionar a opção "Registe-se" |
+|                               | Preencher os campos com Nome, Apelido, Email e Palavra-passe |
+|                               | Efetuar o registo                       |
+
+| Task                          | Subtasks                                |
+| ----------------------------- | --------------------------------------- |
+| **5. Adicionar carros à garagem** | Clicar em "Minha Garagem"             |
+|                               | Escolher tipo de veículo (passageiros, camião, moto) |
+|                               | Introduzir matrícula e clicar em pesquisa |
+
+| Task                          | Subtasks                                |
+| ----------------------------- | --------------------------------------- |
+| **6. Procurar por peça usando a barra de pesquisa** | Localizar a barra de pesquisa no topo do site |
+|                               | Inserir o número da peça ou nome        |
+|                               | Clicar em pesquisar                     |
+
 
 
 #### Results
 
-Task: [This is the task]
+### **Task 1: Comprar uma peça**
 
 | Step # | Task/Action to Perform | Will User Know What to do at this step? (Yes/No) | Notes | If the user does the right thing, will they know it is progressing towards goal? (Yes/No) | Notes | Is Action Successful? (Yes/No) | Suggestions for Improvement |     |
 | ------ | ---------------------- | ------------------------------------------------ | ----- | ----------------------------------------------------------------------------------------- | ----- | ------------------------------ | --------------------------- | --- |
-| 1      | [Step 1 description]   | [Yes/No]                                         |       | [Yes/No]                                                                                  |       | [Yes/No]                       | [Suggestion 1]              |     |
-| 2      | [Step 2 description]   | [Yes/No]                                         |       | [Yes/No]                                                                                  |       | [Yes/No]                       | [Suggestion 2]              |     |
-| 3      | [Step 3 description]   | [Yes/No]                                         |       | [Yes/No]                                                                                  |       | [Yes/No]                       | [Suggestion 3]              |     |
-| ...    | [Further steps]        | [Yes/No]                                         |       | [Yes/No]                                                                                  |       | [Yes/No]                       | [Suggestions]               |     |
+| 1      | Localizar tipo de peça   | No                                         | Ao deslizar para baixo, temos acesso ao catálogo de todas as peças        | Yes                                                                                  | É logo redirecionado para a página da peça      | Yes                      | O catálogo podia estar mais visível              |     |
+| 2      | Filtrar os resultados   | Yes                                         | O menu de filtro está no local habitual       | Yes                                                                                 | O menu de filtro é atualizado       | Yes                       | Nenhuma              |     |
+| 3      | Escolher a peça   | Yes                                         | As peças aparecem na mesma página      | Yes                                                                                  |       | Yes                       | Podia arranjar uma ferramenta de comparação de peças                |     |
+| 5      | Adicionar ao carrinho        | Yes/No                                         | Apenas aparece o botão "Comprar", no entanto o icon de carrinho ajuda a indicar que vai haver alguma alteração no carrinho      | Yes                                                                                | Ao clicar no botão de "Comprar" aparece um pop-up no lugar do carrinho a indicar que foi adicionado       | Yes                       | Nenhuma               |     |
+| 6      | Criar conta        | Yes                                        | Apesar de não ser obrigado a criar conta     | Yes                                                                                  | Na parte superior da tela, conseguimos ver os passos que faltam para finalizar a compra, sendo que este é um deles      | Yes                       | Nenhuma               |     |
+| 7      | Selecionar método de pagamento        | Yes                                         |       | Yes                                                                                  | Mais uma vez a barra de progresso na parte superior da tela mostra o progresso até à compra       | Yes                       | Nenhuma               |     |
+| 8      | Confirmar a compra        | Yes                                         | O utilizador tem um botão que permite confirmar a compra      | Yes                                                                                 | A página muda, mostrando uma mensagem com o número da encomenda      | Yes                      |                |     |
+
+
+
+### **Task 2: Pesquisar por matrícula**
+
+| Step # | Task/Action to Perform | Will User Know What to do at this step? (Yes/No) | Notes | If the user does the right thing, will they know it is progressing towards goal? (Yes/No) | Notes | Is Action Successful? (Yes/No) | Suggestions for Improvement |     |
+| ------ | ---------------------- | ------------------------------------------------ | ----- | ----------------------------------------------------------------------------------------- | ----- | ------------------------------ | --------------------------- | --- |
+| 1      | Localizar campo de busca da matrícula   | No                                        | É a parte com mais destaque ao entrar na página      | Yes                                                                                  |       | Yes                       | Nenhuma              |     |
+| 2      | Escrever uma matrícula existente no formato correto   | Yes                                         | Caso escreva uma matrícula inválida aparece uma janela pop-up a avisar      | Yes                                                                                 |      | Yes                      | Nenhuma              |     |
+| 3      | Clicar em pesquisar    | Yes                                       |       | Yes                                                                                  | É redirecionado para a página do veículo      | Yes                     | Nenhuma              |     |
+
+
+
+### **Task 3: Pesquisar pelo modelo**
+
+| Step # | Task/Action to Perform | Will User Know What to do at this step? (Yes/No) | Notes | If the user does the right thing, will they know it is progressing towards goal? (Yes/No) | Notes | Is Action Successful? (Yes/No) | Suggestions for Improvement |     |
+| ------ | ---------------------- | ------------------------------------------------ | ----- | ----------------------------------------------------------------------------------------- | ----- | ------------------------------ | --------------------------- | --- |
+| 1      | Escolher as especificações   | Yes                                         | É bem visível a alternativa a pesquisar por matrícula      | Yes                                                                                 |       | [Yes/No]                       | Nenhuma             |     |
+| 2      | Clicar em pesquisar    | Yes                                       |       | Yes                                                                                  | É redirecionado para a página do veículo       | Yes                     | Nenhuma              |     |
+
+
+
+### **Task 4: Criar conta**
+
+| Step # | Task/Action to Perform | Will User Know What to do at this step? (Yes/No) | Notes | If the user does the right thing, will they know it is progressing towards goal? (Yes/No) | Notes | Is Action Successful? (Yes/No) | Suggestions for Improvement |     |
+| ------ | ---------------------- | ------------------------------------------------ | ----- | ----------------------------------------------------------------------------------------- | ----- | ------------------------------ | --------------------------- | --- |
+| 1      | Localizar ícone de criar conta/iniciar sessão   | No                                         | O botão de iniciar sessão está no local habitual      | Yes                                                                                  |       | Yes                     | Nenhuma              |     |
+| 2      | Caso já tenha conta, inserir email e password para iniciar sessão   | Yes                                         |       | Yes                                                                                  |       | Yes/No                       | Nenhuma              |     |
+| 3      | Para criar conta, selecionar a opção "Registe-se"   | Yes                                        | Como de costume nas páginas de login há uma mensagem que permite criar conta      | Yes                                                                                | É apresentado um pop-up com os campos para criar conta       | Yes                     | Nenhuma              |     |
+| 4      | Preencher os campos com Nome, Apelido, Email e Palavra-passe   | Yes                                        |       | Yes                                                                                 |       | Yes                      | Seria recomendável que avisasse o utilizador sobre a segurança da palavra-passe              |     |
+| 5      | Efetuar o registo"   | Yes                                        |       | Yes                                                                                 | É redirecionado para o perfil      | Yes                      | Nenhuma             |     |
+
+
+### **Task 5: Adicionar carros à garagem**
+
+| Step # | Task/Action to Perform | Will User Know What to do at this step? (Yes/No) | Notes | If the user does the right thing, will they know it is progressing towards goal? (Yes/No) | Notes | Is Action Successful? (Yes/No) | Suggestions for Improvement |     |
+| ------ | ---------------------- | ------------------------------------------------ | ----- | ----------------------------------------------------------------------------------------- | ----- | ------------------------------ | --------------------------- | --- |
+| 1      | Clicar em "Minha Garagem"    | No                                         | Não é muito intuitívo, requer que o utilizador explore um bocado as funcionalidades do site      | Yes                                                                                  | Aparece um pop-up para adicionar um veículo à garagem      | Yes                      | Indicar que é possível esta funcionalidade através de uma dica visual               |     |
+| 2      | Escolher tipo de veículo (passageiros, camião, moto)   | Yes                                         |       | Yes                                                                                  | Na parte superior do pop-up aparece destacado o tipo de veículo selecionado      | Yes                      | Nenhuma             |     |
+| 3      | Introduzir matrícula e clicar em pesquisa   | Yes                                         |       | Yes                                                                                  | Apenas redireciona para a página das peças daqueles veículo, não indica que foi adicionado à garagem       | Yes                       | Apresentar uma mensagem a indicar que o veículo foi adicionado à garagem            |     |
+
+
+
+### **Task 6: Procurar por peça usando a barra de pesquisa**
+
+| Step # | Task/Action to Perform | Will User Know What to do at this step? (Yes/No) | Notes | If the user does the right thing, will they know it is progressing towards goal? (Yes/No) | Notes | Is Action Successful? (Yes/No) | Suggestions for Improvement |     |
+| ------ | ---------------------- | ------------------------------------------------ | ----- | ----------------------------------------------------------------------------------------- | ----- | ------------------------------ | --------------------------- | --- |
+| 1      |  Localizar a barra de pesquisa no topo do site   | No                                      | A barra de pesquisa está no local habitual      | Yes                                                                                 | Ao clicar na barra de pesquisa o aspeto do site muda, focando-se na barra      | Yes                    | Nenhuma              |     |
+| 2      | Inserir o número da peça ou nome   | Yes                                         | Em princípio, um utilizador que está a utilizar a barra de pesquisa sabe a peça específica que está a procurar, no entanto, o site apresenta na mesma um menu com os tipos de peças. Apresenta também um "Exemplo" ajudando os utilizadores como utilizar a barra.       | Yes                                                                                 | Vão aparecendo os resultados com nome similiar ao introduzido      | Yes                       | Nenhuma             |     |
+| 3      | Clicar em pesquisar   | Yes                                         |       | No                                                                                  | Não há nenhum indicativo que o site está a procurar por resultados      | Yes                       | Apresentar uma mensagem 'A pesquisar...' ou um ícone que simbolize ao utilizador que o site está à procura de resultados           |     |
+
 
 ## B.1c. Overall Analysis
 
