@@ -3,7 +3,7 @@ Nielsen Norman Group available at: https://media.nngroup.com/media/articles/atta
 -->
 
 **Evaluator**: [André Alexandre]
-**Date**: [22-02-2024]
+**Date**: [22-02-2025]
 **Product**: [AutoDoc]
 
 Severity Scale adopted: [[severity_scale_heuristic_evaluation]]
@@ -23,7 +23,7 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| É utilizado o termo modificação aquando da pesquisa de um veículo que é um pouco confuso | 1            | Utilizar o termo especificação por exemplo               |
+
  
 # 3 User Control and Freedom
 >	- Na maior parte dos menus existe uma opção para retroceder ou fechar o menu. No entanto, por exemplo, ao clicar numa peça, a página poderia incluir um botão para voltar atrás, em vez de obrigar o utilizador a usar o botão do browser.

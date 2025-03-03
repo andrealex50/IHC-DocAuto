@@ -2,9 +2,9 @@
 Nielsen Norman Group available at: https://media.nngroup.com/media/articles/attachments/Heuristic_Evaluation_Workbook_-_Nielsen_Norman_Group.pdf
 -->
 
-**Evaluator**: [Evaluator Name]
-**Date**: [DD-MM-AAAA]
-**Product**: [SuperMaxiApp]
+**Evaluator**: [Tiago Melo]
+**Date**: [23-02-2025]
+**Product**: [AutoDoc]
 
 ---
 
@@ -12,98 +12,96 @@ Severity Scale adopted: [[severity_scale_heuristic_evaluation]]
 Summary of each usability heuristic: [here](https://media.nngroup.com/media/articles/attachments/Heuristic_Summary1-compressed.pdf)
 
 # 1 Visibility of System Status
->	The design should always keep users informed about what is going on, through appropriate feedback within a reasonable amount of time. 
->	- Does the design clearly communicate its state?
->	- Is feedback presented quickly after user actions?
+>   Não existe nada que diga ao utilizador quando se clica no botão de pesquisar se a peça/veículo está a ser pesquisada ou não.
+>
+>   Quando se elimina um veículo da garagem não é apresentada nenhuma mensagem com feddback.
+>   
+>   De resto, o design do site comunica corretamente o estado do sistema e apresenta feedback das ações realizadas pelo utilizador
+>
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+| Falta de feeback quando é efetuada uma pesquisa | 2            | Adicionar um simbolo que represente que a pesquisa está a acontecer               |
+| Falta de feeback do que acontece quando um veículo é eliminado da garagem   | 2            | Adicionar um pop-up que de feedback ao utilizador               |
 
 # 2 Match Between System and The Real World
->	The design should speak the users' language. Use words, phrases, and concepts familiar to the user, rather than internal jargon. Follow real-world conventions, making information appear in a natural and logical order. 
->	- Will user be familiar with the terminology used in the design? 
->	- Do the design’s controls follow real-world conventions?
+>   Quando se acede ao site a informação é apresentada na lingua do utilizador e é utilizada linguagem comum o que facilita a compreensão e navegação do site.
+>
+>   Tirando uma ocasião em que é utilizado o termo modificação aquando da pesquisa por um veículo, não sendo o vocabulário mais adequado para descrever o que é que é suposto dizer.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+| É utilizado o termo modificação aquando da pesquisa de um veículo que é um pouco confuso | 1            | Utilizar o termo especificação por exemplo               |
 
 # 3 User Control and Freedom
->	Users often perform actions by mistake. They need a clearly marked "emergency exit" to leave the unwanted action without having to go through an extended process. 
->	- Does the design allow users to go back a step in the process? 
->	- Are exit links easily discoverable? 
->	- Can users easily cancel an action? 
->	- Is Undo and Redo supported?
+>   Na maioria dos casos não existe um botão visivel para voltar atrás ou cancelar ações. Apesar disso a prática comum de utilizar o logo do site para voltar á página inicial está implementada.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+| Tirando o processo de compra não existe nenhuma instância onde exista um botão de retroceder | 2            | Aplicar mais o uso do botão de retroceder               |
+| Na aba Os meus veículos não existe um botão para eliminar um veículo da garagem   | 2            | Adicionar a funcionalidade de eliminar um veículo através da aba Os meus veículos               |
+| Não é possível eliminar um item do carrinho através do dropdown do menu principal | 2 | Acrescentar um botão que o permita fazer | 
 
 # 4 Consistency and Standards
->	Users should not have to wonder whether different words, situations, or actions mean the same thing. Follow platform and industry conventions. 
->	- Does the design follow industry conventions? 
->	- Are visual treatments used consistently throughout the design?
+>   O sistema segue as convenções da industria na pesquisa por veiculo sendo por matricula ou por modelo.
+>
+>   Faz uso de simbolos facilmente reconheciveis e um uso de cores consistente.
+>
+>   Utiliza também uma estrutura tipica de um Website o que facilita a sua navegação.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
 # 5 Error Prevention
->	Good error messages are important, but the best designs carefully prevent problems from occurring in the first place. Either eliminate error-prone conditions, or check for them and present users with a confirmation option before they commit to the action. 
->	- Does the design prevent slips by using helpful constraints? 
->	- Does the design warn users before they perform risky actions?
+>   O sistema faz uso de mensagens de erro adequadas quando o utilizador comete algum erro como introduzir uma matricula inválida, ou não preencher algum campo adequadamente.
+>
+>   O checkout está dividido em diferentes fases o que diminui a quantidade de informação que o utilizador consome de uma vez, e visto que é uma fase critica é importante para diminuir a quantidade de acidentes.
+>
+>   Quando se adiciona uma peça ao carrinho é exibido um pop-up informando o utilizador que adicionou um produto ao carrinho.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+
 # 6 Recognition Rather than Recall
->	Minimize the user's memory load by making elements, actions, and options visible. The user should not have to remember information from one part of the interface to another. Information required to use the design (e.g. field labels or menu items) should be visible or easily retrievable when needed. 
->	- Does the design keep important information visible, so that users do not have to memorize it? 
->	- Does the design offer help in-context?
+>   O sistema exibe toda a informação necessária para o utilizador o poder usar sem grandes dificuldades. Os produtos estão dividios em categorias e o processo de procura por um veiculo em especifico pode ser feito de duas maneiras sendo ambas intuitivas.
+>
+>   A funcionalidade da Garagem é que pode gerar confusões pois tem dois pontos de acesso e cada um leva a uma representação diferente. Enquanto o botão no menu principal demonstra os veiculos que estão na garagem, tem a funcionalidade de adicionar novos veiculos e também de remove-lose procurar peças especificas a esse veículo, a aba Os meus Veiculos não possibilita a remoção de veículos.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+| Incoerência nas duas representações da garagem | 2            | Uniformizar a Garagem e a aba Os meus veículos               |
 # 7 Flexibility and Efficiency of Use
->	Shortcuts — hidden from novice users — may speed up the interaction for the expert user such that the design can cater to both inexperienced and experienced users. Allow users to tailor frequent actions. 
->	- Does the design provide accelerators like keyboard shortcuts and touch gestures? 
->	- Is content and funtionality personalized or customized for individual users?
+>   A lista de desejos está escondida atrás no botão O meu AutoDoc o que pode ser frustante para novos utilizadores.
+>
+>   O facto de um veículo poder ser procurado tanto por matrícula como por modelo é uma mais valia pois pode facilitar a utilização do sistema por novos utilizadores.
+>
+>   Através da página inicial é possível aceder a todas as funcionalidades mais importantes como o carrinho, a garagem, a área pessoal, etc...
+>
+>   O site é personalizável ao utilizador pois após um veículo ser adicionado á garagem as peças procuradas são destinadas a esse veículo.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+| Lista de desejos escondida | 1            | Colocar um botão para a lista de desejos no menu principal junto ao carrinho               |
 # 8 Aesthetic and Minimalist Design
->	Interfaces should not contain information that is irrelevant or rarely needed. Every extra unit of information in an interface competes with the relevant units of information and diminishes their relative visibility. 
->	- Is the visual design and content focused on the essentials? 
->	- Have all distracting, unnescessary elements been removed?
+>   O site apresenta toda a informação importante no menu principal mas tenta mostrar muitas coisas ao mesmo tempo como por exemplo uma secção para pesquisar um veículo, uma secção para as categorias de peças, outra para as marcas mais populares, outra para os produtos mais vendidos, outra para os melhores fabricantes. Apesar de ter informação ser no geral uma coisa boa, em certos casos pode ser um pouco de mais.
+>
+>   Existe também um slide de imagens logo no início do menu principal que influencia os utilizadores a usarem o site, o que numa primeira utilização pode dar jeito mas depois torna-se distrativo.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
+| O menu principal contem muita informação | 1            | Reduzir a quantidade de informção no menu principal               |
+| O slide de imagens no menu principal é distrativo   | 2            | Colocar o slide num pop-up para que só seja visto uma vez               |
 # 9 Help Users Recognize, Diagnose, and Recover from Errors
->	Error messages should be expressed in plain language (no error codes), precisely indicate the problem, and constructively suggest a solution. 
->	- Does the design use traditional error message visuals, like bold, red text? 
->	- Does the design offer a solution that solves the error immediately?
+>   As mensagens de erro são percetiveis e seguem as normas gerais, e também oferecem uma solução quando possível
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
 
 # 10 Help and Documentation
->	It’s best if the system doesn’t need any additional explanation. However, it may be necessary to provide documentation to help users understand how to complete their tasks. 
->	- Is help documentation easy to search? 
->	- Is help provided in context right at the moment when the user requires it?
+>   Na barra de pesquisa para procurar por uma peças existe um botão que oferece informação detalhada sobre como proceder, o que pode ser bastante útil para novos utilizadores.
+>   
+>   O site possui também uma secção de apoio ao cliente no fim do página principal como é habitual. Esta secção tem para além de informação sobre o site e suporte ao cliente, vídeos e guias.
+>
+>   Possui tambémm um chat que pode ser utilizado para tirar dúvidas ou obter informação que não seja demonstrada no site.
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Something wrong | 3            |                |
-| Another thing   | 4            |                |
