@@ -10,7 +10,8 @@ Nielsen Norman Group available at: https://media.nngroup.com/media/articles/atta
 
 ---
 
-Severity Scale adopted: [[severity_scale_heuristic_evaluation]]
+Severity Scale adopted: [[severity_scale_heuristic_evaluation](heuristic_evaluations/severity_scale_heuristic_evaluation.md)]
+
 Summary of each usability heuristic: [here](https://media.nngroup.com/media/articles/attachments/Heuristic_Summary1-compressed.pdf)
 
 # 1 Visibility of System Status
@@ -40,7 +41,7 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
-| Tirando o processo de compra não existe nenhuma instância onde exista um botão de retroceder | 2            | Aplicar mais o uso do botão de retroceder               |
+| Não existe nenhuma instância onde exista um botão de retroceder | 2            | Aplicar mais o uso do botão de retroceder               |
 | Na aba Os meus veículos não existe um botão para eliminar um veículo da garagem   | 2            | Adicionar a funcionalidade de eliminar um veículo através da aba Os meus veículos               |
 | Não é possível eliminar um item do carrinho através do dropdown do menu principal | 2 | Acrescentar um botão que o permita fazer | 
 

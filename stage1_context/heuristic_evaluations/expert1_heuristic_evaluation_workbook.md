@@ -7,7 +7,8 @@ Nielsen Norman Group available at: https://media.nngroup.com/media/articles/atta
 **Date**: [22-02-2025]
 **Product**: [AutoDoc]
 
-Severity Scale adopted: [[severity_scale_heuristic_evaluation]]
+Severity Scale adopted: [[severity_scale_heuristic_evaluation](heuristic_evaluations/severity_scale_heuristic_evaluation.md)]
+
 Summary of each usability heuristic: [here](https://media.nngroup.com/media/articles/attachments/Heuristic_Summary1-compressed.pdf)
 
 # 1 Visibilidade do status do sistema

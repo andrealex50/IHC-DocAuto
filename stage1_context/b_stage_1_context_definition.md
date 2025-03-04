@@ -5,7 +5,9 @@
 
 
 # B.1. Competitor Identification
->	The competitor analysis will entail an identification of all competitors, with brief descriptions and a collection of the look and feel of their solutions, e.g., with screenshots, etc. It will also include a detailed analysis of the competitor deemed the best or more representative. It ends with a summary of the main findings including an HCI SWOT analysis
+>	Nesta fase, será realizada uma análise da concorrência, começando pela identificação de todos os concorrentes relevantes. Para cada um, será feita uma breve descrição e será recolhida informação sobre a aparência e experiência das suas soluções, incluindo capturas de ecrã, sempre que possível. 
+De seguida, será feita uma análise detalhada do concorrente considerado o melhor ou o mais representativo, avaliando os seus pontos fortes e fracos.
+Por fim, será elaborado um resumo com as principais conclusões, incluindo uma análise SWOT (Forças, Fraquezas, Oportunidades e Ameaças) focada na Interação Humano-Computador (HCI). 
 
 
 
@@ -14,21 +16,21 @@
 
 | **Competitor**    | **Description**                             | Information repository              |
 | ----------------- | ------------------------------------------- | ----------------------------------- |
-| [Amazon Shoes]    | [Online platform selling shoe laces]        | [[Competitor Analysis AmazonShoes]] |
-| [Fnac Atacadores] | [Smartphone app to buy and sell shoe laces] |                                     |
-| ...               |                                             |                                     |
+| [AutoDoc]    | Plataforma online de venda de peças automóveis        | [Análise do competidor](competitors/Competitor%20Analysis%20AutoDoc.md) |
+| [eBay] | Plataforma online de compra e venda de diversos produtos |     [Análise do competidor](competitors/Competitor%20Analysis%20eBay.md)                                |
+
 
 
 
 
 ## B.1b. Detailed Competitor Analysis
->	Choose the most notable competitor and do a more thorough analysis of their interactive solution
+>	Nesta fase é feita uma análise mais profunda do competidor AutoDoc
 
 
 ### - Heuristic Evaluation
 
 #### Method
-[ Describe the method used for the heuristic evaluation: procedure, number of experts, heuristics, severity scale considered, how was consensus done.]
+>	Todos os 3 avaliadores fizeram análises individuais seguindo as [heurisitcas](https://media.nngroup.com/media/articles/attachments/Heuristic_Summary1-compressed.pdf) apresentadas nas aulas teoricas da cadeira HCI. Depois foi feita uma reunião onde foram discutidos todos os issues identificados resultando na tabela que se segue. A escala de severidade usada pode ser encontrada [aqui](heuristic_evaluations/severity_scale_heuristic_evaluation.md)
 
 
 #### Individual Evaluations
@@ -45,24 +47,32 @@
 
 #### Consensus
 
->	After the individual analysis by each expert, all results should be gathered in a consensus table. If an expert has not found any of the problems found by other experts, they should analyse it, at this point, and give it a severity.
 
 | **Issue**       | **Expert 1** | Expert 2 | Expert 3 | Recommendations                             |
 | --------------- | ------------ | -------- | -------- | ------------------------------------------- |
-| Something wrong | 3            | 1        | 0        | Something could be done to the button to... |
-| Another thing   | 4            | 3        | 4        | Other thing to recommend                    |
-| ...             |              |          |          |                                             |
-
+| Quando se clica no botão de pesquisar não é demonstrado o estado | 2            | 2        | 2        | Acrescentar um simbolo que simbolize o estado do sistema |
+| Uso de termos técnicos sem explicação |       3       |       3   |     1     | Incluir descrições ou tooltips para termos técnicos |
+| Falta de um botão para retroceder em várias instâncias e para cancelar o "checkout" em caso de necessidade |       2       |       3   |     2     | Adicionar os botões necessários nestas instâncias |
+| Variação no estilo dos botões em diferentes páginas |       2       |       2   |     2     | Uniformizar o estilo dos botões em todas as páginas |
+| Possibilidade de adicionar itens duplicados ao carrinho sem aviso |       3       |       3   |     3     | Implementar alerta ao adicionar item já existente no carrinho |
+| Campos de formulário sem rótulos persistentes e rótulos desaparecem ao digitar |       2       |      2   |     2     | Manter rótulos visíveis ou usar placeholders que não desapareçam |
+|Excesso de banners promocionais |       2       |       2   |     2     | Reduzir o número de banners ou torná-los menos intrusivos |
+|Falta de feeback quando é efetuada uma pesquisa  |       2       |       2   |     2     | Adicionar um simbolo que represente que a pesquisa está a acontecer |
+| Falta de feeback do que acontece quando um veículo é eliminado da garagem |       2       |       2   |     2     | Adicionar um pop-up que de feedback ao utilizador |
+| Na aba Os meus veículos não existe um botão para eliminar um veículo da garagem |       2       |       2   |     2     | Adicionar a funcionalidade de eliminar um veículo através da aba Os meus veículos  |
+| Não é possível eliminar um item do carrinho através do dropdown do menu principal |       2       |       2   |     2     | Acrescentar um botão que o permita fazer  |
+| Incoerência nas duas representações da garagem |       2       |       2   |     2     | Uniformizar a Garagem e a aba Os meus veículos     |
+| Lista de desejos escondida|       1       |       1   |     1    | Colocar um botão para a lista de desejos no menu principal junto ao carrinho  |
 
 
 ---
 ### - Cognitive Walkthrough
 
 #### Method
-O método utilizado consistiu em dividir cada tarefa entre os elementos do grupo e, à medida que a executávamos, registávamos todos os passos realizados, guardando-os como sub-tarefas.
+>	O método utilizado consistiu em dividir cada tarefa entre os elementos do grupo e, à medida que a executávamos, registávamos todos os passos realizados, guardando-os como sub-tarefas.
 
 #### Task Selection and Task Analysis
-As tarefas foram selecionadas com base nas funcionalidades mais utilizadas e na experiência inicial ao abrir a página, de modo a simular a navegação de um utilizador comum.
+>	As tarefas foram selecionadas com base nas funcionalidades mais utilizadas e na experiência inicial ao abrir a página, de modo a simular a navegação de um utilizador comum.
 
 
 | Task                          | Subtasks                                |
@@ -175,7 +185,7 @@ As tarefas foram selecionadas com base nas funcionalidades mais utilizadas e na 
 
 ## B.1c. Overall Analysis
 
-Após a análise dos concorrentes, identificámos vários aspetos positivos que podem influenciar o design da nossa solução. Algumas das principais conclusões incluem:
+>	Após a análise dos concorrentes, identificámos vários aspetos positivos que podem influenciar o design da nossa solução. Algumas das principais conclusões incluem:
 
 - ### Pesquisa por matrícula: 
 Esta funcionalidade facilita a navegação e torna a pesquisa mais intuitiva para utilizadores que não têm conhecimento específico sobre peças de automóveis.
@@ -220,14 +230,14 @@ No entanto, a maior vantagem do nosso produto será a possibilidade de **marcar 
 
 
 # B.2. Users
->	For the users, there are two goals: 1) understand the current status of users in the domain you are addressing. How do they manage, what are the main tasks they do, if they use some tool for the purpose, what are current challenges, what might be improved, what might be new features, ...
+>	O objetivo principal desta fase é compreender o estado atual dos utilizadores no domínio em questão. Isso inclui analisar como gerem as suas atividades, quais são as principais tarefas que realizam, se utilizam alguma ferramenta específica para esse fim, quais os desafios que enfrentam atualmente, o que pode ser melhorado e que novas funcionalidades poderiam ser introduzidas para otimizar a sua experiência.
 
 
 ## B.2a. Method
 
-A abordagem utilizada para a realização das entrevistas foi a interação direta e pessoal com os utilizadores. Durante as conversas, os entrevistadores procuraram manter um ambiente descontraído e amigável, observando também as expressões e sinais corporais dos participantes. A amostra de utilizadores foi variada, incluindo colegas de curso, familiares e amigos de diferentes idades e com variados níveis de conhecimento sobre peças automóveis. Alguns entrevistados tinham experiência prévia na área, enquanto outros não.
+>	A abordagem utilizada para a realização das entrevistas foi a interação direta e pessoal com os utilizadores. Durante as conversas, os entrevistadores procuraram manter um ambiente descontraído e amigável, observando também as expressões e sinais corporais dos participantes. A amostra de utilizadores foi variada, incluindo colegas de curso, familiares e amigos de diferentes idades e com variados níveis de conhecimento sobre peças automóveis. Alguns entrevistados tinham experiência prévia na área, enquanto outros não.
 
-O principal objetivo das entrevistas foi identificar quais funcionalidades são mais valorizadas pelos utilizadores ao pesquisar e comprar peças de automóveis online. Também foram exploradas as dificuldades e desafios enfrentados pelos utilizadores durante este processo, além de possíveis melhorias e novas funcionalidades que poderiam ser incorporadas.
+>	O principal objetivo das entrevistas foi identificar quais funcionalidades são mais valorizadas pelos utilizadores ao pesquisar e comprar peças de automóveis online. Também foram exploradas as dificuldades e desafios enfrentados pelos utilizadores durante este processo, além de possíveis melhorias e novas funcionalidades que poderiam ser incorporadas.
 
 As perguntas feitas durante as entrevistas foram as seguintes:
 
@@ -252,7 +262,7 @@ As perguntas feitas durante as entrevistas foram as seguintes:
 
 ## B.2b. Results
 
->	This section tracks all informal user interviews, summarizing key insights and linking to detailed notes for each session. 
+>	Esta secção regista todas as entrevistas informais realizadas com os utilizadores, resumindo os principais insights obtidos e fornecendo ligações para as notas detalhadas de cada sessão.
 
 ### Interview List 
 | Date       | Participant / Role | Key Insights                                                    | Link to Notes                |     |
