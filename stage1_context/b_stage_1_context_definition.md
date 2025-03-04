@@ -175,9 +175,49 @@ As tarefas foram selecionadas com base nas funcionalidades mais utilizadas e na 
 
 ## B.1c. Overall Analysis
 
-[Here, you should summarize the main findings for the competitor panorama, listing key points that are valuable to inform the design of your solution, and also make an HCI SWOT analysis for the main competitor, taking into consideration what you learned from the heuristic evaluatio, cognitive walkthrough, online reviews, user feedback, etc.]
+Após a análise dos concorrentes, identificámos vários aspetos positivos que podem influenciar o design da nossa solução. Algumas das principais conclusões incluem:
 
----
+- ### Pesquisa por matrícula: 
+Esta funcionalidade facilita a navegação e torna a pesquisa mais intuitiva para utilizadores que não têm conhecimento específico sobre peças de automóveis.
+
+- ### Garagem virtual:
+A possibilidade de guardar veículos numa garagem digital permite um acesso mais rápido e personalizado às peças adequadas de cada utilizador, tornando o processo de compra mais eficiente.
+
+- ### Interface intuitiva:
+Os componentes analisados apresentam uma estrutura clara e familiar, com menus bem organizados e filtros eficientes. O design simples e intuitivo também será essencial no nosso site.
+
+### Conclusão
+No entanto, a maior vantagem do nosso produto será a possibilidade de **marcar inspeções em diversas oficinas**, uma funcionalidade que o concorrente analisado não oferece. Além disso, iremos **incorporar os aspetos positivos** identificados na análise da concorrência e **corrigir algumas das suas limitações**, garantindo uma solução mais completa e eficiente para os utilizadores.
+
+
+# Análise SWOT
+
+# Strengths
+
+>   - O nosso projeto oferece uma funcionalidade que outros sites como o AutoDoc não tem, sendo esta a possibilidade de agendar uma inspeção ou arranjo do carro pessoal do utilizador.
+>   - Como o nosso projeto vai ser algo mais local, existe a possibilidade de estabelecer parcerias locais exclusivas com oficinas e fornecedores regionais, oferecendo um serviço mais personalizado e um atendimento mais próximo ao cliente.
+>   - Como é algo mais local o nosso serviço poderá responder melhor às necessidades desse mercado do que uma plataforma global.
+
+# Weaknesses
+
+>   - Como já existem outras plataformas já consolidadas e com uma forte presença no mercado, inicialmente o nosso projeto necessitará de um investimento em branding e marketing para poder ganhar notoriedade.
+>   - As plataformas já estabelecidas no mercado tem uma oferta muito vasta de peças e fornecedores o poderá ser difícil igualar inicialmente. Com isso poderão também surgir problemas de falta de stock o que levará ao aumento do tempo de entregas.
+>   - Ter preços competitivos com outras plataformas já estabelecidas no mercado é extremamente difícil.
+
+# Opportunities
+
+>   - A possibilidade de integrar oficinas locais e permitir agendamentos automatizados pode transformar a plataforma numa solução completa para manutenção automóvel, indo além da simples venda de peças.
+>   - O atendimento personalizado pode ser um grande fator de diferenciação. Enquanto grandes plataformas têm um suporte mais impessoal, o nosso projeto pode apostar num serviço mais próximo e especializado.
+>   - Trabalhar diretamente com distribuidores e fabricantes locais pode permitir obter preços mais competitivos e oferecer uma seleção de produtos diferenciada.
+
+# Threats
+
+>   - A concorrência com empresas já bem estabelecidas pode dificultar a aquisição de novos clientes e o crescimento da plataforma.
+>   - Empresas já estabelecidas no mercado podem recorrer a estratégias agressivas de preços e promoções.
+>   - O sucesso da plataforma dependerá de uma boa rede de fornecedores e oficinas locais, a falta disso pode afetar negativamente a experiência do utilizador e a credibilidade da plataforma.
+>   - Como o nosso projeto é algo mais local, o mercado-alvo é menor que o de outras empresas globais o que pode dificultar o crescimento.
+>   - Os consumidores podem preferir comprar em plataformas maiores e mais conhecidas ou em marketplaces.
+
 
 # B.2. Users
 >	For the users, there are two goals: 1) understand the current status of users in the domain you are addressing. How do they manage, what are the main tasks they do, if they use some tool for the purpose, what are current challenges, what might be improved, what might be new features, ...
@@ -185,7 +225,31 @@ As tarefas foram selecionadas com base nas funcionalidades mais utilizadas e na 
 
 ## B.2a. Method
 
-[What approach was followed to talk with users; what kind of users were considered. What was the goal of the interviews? What were the questions considered?]
+A abordagem utilizada para a realização das entrevistas foi a interação direta e pessoal com os utilizadores. Durante as conversas, os entrevistadores procuraram manter um ambiente descontraído e amigável, observando também as expressões e sinais corporais dos participantes. A amostra de utilizadores foi variada, incluindo colegas de curso, familiares e amigos de diferentes idades e com variados níveis de conhecimento sobre peças automóveis. Alguns entrevistados tinham experiência prévia na área, enquanto outros não.
+
+O principal objetivo das entrevistas foi identificar quais funcionalidades são mais valorizadas pelos utilizadores ao pesquisar e comprar peças de automóveis online. Também foram exploradas as dificuldades e desafios enfrentados pelos utilizadores durante este processo, além de possíveis melhorias e novas funcionalidades que poderiam ser incorporadas.
+
+As perguntas feitas durante as entrevistas foram as seguintes:
+
+**Experiência Geral**
+- Como costuma pesquisar e comprar peças automóveis online? Pode descrever a sua experiência habitual?
+- Já utilizou um site para agendar inspeções ao seu veículo? Se sim, como foi o processo?
+
+**Navegação e Utilização do Site**
+- O que torna um site de compra de peças automóveis fácil de usar para si? Que funcionalidades considera essenciais?
+- Como prefere pesquisar peças automóveis? Por marca e modelo do veículo, referência da peça, ou outro critério?
+- Quais são os maiores desafios que já encontrou ao tentar comprar peças online?
+
+**Processo de Agendamento de Inspeções**
+- O que espera encontrar num sistema de agendamento de inspeções? O que tornaria esse processo mais conveniente para si?
+- Como prefere receber confirmações e lembretes sobre inspeções agendadas? (Email, SMS, notificação da app, etc.)
+
+**Confiança e Suporte ao Cliente**
+- O que influencia a sua decisão de confiar num site para comprar peças ou agendar uma inspeção? Avaliações, garantia, atendimento ao cliente, entre outros?
+- Se encontrasse um problema com uma peça ou com o agendamento de uma inspeção, como gostaria que o site lidasse com a situação?
+ 
+
+
 ## B.2b. Results
 
 >	This section tracks all informal user interviews, summarizing key insights and linking to detailed notes for each session. 
@@ -193,8 +257,14 @@ As tarefas foram selecionadas com base nas funcionalidades mais utilizadas e na 
 ### Interview List 
 | Date       | Participant / Role | Key Insights                                                    | Link to Notes                |     |
 | ---------- | ------------------ | --------------------------------------------------------------- | ---------------------------- | --- |
-| 03-09-2000 | Bob / student      | Does most things on paper and would require a complete solution | [📄 Notes](interview-Bob.md) |     |
-| ...        |                    |                                                                 |                              |     |
+| 23-02-2025 | Parent 1     | Trabalha com automóveis, costuma comprar peças online | [📄 Notes](./interviews/interview-anonimo01.md) |     |
+| 23-02-2025 | Student 1 | Gosta de automóveis, costuma usar o site AutoDoc   | [📄 Notes](./interviews/interview-anonimo02.md)     |     |
+| 22-02-2025 | Student 2 | Costuma arranjar as peças online e faz a manutenção em casa | [📄 Notes](./interviews/interview-anonimo03.md) |     |
+| 25-02-2025 | Student 3 | Nunca encomendou peças online     | [📄 Notes](./interviews/interview-anonimo04.md) |     |
+| 25-02-2025 | Student 4 | Não tem experiência com carros          |  [📄 Notes](./interviews/interview-student4.md)  |     |
+| 25-02-2025 | Student 5 | Nunca encomendou peças online       | [📄 Notes](./interviews/interview-student5.md) |     |
+
+Notas gerais: Nenhum dos participantes alguma vez agendou uma inspeção online.
 
 ### Common Themes & Patterns 
 
