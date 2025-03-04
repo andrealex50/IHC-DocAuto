@@ -1,4 +1,6 @@
 # Informal User Interview Notes 
+[Back to stage 1](../b_stage_1_context_definition)
+
 
 > 	The questions included in this file are just possibilities. The questions you do should be adapted to your case, where needed.
 
@@ -52,3 +54,6 @@
 --- 
 ## Additional Observations 
 [Free space for any other relevant notes, behaviors, or comments]
+
+
+[Back to stage 1](../b_stage_1_context_definition)

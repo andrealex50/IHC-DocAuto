@@ -1,6 +1,8 @@
 <!-- This Heuristic Evaluation Workbook replicates the one proposed by the 
 Nielsen Norman Group available at: https://media.nngroup.com/media/articles/attachments/Heuristic_Evaluation_Workbook_-_Nielsen_Norman_Group.pdf
 -->
+[Back to stage 1](../b_stage_1_context_definition)
+
 
 **Evaluator**: Orlando Marinheiro
 **Date**: [23-02-2025]
@@ -72,3 +74,6 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 
 # 10 Help and Documentation
 >- O sistema é simples e intuitivo no geral, não sendo necessário o uso de ajuda nem documentação para o manuseamento do mesmo. Todas as funcionalidades estão bem visiveis e para aquelas que são mais distintas e exclusivas, isto é, que poucos sites desta categoria contêm, apresentam uma breve descrição, indicando o objetivo da mesma.
+
+
+[Back to stage 1](../b_stage_1_context_definition)

@@ -1,4 +1,6 @@
 # Informal User Interview Notes 
+[Back to stage 1](../b_stage_1_context_definition)
+
 
 > 	The questions included in this file are just possibilities. The questions you do should be adapted to your case, where needed.
 
@@ -60,3 +62,6 @@
 **Se encontrasse um problema com uma peça ou com o agendamento de uma inspeção, como gostaria que o site lidasse com a situação?**
 - Gostaria que houvesse informação no site que explicasse como proceder e que a resposta fosse rápida, profissional e elucidativa. Disse também que obviamente gostaria que o problema fosse resolvido o mais rápido possível.
 
+
+
+[Back to stage 1](../b_stage_1_context_definition)

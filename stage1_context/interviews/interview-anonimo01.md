@@ -1,4 +1,6 @@
 # Informal User Interview Notes 
+[Back to stage 1](../b_stage_1_context_definition)
+
 
 > 	The questions included in this file are just possibilities. The questions you do should be adapted to your case, where needed.
 
@@ -58,3 +60,5 @@
 
 **Se encontrasse um problema com uma peça ou com o agendamento de uma inspeção, como gostaria que o site lidasse com a situação?**
 - Uma página na plataforma onde os clientes possam expor o seu problema de forma simples, com a opção de escolher entre receber uma peça nova igual ou solicitar o reembolso. O processo deve incluir a recolha do produto em casa ou em um ponto de pickup específico, garantindo uma resolução rápida e eficiente.
+
+[Back to stage 1](../b_stage_1_context_definition)

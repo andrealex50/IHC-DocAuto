@@ -1,6 +1,7 @@
 <!-- This Heuristic Evaluation Workbook replicates the one proposed by the 
 Nielsen Norman Group available at: https://media.nngroup.com/media/articles/attachments/Heuristic_Evaluation_Workbook_-_Nielsen_Norman_Group.pdf
 -->
+[Back to stage 1](../b_stage_1_context_definition)
 
 **Evaluator**: [André Alexandre]
 **Date**: [22-02-2025]
@@ -86,4 +87,7 @@ Summary of each usability heuristic: [here](https://media.nngroup.com/media/arti
 
 | **Issue**       | **Severity** | Recommendation |
 | --------------- | ------------ | -------------- |
+
+
+[Back to stage 1](../b_stage_1_context_definition)
 
