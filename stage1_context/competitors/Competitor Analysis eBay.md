@@ -5,7 +5,7 @@
 ## General Information 
 - **Name of System:** eBay 
 - **Company/Developer:** eBay Inc. 
-- **Website/Product Page:** https://pt.ebay.com 
+- **Website/Product Page:** [https://pt.ebay.com] 
 - **Platform(s) Supported:** Web, Mobile (iOS/Android), Desktop 
 - **Target Audience:** Este sistema destina-se a pessoas em busca de produtos novos e usados a preços competitivos, colecionáveis ou items vintage e leilões online. Destina-se também a pequenos e médio vendedores 
 

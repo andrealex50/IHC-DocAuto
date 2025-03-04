@@ -5,7 +5,7 @@
 ## General Information 
 - **Name of System:** AutoDoc 
 - **Company/Developer:** AutoDoc 
-- **Website/Product Page:** https://www.auto-doc.pt 
+- **Website/Product Page:** [https://www.auto-doc.pt] 
 - **Platform(s) Supported:**  Web, Mobile (iOS/Android), Desktop 
 - **Target Audience:** Pessoas que querem comprar peças automóveis 
 

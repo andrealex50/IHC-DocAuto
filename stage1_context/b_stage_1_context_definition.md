@@ -16,8 +16,8 @@ Por fim, será elaborado um resumo com as principais conclusões, incluindo uma 
 
 | **Competitor**    | **Description**                             | Information repository              |
 | ----------------- | ------------------------------------------- | ----------------------------------- |
-| [AutoDoc]    | Plataforma online de venda de peças automóveis        | [Análise do competidor](competitors/Competitor%20Analysis%20AutoDoc.md) |
-| [eBay] | Plataforma online de compra e venda de diversos produtos |     [Análise do competidor](competitors/Competitor%20Analysis%20eBay.md)                                |
+| AutoDoc    | Plataforma online de venda de peças automóveis        | [Análise do competidor](competitors/Competitor%20Analysis%20AutoDoc.md) |
+| eBay | Plataforma online de compra e venda de diversos produtos |     [Análise do competidor](competitors/Competitor%20Analysis%20eBay.md)                                |
 
 
 
@@ -202,25 +202,25 @@ No entanto, a maior vantagem do nosso produto será a possibilidade de **marcar 
 
 # Análise SWOT
 
-# Strengths
+## Strengths
 
 >   - O nosso projeto oferece uma funcionalidade que outros sites como o AutoDoc não tem, sendo esta a possibilidade de agendar uma inspeção ou arranjo do carro pessoal do utilizador.
 >   - Como o nosso projeto vai ser algo mais local, existe a possibilidade de estabelecer parcerias locais exclusivas com oficinas e fornecedores regionais, oferecendo um serviço mais personalizado e um atendimento mais próximo ao cliente.
 >   - Como é algo mais local o nosso serviço poderá responder melhor às necessidades desse mercado do que uma plataforma global.
 
-# Weaknesses
+## Weaknesses
 
 >   - Como já existem outras plataformas já consolidadas e com uma forte presença no mercado, inicialmente o nosso projeto necessitará de um investimento em branding e marketing para poder ganhar notoriedade.
 >   - As plataformas já estabelecidas no mercado tem uma oferta muito vasta de peças e fornecedores o poderá ser difícil igualar inicialmente. Com isso poderão também surgir problemas de falta de stock o que levará ao aumento do tempo de entregas.
 >   - Ter preços competitivos com outras plataformas já estabelecidas no mercado é extremamente difícil.
 
-# Opportunities
+## Opportunities
 
 >   - A possibilidade de integrar oficinas locais e permitir agendamentos automatizados pode transformar a plataforma numa solução completa para manutenção automóvel, indo além da simples venda de peças.
 >   - O atendimento personalizado pode ser um grande fator de diferenciação. Enquanto grandes plataformas têm um suporte mais impessoal, o nosso projeto pode apostar num serviço mais próximo e especializado.
 >   - Trabalhar diretamente com distribuidores e fabricantes locais pode permitir obter preços mais competitivos e oferecer uma seleção de produtos diferenciada.
 
-# Threats
+## Threats
 
 >   - A concorrência com empresas já bem estabelecidas pode dificultar a aquisição de novos clientes e o crescimento da plataforma.
 >   - Empresas já estabelecidas no mercado podem recorrer a estratégias agressivas de preços e promoções.
@@ -279,14 +279,29 @@ Notas gerais: Nenhum dos participantes alguma vez agendou uma inspeção online.
 ### Common Themes & Patterns 
 
 - **Recurring Problems:** 
-	- Issue 1
-	- Issue 2
+    - A não atualização do tempo de demora da entrega e do status da encomenda
+    - Poucos métodos de pagamentos 
+    - Erros nas encomendas 
+    - Campos de preenchimento inválidos (erros do site, falta de informação para o campo em questão, não saber o que é para preencher)
+
 - **Frequently Used Tools:** 
-	- Tool 1
-	- Tool 2
+    - AutoDoc
+    - Ebay
+    - Amazon
 - **Desired Features / Solutions:** 
-	- Feature 1
-	- Feature 2
+    - Atendimento ao cliente
+    - Ferramenta avançada de filtragem e pesquisa
+    - Atualizações do status da encomenda
+    - Pesquisa por matrícula tal como o AutoDoc
+    - Incluir informações de contacto, localização da empresa (se houver)
+    - Oferecer diversos métodos de pagamento
+    - Avaliações de outros clientes
+    - Imagens reais das peças e não genéricas
+    - Vários métodos de entrega
+    - Peças bem catalogadas
+    - Calendário com as vagas e datas disponíveis
+    - Criar uma conta aonde possa guardar os seus veículos numa garagem
+    - Tirar partido do agendamento para evitar filas, avaliações de cada oficina
 - --- 
 
 
