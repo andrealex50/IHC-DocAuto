@@ -21,7 +21,7 @@
 | **Goals**        | Comprar peças automotivas de qualidade com descrições detalhadas e entrega rápida. |
 | **Pain Points**  | Dificuldade em encontrar informações precisas sobre os produtos e risco de receber peças incompatíveis. |
 | **Motivation**   | "Preciso de uma loja online fiável que me forneça exatamente o que estou a comprar, sem surpresas na entrega." |
-| **Full Profile** | [📄 Ler Mais](../personas/persona1-Daniel.md) |
+| **Full Profile** | [📄 Ler Mais](../stage2_requirements/personas/persona1-Daniel.md) |
 
 ---
 ## Persona: Emília
@@ -36,7 +36,7 @@
 | **Goals**        | Manter o seu carro sempre em boas condições com serviços rápidos e eficientes. |
 | **Pain Points**  | Dificuldade em encontrar serviços de manutenção rápidos e confiáveis. |
 | **Motivation**   | "O meu tempo é valioso, preciso de um serviço de manutenção confiável e ágil para não comprometer o meu trabalho." |
-| **Full Profile** | [📄 Ler Mais](../personas/persona2-Emilia.md) |
+| **Full Profile** | [📄 Ler Mais](../stage2_requirements/personas/persona2-Emilia.md) |
 
 ---
 

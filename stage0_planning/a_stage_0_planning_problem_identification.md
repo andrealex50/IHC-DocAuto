@@ -36,4 +36,4 @@ Poderiamos beneficiar de uma abordagem mais personalizada através do uso de fil
 Facilitar e agilizar o processo de compra e manutenção automóvel através de uma plataforma digital.
 
 
-[Back to main Logbook Page](hci_logbook.md)
+[Back to main Logbook Page](../hci_logbook.md)
