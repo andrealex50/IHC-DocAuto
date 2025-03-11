@@ -12,7 +12,7 @@
 --- 
 ## Core Functionality 
 
-**Primary Purpose:** O objetivo principal da TelePeças é facilitar a compra e venda de peças automóveis usadas, juntando compradores e vendedores através de uma plataforma online eficiente. Através da sua interface, a empresa visa proporcionar acesso rápido e seguro a peças de reposição a preços acessíveis, especialmente para mecânicos e entusiastas de automóveis que preferem realizar manutenção e reparos de forma económica. Além disso, a TelePeças também visa digitalizar o setor de peças automóveis usadas, promovendo a sustentabilidade e o uso responsável de recursos ao fomentar a reutilização de peças.
+**Primary Purpose:** O objetivo principal da TelePeças é facilitar a compra e venda de peças automóveis usadas, juntando compradores e vendedores através de uma plataforma online eficiente. Através da sua interface, a empresa visa proporcionar acesso rápido e seguro a peças de reposição a preços acessíveis, especialmente para mecânicos e entusiastas de automóveis que preferem realizar manutenção e reparações de forma económica. Além disso, a TelePeças também visa digitalizar o setor de peças automóveis usadas, promovendo a sustentabilidade e o uso responsável de recursos ao fomentar a reutilização de peças.
 
 **Key Features:** - [Suporte a ambos mecânicos e entusiastas de automóveis] - [Catálogo diversificado de peças] - [Compra e venda de peças usadas] 
 

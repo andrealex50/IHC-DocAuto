@@ -9,9 +9,9 @@ Work carried out by:
 **Title of the project**: DOCAUTO
 
 **Team:**
-- Student 1: André Alexandre, nmec 
-- Student 2; Orlando Marinheiro, nmec
-- Student 3: Tiago Melo, nmec
+- Student 1: André Alexandre, nmec 114143
+- Student 2; Orlando Marinheiro, nmec 114060
+- Student 3: Tiago Melo, nmec 113362
 
 ---
 # [A. Stage 0 - Planning and Problem Identification](stage0_planning/a_stage_0_planning_problem_identification.md)

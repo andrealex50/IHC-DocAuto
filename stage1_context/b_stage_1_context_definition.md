@@ -52,7 +52,7 @@ Por fim, será elaborado um resumo com as principais conclusões, incluindo uma 
 | **Issue**       | **Expert 1** | Expert 2 | Expert 3 | Recommendations                             |
 | --------------- | ------------ | -------- | -------- | ------------------------------------------- |
 | Quando se clica no botão de pesquisar não é demonstrado o estado | 2            | 2        | 2        | Acrescentar um simbolo que simbolize o estado do sistema |
-| Uso de termos técnicos sem explicação |       3       |       3   |     2     | Incluir descrições ou tooltips para termos técnicos |
+| Uso de termos técnicos sem explicação |       2       |       3   |     2     | Incluir descrições ou tooltips para termos técnicos |
 | Falta de um botão para retroceder em várias instâncias e para cancelar o "checkout" em caso de necessidade |       2       |       3   |     2     | Adicionar os botões necessários nestas instâncias |
 | Variação no estilo dos botões em diferentes páginas |       2       |       2   |     2     | Uniformizar o estilo dos botões em todas as páginas |
 | Possibilidade de adicionar itens duplicados ao carrinho sem aviso |       3       |       3   |     3     | Implementar alerta ao adicionar item já existente no carrinho |
