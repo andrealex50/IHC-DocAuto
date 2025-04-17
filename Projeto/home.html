@@ -35,7 +35,69 @@
         <input type="text" id="search-term" placeholder="Insert name or part number" class="search-input">
         <button class="search-button" onclick="performSearch()">SEARCH</button>
     </div>
+
     <div class="content">
+        
+
+
+        <!-- Bloco da matrícula -->
+        <section class="license-search">
+            <div class="search-wrapper">
+                <div class="number-search-container">
+                    <h2 class="search-title-global">
+                            Search for parts using your car's license plate or select the vehicle model to find compatible auto parts
+                    </h2>
+                    <div class="number-search__input--blue">
+                        <div class="number-search__left">
+                            <span class="number-search__input-icon">
+                                <img src="assets/European_stars.svg.png" alt="EU Stars" />
+                            </span>
+                            <span class="country-code">P</span>
+                        </div>
+                        <input
+                            class="form-input form-input--lg"
+                            type="text"
+                            aria-label="license-plate"
+                            name="license-plate"
+                            id="license-plate"
+                            placeholder="00-00-XX"
+                            maxlength="8"/>
+                    </div>
+                    <button class="search-button-plate" aria-label="search">Search by Plate</button>
+                </div>
+          
+                <!-- Bloco de pesquisar por modelo -->
+                <div class="vehicle-details">
+                    <select name="car-brand" id="car-brand" class="form-select">
+                    <option value="">Select car brand</option>
+                    <option value="volkswagen">Volkswagen</option>
+                    <option value="bmw">BMW</option>
+                    <option value="toyota">Toyota</option>
+                    </select>
+            
+                    <select name="car-model" id="car-model" class="form-select" disabled>
+                    <option value="">Select car model</option>
+                    <option value="golf">Golf</option>
+                    <option value="3series">3 Series</option>
+                    <option value="corolla">Corolla</option>
+                    </select>
+            
+                    <select name="car-year" id="car-year" class="form-select">
+                    <option value="">Select car year</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    </select>
+            
+                    <button class="search-button-model" aria-label="search">Search parts by model</button>
+                </div>
+            </div>
+        </section>
+          
+          
+
+
+        <!--    -->
         <section class="most-searched">
             <h2>Most Searched Parts:</h2>
             <div class="parts">
