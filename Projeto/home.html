@@ -37,67 +37,124 @@
     </div>
 
     <div class="content">
-        
 
-
-        <!-- Bloco da matrícula -->
-        <section class="license-search">
-            <div class="search-wrapper">
-                <div class="number-search-container">
+        <section class="search">
+            <div class="search-group">
+                <div class="search-plate">
                     <h2 class="search-title-global">
-                            Search for parts using your car's license plate or select the vehicle model to find compatible auto parts
+                        Peças auto por matrícula
                     </h2>
-                    <div class="number-search__input--blue">
-                        <div class="number-search__left">
-                            <span class="number-search__input-icon">
-                                <img src="assets/European_stars.svg.png" alt="EU Stars" />
-                            </span>
-                            <span class="country-code">P</span>
+            
+                    <div class="search-plate-inputs">
+                        <div class="number-search__input--blue">
+                            <div class="number-search__left">
+                                <span class="number-search__input-icon">
+                                    <img src="assets/European_stars.svg.png" alt="EU Stars" />
+                                </span>
+                                <span class="country-code">P</span>
+                            </div>
+                            <input
+                                class="form-input form-input--lg"
+                                type="text"
+                                aria-label="license-plate"
+                                name="license-plate"
+                                id="license-plate"
+                                placeholder="00-00-XX"
+                                maxlength="8" />
                         </div>
-                        <input
-                            class="form-input form-input--lg"
-                            type="text"
-                            aria-label="license-plate"
-                            name="license-plate"
-                            id="license-plate"
-                            placeholder="00-00-XX"
-                            maxlength="8"/>
+            
+                        <button class="search-button-plate" aria-label="search">Pesquisar</button>
                     </div>
-                    <button class="search-button-plate" aria-label="search">Search by Plate</button>
                 </div>
-          
-                <!-- Bloco de pesquisar por modelo -->
-                <div class="vehicle-details">
-                    <select name="car-brand" id="car-brand" class="form-select">
-                    <option value="">Select car brand</option>
-                    <option value="volkswagen">Volkswagen</option>
-                    <option value="bmw">BMW</option>
-                    <option value="toyota">Toyota</option>
-                    </select>
             
-                    <select name="car-model" id="car-model" class="form-select" disabled>
-                    <option value="">Select car model</option>
-                    <option value="golf">Golf</option>
-                    <option value="3series">3 Series</option>
-                    <option value="corolla">Corolla</option>
-                    </select>
+                <div class="search-model"  id="model-search-section">
+                    <h3 class="search-subtitle">Selecionar o modelo do carro para procurar peças para automóveis</h3>
+                    <div class="vehicle-details">
+                        <div class="select-container">
+                            <span class="step-number">1</span>
+                            <select name="car-brand" id="car-brand" class="form-select">
+                                <option value="">Selecione uma marca</option>
+                                <option value="volkswagen">Volkswagen</option>
+                                <option value="bmw">BMW</option>
+                                <option value="toyota">Toyota</option>
+                            </select>
+                        </div>
             
-                    <select name="car-year" id="car-year" class="form-select">
-                    <option value="">Select car year</option>
-                    <option value="2025">2025</option>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                    </select>
+                        <div class="select-container">
+                            <span class="step-number">2</span>
+                            <select name="car-model" id="car-model" class="form-select" disabled>
+                                <option value="">Selecione um modelo</option>
+                                <option value="golf">Golf</option>
+                                <option value="3series">3 Series</option>
+                                <option value="corolla">Corolla</option>
+                            </select>
+                        </div>
             
-                    <button class="search-button-model" aria-label="search">Search parts by model</button>
+                        <div class="select-container">
+                            <span class="step-number">3</span>
+                            <select name="car-year" id="car-year" class="form-select">
+                                <option value="">Selecione uma modificação</option>
+                                <option value="2025">2025</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                            </select>
+                        </div>
+            
+                        <button class="search-button-model" aria-label="search">Pesquisar</button>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="type-group">
+                <div class="promo-slider">
+                    <!-- Slide 1 -->
+                    <div class="promo-slide active">
+                        <img src="assets/garage_wp.jpg" alt="Promoção 1" class="promo-image">
+                        <div class="promo-content">
+                            <h3>My Garage</h3>
+                            <p>Adicione os seus veículos à sua <br> garagem para facilitar a pesquisa de peças</p>
+                            </p>
+                            <button class="promo-button" onclick="window.location.href='ofertas-pascoa.html'">VER GARAGEM</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2 -->
+                    <div class="promo-slide">
+                        <img src="assets/mechanic_wp.jpg" alt="Promoção 2" class="promo-image">
+                        <div class="promo-content">
+                            <h3>Appointments</h3>
+                            <p>Agende e verifique as datas para </br> as suas inspeções</p>
+                            <button class="promo-button" onclick="window.location.href='download-app.html'">VER APPOINTMENTS</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 3 -->
+                    <div class="promo-slide">
+                        <img src="assets/car_parts_wp.jpg" alt="Promoção 3" class="promo-image">
+                        <div class="promo-content">
+                            <h3>Peças</h3>
+                            <p>Encomende as suas peças com facilidade</p>
+                            <button class="promo-button" onclick="window.location.href='pecas-destaque.html'">COMPRAR AGORA</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Controles do slider -->
+                    <div class="slider-controls">
+                        <button class="slider-prev">&lt;</button>
+                        <div class="slider-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                        <button class="slider-next">&gt;</button>
+                    </div>
                 </div>
             </div>
         </section>
-          
-          
+        
 
-
-        <!--    -->
+        
         <section class="most-searched">
             <h2>Most Searched Parts:</h2>
             <div class="parts">

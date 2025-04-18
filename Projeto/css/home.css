@@ -176,57 +176,65 @@ body {
 
 
 
-
-
-
-
-/* Container principal */
-.license-search {
+/* parte do search */
+.search {
+    background-color: #f5f5f5;
+    padding: 20px;
     display: flex;
-    justify-content: center;
-    padding: 10px 20px; 
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    align-items: stretch; /* Ensure both divs stretch to the same height */
 }
-
-.search-title-global {
-    font-size: 1;
-    margin-bottom: 20px;
-    color: #014357;
-}
-
-.search-wrapper {
-    display: flex;
-    gap: 100px;
-    align-items: flex-start;
-    max-width: 1100px;
-    width: 100%;
-    justify-content: center;
-    margin-top: -30px; 
-}
-
-/* matrícula */
-.number-search-container {
+/* Grupo da esquerda - ajustado para 35% */
+.search-group {
+    width: 35%;
+    min-width: 350px; /* Largura mínima para evitar quebra */
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    flex: 0 0 auto;
+}
+
+/* Parte de cima: título + inputs de matrícula */
+.search-plate {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.search-title-global,
+.search-subtitle {
+    margin-top: 5px;
+    text-align: left; /* Align text to the left */
+    font-size: 18px; /* Apply the same font size */
+    font-weight: bold; /* Apply the same font weight */
+    color: #014357; /* Apply the same color */
+    margin-bottom: 15px; /* Add consistent spacing below */
+}
+
+/* Div que agrupa o input azul e o botão cinzento */
+.search-plate-inputs {
+    margin-top: -5px;
+    display: flex;
+    width: 100%;
     align-items: center;
     gap: 10px;
-    transform: scale(0.9); 
-    transform-origin: center;
-    margin-top: -10px; 
 }
 
-.search-title {
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-}
-
+/* Caixa azul do input de matrícula */
 .number-search__input--blue {
     display: flex;
     align-items: center;
+    background: #003aab;
+    height: 50px; /* Reduzir a altura */
     border-radius: 4px;
     overflow: hidden;
-    max-width: 400px;
+    flex-grow: 1;
+    min-width: 200px;
     border: 1px solid #ccc;
     transition: box-shadow 0.2s, border 0.2s;
 }
@@ -237,16 +245,14 @@ body {
 }
 
 .number-search__left {
+    flex: 0 0 40px;
+    background: #003aab;
+    padding: 8px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    background: #003aab;
-    width: 70px;
-    padding: 8px 0;
+    justify-content: center;
     color: #fff;
-    font-size: 14px;
-    text-align: center;
 }
 
 .number-search__input-icon {
@@ -258,7 +264,6 @@ body {
 .number-search__input-icon img {
     width: 100%;
     height: auto;
-    object-fit: contain;
 }
 
 .country-code {
@@ -268,95 +273,316 @@ body {
 
 .number-search__input--blue input {
     flex: 1;
-    height: 60px;
-    padding: 0 16px;
-    font-size: 24px;
-    font-weight: bold;
+    height: 100%;
+    padding: 0 16px; /* Manter o padding original */
+    font-size: 24px; /* Manter tamanho original */
+    font-weight: bold;  
     border: none;
     outline: none;
     background: white;
     color: #333;
     text-align: center;
-    border-radius: 0;
+    width: calc(100% - 32px); /* Compensar o padding */
 }
 
+.number-search__input--blue input::placeholder {
+    text-align: center;
+    opacity: 1; /* Garantir que fica visível */
+    color: #999; /* Cor mais suave para o placeholder */
+}
+
+/* Botão "Pesquisar" */
 .search-button-plate {
-    width: 400px; 
-    height: 60px; 
-    background-color: #5897fb;
-    color: white;
+    flex: 0 0 110px;
+    height: 50px; /* Igual à altura do input */
+    background-color: #003aab; /* Mudar de #f0f0f0 para #003aab */
+    color: white; /* Mudar de #333 para white */
     font-size: 16px;
     font-weight: bold;
-    border: 1px solid #ccc;
+    border: none; /* Adicionar borda azul mais escura */
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
-    box-sizing: border-box;
 }
+
 
 .search-button-plate:hover {
-    background-color: #4a7fd1;
+    background-color: #002a8b; /* Mudar de #e0e0e0 para tom mais escuro de azul */
+    border-color: #001f6b; /* Escurecer a borda no hover */
 }
 
-.search-button-plate:focus {
-    outline: none;
+.search-button-plate:disabled {
+    background-color: #a0c4ff; /* Light blue color for disabled state */
+    cursor: not-allowed; /* Show not-allowed cursor */
 }
 
-/* Detalhes do veículo */
 .vehicle-details {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    width: 380px; 
-    margin-top: 25px; 
+    gap: 15px;
 }
 
-/* Estilo dos dropdowns */
-.form-select,
-.search-button-model {
-    width: 300px;
+.select-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative; /* Position relative for step indicators */
+}
+
+.step-number {
+    font-weight: bold;
+    color: #333;
+    position: absolute;
+    left: 10px; /* Position the circle inside the dropdown */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #ccc; /* Default color */
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    z-index: 1; /* Ensure it appears above the dropdown */
+}
+
+.select-container:first-child .step-number {
+    background-color: #4caf50; /* First step is green by default */
+}
+
+.form-select {
+    flex: 1;
     height: 40px;
     font-size: 16px;
     padding: 0 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
-    appearance: none;
     background-color: white;
+    padding-left: 40px; /* Add padding to make space for the step indicator */
+}
+
+.form-select:focus + .step-number,
+.form-select:not(:disabled):valid + .step-number {
+    background-color: #4caf50; /* Change color when the dropdown is selected */
 }
 
 .search-button-model {
-    background-color: #4caf50;
+    width: 100%;
+    height: 50px;
+    background-color: #003aab;
     color: white;
     font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
+    margin-top: 10px;
 }
 
 .search-button-model:hover {
-    background-color: #45a049;
+    background-color: #002a8b;
 }
 
-.search-button-model:focus {
-    outline: none;
+.search-button-model:disabled {
+    background-color: #a0c4ff; /* Light blue color for disabled state */
+    cursor: not-allowed; /* Show not-allowed cursor */
 }
 
-.vehicle-details.row-mode {
-    flex-direction: row;
-    justify-content: center;
+.catalog-help {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+}
+
+
+
+
+.type-group {
+    width: 60%; /* Increase the width of the type group */
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1; /* Allow equal flexibility */
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch; /* Match the height of the search group */
+}
+
+.type-group,
+.promo-slider {
+    height: 100%;
+}
+
+
+
+.promo-slider {
+    position: relative;
+    width: 100%;
+    max-width: 100%; /* Allow the width to grow */
+    object-fit: cover; /* Ensure content scales properly */
+}
+
+.promo-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: flex;
+    align-items: center; /* CENTRA verticalmente o conteúdo */
+    justify-content: center; /* CENTRA horizontalmente o conteúdo */
+}
+
+.promo-slide.active {
+    opacity: 1;
+    position: relative;
+    height: 100%;
+}
+
+.promo-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    z-index: 0; /* atrás do conteúdo */
+}
+
+.promo-content {
+    position: relative;
+    z-index: 1; /* acima da imagem */
+    background: rgba(255, 255, 255, 0.95); /* leve transparência */
+    padding: 20px 30px;
+    border-radius: 2px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 80%;
+}
+
+
+.promo-content h3 {
+    color: #003aab;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.promo-content p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.promo-button {
+    background-color: #003aab;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    align-self: center;
+}
+
+.promo-button:hover {
+    background-color: #002a8b;
+}
+
+.slider-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    padding: 0 15px;
 }
 
-.vehicle-details.row-mode > * {
-    flex: 0 0 auto;
-    width: 300px; 
-    height: 50px; 
+.slider-prev, .slider-next {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.slider-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+}
+
+.dot.active {
+    background: white;
 }
 
 
+/* Responsivo para tabelts */
+@media (max-width: 1024px) {
+    .search-group, .type-group {
+        width: 100%;
+        min-width: unset; /* Remove a largura mínima em tablets */
+    }
+    
+    .search-group {
+        order: 1; /* Coloca a busca em cima */
+    }
+    
+    .type-group {
+        order: 2; /* Coloca o slider embaixo */
+    }
+    
+    .promo-slider {
+        height: 500px; /* Reduz altura do slider em mobile */
+    }
+
+}
 
 
+/* Responsivo para mobile */
+@media (max-width: 480px) {
+    .search-plate-inputs {
+        flex-direction: column; /* Empilha verticalmente */
+    }
+    
+    .number-search__input--blue,
+    .search-button-plate {
+        width: 100%;
+    }
+    
+    .promo-slider {
+        height: 500px; /* Reduz altura do slider em mobile */
+    }
+}
 
+.search-plate {
+    transition: all 0.3s ease;
+}
 
+#model-search-section {
+    transition: all 0.3s ease;
+}
