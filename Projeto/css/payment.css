@@ -1,3 +1,15 @@
+:root {
+    --primary-color: #014357;
+    --secondary-color: #4FCB6B;
+    --accent-color: #00A8E8;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #757575;
+    --white: #ffffff;
+    --error-color: #e53935;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;

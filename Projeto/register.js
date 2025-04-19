@@ -31,3 +31,21 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     alert('Registration successful!');
     window.location.href = 'login.html';
 });
+
+
+function togglePasswordVisibility(fieldId) {
+    const passwordInput = document.getElementById(fieldId);
+    const eyeOpen = document.getElementById(`eyeOpen-${fieldId}`);
+    const eyeClosed = document.getElementById(`eyeClosed-${fieldId}`);
+
+    const isPasswordVisible = passwordInput.type === 'text';
+
+    passwordInput.type = isPasswordVisible ? 'password' : 'text';
+    eyeOpen.style.display = isPasswordVisible ? 'inline' : 'none';
+    eyeClosed.style.display = isPasswordVisible ? 'none' : 'inline';
+}
+
+
+
+
+
