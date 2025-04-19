@@ -85,9 +85,26 @@
             <div class="data-field">
                 <p><strong>Username:</strong> <span id="username-value"></span></p>
             </div>
+
             <div class="data-field">
-                <p><strong>Password:</strong> <span id="password-value"></span></p>
+                <p><strong>Password:</strong></p>
+                <div class="password-field">
+                    <input type="password" id="password-value" value="••••••••" readonly>
+                    <button type="button" class="toggle-password" onclick="toggleProfilePasswordVisibility()">
+                        <!-- Olho aberto -->
+                        <svg id="profileEyeOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        <!-- Olho fechado -->
+                        <svg id="profileEyeClosed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: none;">
+                            <path d="M17.94 17.94C16.13 19.16 14.11 20 12 20c-7 0-11-8-11-8 1.21-2.15 3-4.09 5.26-5.46M9.88 9.88a3 3 0 104.24 4.24"/>
+                            <path d="M1 1l22 22"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
+            
             <div class="data-field">
                 <p><strong>Email:</strong> <span id="email-value"></span></p>
             </div>
