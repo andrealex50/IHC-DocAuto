@@ -1,52 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOCAUTO</title>
-    <link rel="stylesheet" href="css/sidebar.css" />
-    <link rel="stylesheet" href="css/appointments.css" />
-    <link rel="stylesheet" href="css/profile.css" />
-    <link rel="shortcut icon" href="assets/logoicon.png">  
-    <script src="calendar/calendar.js"></script>
+    <title>DOCAUTO - My Appointments</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="css/appointments.css">
+    <link rel="shortcut icon" href="assets/logoicon.png">
 </head>
 <body>
-    <div class="top-bar">
-        <a href="garage.html" class="my-garage-icon">
-            <img src="assets/my-garage-icon.png" alt="My Garage" class="my-garage-icon-img">
+    <!-- Header -->
+    <header class="header">
+        <button class="sidebar-toggle">
+            <span class="toggle-bar"></span>
+            <span class="toggle-bar"></span>
+            <span class="toggle-bar"></span>
+        </button>
+        <a href="home.html" class="logo">
+            <img src="assets/logo.png" alt="DocAuto">
         </a>
-        <a href="home.html" class="logo-box">
-            <img src="assets/logo.png" alt="DocAuto" class="logo">
+        <a href="profile.html" class="header-icon">
+            <img src="assets/profile-icon.png" alt="Profile">
         </a>
-        <a href="profile.html" class="profile-icon">
-            <img src="assets/profile-icon.png" alt="Profile" class="profile-icon-img">
-        </a>
-    </div>
-    <div class="search-container">
-        <label for="type" class="search-label">Type:</label>
-        <select id="type" name="type" class="search-dropdown">
-            <option value="car">Car</option>
-            <option value="motorcycle">Motorcycle</option>
-            <option value="truck">Truck</option>
-            <!-- Add more options as needed -->
-        </select>
-        <input type="text" placeholder="Insert name or part number" class="search-input">
-        <button class="search-button">SEARCH</button>
-    </div>
+    </header>
 
-    <div class="profile-box">
-        <div class="left-bar-line"></div>
-        <div class="bar-options">
-            <p class="fake-name-text">Hi Emily</p>
-            <a href="personal.html"><p class="personal-data-text">Personal Data</p></a>
-            <a href="address.html"><p class="manage-address-text">Manage Address</p></a>
-            <a><p class="my-wishlist-text">My Wishlist</p></a>
-            <a href="garage.html"><p class="my-garage-text">My Garage</p></a>
-            <a href="appointments.html"><p class="my-appointments-text">My Appointments</p></a>
-            <a><p class="settings-text">Settings</p></a>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="user-profile">
+                <img src="assets/user-avatar.png" alt="User" class="user-avatar">
+                <div class="user-info">
+                    <span class="user-name">John Doe</span>
+                    <span class="user-email">john@example.com</span>
+                </div>
+            </div>
         </div>
-    </div>
-    <main>
+        
+        <div class="sidebar-menu">
+            <div class="menu-section">
+                <span class="section-title">MY PROFILE</span>
+                <a href="personal.html" class="menu-item">
+                    <img src="assets/personal-icon.png" alt="">
+                    <span>Personal Data</span>
+                </a>
+                <a href="address.html" class="menu-item">
+                    <img src="assets/address-icon.png" alt="">
+                    <span>Manage Address</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <img src="assets/wishlist-icon.png" alt="">
+                    <span>My Wishlist</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <span class="section-title">MY VEHICLES</span>
+                <a href="garage.html" class="menu-item">
+                    <img src="assets/garage-icon.png" alt="">
+                    <span>My Garage</span>
+                </a>
+                <a href="appointments.html" class="menu-item active">
+                    <img src="assets/appointments-icon.png" alt="">
+                    <span>My Appointments</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <span class="section-title">SETTINGS</span>
+                <a href="#" class="menu-item">
+                    <img src="assets/settings-icon.png" alt="">
+                    <span>Account Settings</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <img src="assets/logout-icon.png" alt="">
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <div class="app-version">DOCAUTO v2.1.4</div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="appointments-header">
+            <h1><img src="assets/appointments-icon.svg" alt=""> My Appointments</h1>
+        </div>
+
         <div id="calendar-container">
             <div id="calendar">
                 <div id="calendar-header">
@@ -54,36 +96,66 @@
                     <h2 id="month-year"></h2>
                     <button id="next-month">&gt;</button>
                 </div>
-                <div  id="today-button-header"><button id="today-button">Hoje</button></div>
+                <div id="today-button-header"><button id="today-button">Today</button></div>
                 <div id="calendar-body">
                     <div id="days-of-week">
-                        <div>Dom</div><div>Seg</div><div>Ter</div>
-                        <div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+                        <div>Sun</div><div>Mon</div><div>Tue</div>
+                        <div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
                     </div>
                     <div id="calendar-dates"></div>
                 </div>
             </div>
-
-            <div id="event-list">      
-                <div id="hide-list-button-box"><button id="hide-list-button">X</button> <!-- Botão "X" para ocultar a lista --></div>
-                <h3>Eventos</h3>
-                <button id="add-event-button">Adicionar Evento</button>
+            <div id="event-list">
+                <h3>Appointments</h3>
+                <button id="add-event-button" class="primary-btn">Add Appointment</button>
                 <ul id="events"></ul>
             </div>
         </div>
 
-        <div id="event-modal" class="modal">
+        <!-- Add Appointment Modal -->
+        <div id="add-appointment-modal" class="modal">
             <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2 id="modal-title"></h2>
-                <form id="event-form">  
-                    <input type="hidden" id="event-date">
-                    <label for="event-title">Evento:</label>
-                    <input type="text" id="event-title" required>
-                    <button type="submit">Salvar</button>
+                <span class="close-modal">&times;</span>
+                <h2>Add New Appointment</h2>
+                
+                <form id="appointment-form">
+                    <div class="form-group">
+                        <label for="appointment-title">Title</label>
+                        <input type="text" id="appointment-title" required placeholder="Appointment description">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-date">Date</label>
+                        <input type="date" id="appointment-date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-time">Time</label>
+                        <input type="time" id="appointment-time" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-vehicle">Vehicle</label>
+                        <select id="appointment-vehicle" required>
+                            <option value="">Select a vehicle</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-notes">Notes (Optional)</label>
+                        <textarea id="appointment-notes" rows="3" placeholder="Additional information"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn">Save Appointment</button>
+                        <button type="button" class="secondary-btn cancel-btn">Cancel</button>
+                    </div>
                 </form>
             </div>
         </div>
     </main>
+
+    <script src="appointments.js"></script>
+    <div class="sidebar-overlay"></div>
 </body>
 </html>

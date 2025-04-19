@@ -1,65 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOCAUTO</title>
-    <link rel="stylesheet" href="css/sidebar.css" />
-    <link rel="stylesheet" href="css/address.css" />
-    <link rel="stylesheet" href="css/profile.css" />
+    <title>DOCAUTO - Manage Address</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="css/address.css">
     <link rel="shortcut icon" href="assets/logoicon.png">
-    <script src="calendar/calendar.js"></script>
 </head>
 <body>
-    <div class="top-bar">
-        <a href="garage.html" class="my-garage-icon">
-            <img src="assets/my-garage-icon.png" alt="My Garage" class="my-garage-icon-img">
+    <!-- Header -->
+    <header class="header">
+        <button class="sidebar-toggle">
+            <span class="toggle-bar"></span>
+            <span class="toggle-bar"></span>
+            <span class="toggle-bar"></span>
+        </button>
+        <a href="home.html" class="logo">
+            <img src="assets/logo.png" alt="DocAuto">
         </a>
-        <a href="home.html" class="logo-box">
-            <img src="assets/logo.png" alt="DocAuto" class="logo">
+        <a href="profile.html" class="header-icon">
+            <img src="assets/profile-icon.png" alt="Profile">
         </a>
-        <a href="profile.html" class="profile-icon">
-            <img src="assets/profile-icon.png" alt="Profile" class="profile-icon-img">
-        </a>
-    </div>
-    <div class="search-container">
-        <label for="type" class="search-label">Type:</label>
-        <select id="type" name="type" class="search-dropdown">
-            <option value="car">Car</option>
-            <option value="motorcycle">Motorcycle</option>
-            <option value="truck">Truck</option>
-            <!-- Add more options as needed -->
-        </select>
-        <input type="text" placeholder="Insert name or part number" class="search-input">
-        <button class="search-button">SEARCH</button>
-    </div>
+    </header>
 
-    <div class="profile-box">
-        <div class="left-bar-line"></div>
-        <div class="bar-options">
-            <p class="fake-name-text">PROFILE</p>
-            <a href="personal.html"><p class="personal-data-text">Personal Data</p></a>
-            <a href="address.html"><p class="manage-address-text">Manage Address</p></a>
-            <a><p class="my-wishlist-text">My Wishlist</p></a>
-            <a href="garage.html"><p class="my-garage-text">My Garage</p></a>
-            <a href="appointments.html"><p class="my-appointments-text">My Appointments</p></a>
-            <a><p class="settings-text">Settings</p></a>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="user-profile">
+                <img src="assets/user-avatar.png" alt="User" class="user-avatar">
+                <div class="user-info">
+                    <span class="user-name">John Doe</span>
+                    <span class="user-email">john@example.com</span>
+                </div>
+            </div>
         </div>
-    </div>
+        
+        <div class="sidebar-menu">
+            <div class="menu-section">
+                <span class="section-title">MY PROFILE</span>
+                <a href="personal.html" class="menu-item">
+                    <img src="assets/personal-icon.png" alt="">
+                    <span>Personal Data</span>
+                </a>
+                <a href="address.html" class="menu-item active">
+                    <img src="assets/address-icon.png" alt="">
+                    <span>Manage Address</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <img src="assets/wishlist-icon.png" alt="">
+                    <span>My Wishlist</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <span class="section-title">MY VEHICLES</span>
+                <a href="garage.html" class="menu-item">
+                    <img src="assets/garage-icon.png" alt="">
+                    <span>My Garage</span>
+                </a>
+                <a href="appointments.html" class="menu-item">
+                    <img src="assets/appointments-icon.png" alt="">
+                    <span>My Appointments</span>
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <span class="section-title">SETTINGS</span>
+                <a href="#" class="menu-item">
+                    <img src="assets/settings-icon.png" alt="">
+                    <span>Account Settings</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <img src="assets/logout-icon.png" alt="">
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <div class="app-version">DOCAUTO v2.1.4</div>
+        </div>
+    </nav>
 
-    <div class="address-container">
-        <h2>Manage Address</h2>
-        <p><strong>Address:</strong></p>
-        <p><strong>NIF:</strong></p>
-        <p><strong>Phone:</strong> </p>
-        <div>
-            <button class="edit-button" onclick="editAddress()">Edit Personal Data</button>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="address-header">
+            <h1><img src="assets/address-icon.svg" alt=""> Manage Address</h1>
         </div>
-        <div>
-            <button class="remove-button" onclick="remove()">Remove</button>
+
+        <div class="address-container">
+            <div class="address-card">
+                <div class="form-group">
+                    <label>Address:</label>
+                    <p id="address-text"></p>
+                </div>
+                <div class="form-group">
+                    <label>NIF:</label>
+                    <p id="nif-text"></p>
+                </div>
+                <div class="form-group">
+                    <label>Phone:</label>
+                    <p id="phone-text"></p>
+                </div>
+                <div class="form-actions">
+                    <button id="edit-button" class="primary-btn">Edit Address</button>
+                    <button id="remove-button" class="secondary-btn">Remove</button>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script src="address.js"></script>
+    <div class="sidebar-overlay"></div>
 </body>
 </html>
