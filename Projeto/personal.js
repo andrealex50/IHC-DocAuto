@@ -1,22 +1,51 @@
-function getPersonalDataElements() {
-    const usernameElement = document.getElementById('display-username');
-    const passwordElement = document.getElementById('display-password');
-    const emailElement = document.getElementById('display-email');
-    const phoneElement = document.getElementById('display-phone');
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    const body = document.body;
+    
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    
+    if (sidebar.classList.contains('active')) {
+        body.classList.add('sidebar-open');
+    } else {
+        body.classList.remove('sidebar-open');
+    }
+}
 
-    return { usernameElement, passwordElement, emailElement, phoneElement };
+document.querySelector('.sidebar-overlay').addEventListener('click', toggleSidebar);
+
+window.addEventListener('resize', function() {
+    if (window.innerWidth > 992) {
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.sidebar-overlay');
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('sidebar-open');
+    }
+});
+
+function getPersonalDataElements() {
+    return {
+        usernameValue: document.getElementById('username-value'),
+        passwordValue: document.getElementById('password-value'),
+        emailValue: document.getElementById('email-value'),
+        phoneValue: document.getElementById('phone-value')
+    };
 }
 
 window.onload = function() {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    const { usernameElement, passwordElement, emailElement, phoneElement } = getPersonalDataElements();
+    const { usernameValue, passwordValue, emailValue, phoneValue } = getPersonalDataElements();
 
     if (currentUser) {
-        document.getElementById('user-greeting').textContent = `Hi ${currentUser.name}`;
-        usernameElement.innerHTML = `<strong>Username:</strong> ${currentUser.name}`;
-        passwordElement.innerHTML = `<strong>Password:</strong> ${currentUser.password}`;
-        emailElement.innerHTML = `<strong>Email:</strong> ${currentUser.email}`;
-        phoneElement.innerHTML = `<strong>Phone:</strong> ${currentUser.phone || ''}`;
+        document.querySelector('.user-name').textContent = currentUser.name;
+        document.querySelector('.user-email').textContent = currentUser.email;
+        
+        usernameValue.textContent = currentUser.name;
+        passwordValue.textContent = currentUser.password;
+        emailValue.textContent = currentUser.email;
+        phoneValue.textContent = currentUser.phone || 'Not provided';
     } else {
         window.location.href = 'login.html';
     }
@@ -24,31 +53,26 @@ window.onload = function() {
 
 function editPersonalData() {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    const { usernameElement, passwordElement, emailElement, phoneElement } = getPersonalDataElements();
+    const { usernameValue, passwordValue, emailValue, phoneValue } = getPersonalDataElements();
 
-    usernameElement.innerHTML = `<strong>Username: </strong><input type="text" value="${currentUser.name}">`;
-    passwordElement.innerHTML = `<strong>Password: </strong><input type="password" value="${currentUser.password}">`;
-    emailElement.innerHTML = `<strong>Email: </strong><input type="email" value="${currentUser.email}">`;
-    phoneElement.innerHTML = `<strong>Phone: </strong><input type="tel" value="${currentUser.phone || ''}">`;
+    usernameValue.innerHTML = `<input type="text" value="${currentUser.name}">`;
+    passwordValue.innerHTML = `<input type="password" value="${currentUser.password}">`;
+    emailValue.innerHTML = `<input type="email" value="${currentUser.email}">`;
+    phoneValue.innerHTML = `<input type="tel" value="${currentUser.phone || ''}">`;
 
     const editButton = document.querySelector('.edit-button');
-    editButton.innerHTML = 'Save Changes';
+    editButton.textContent = 'Save Changes';
     editButton.onclick = savePersonalData;
 }
 
 function savePersonalData() {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    const { usernameElement, passwordElement, emailElement, phoneElement } = getPersonalDataElements();
+    const { usernameValue, passwordValue, emailValue, phoneValue } = getPersonalDataElements();
 
-    const usernameInput = usernameElement.querySelector('input');
-    const passwordInput = passwordElement.querySelector('input');
-    const emailInput = emailElement.querySelector('input');
-    const phoneInput = phoneElement.querySelector('input');
-
-    currentUser.name = usernameInput.value;
-    currentUser.password = passwordInput.value;
-    currentUser.email = emailInput.value;
-    currentUser.phone = phoneInput.value;
+    currentUser.name = usernameValue.querySelector('input').value;
+    currentUser.password = passwordValue.querySelector('input').value;
+    currentUser.email = emailValue.querySelector('input').value;
+    currentUser.phone = phoneValue.querySelector('input').value;
 
     sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
 
@@ -59,13 +83,13 @@ function savePersonalData() {
         localStorage.setItem('logins', JSON.stringify(users));
     }
 
-    usernameElement.innerHTML = `<strong>Username:</strong> ${currentUser.name}`;
-    passwordElement.innerHTML = `<strong>Password:</strong> ${currentUser.password}`;
-    emailElement.innerHTML = `<strong>Email:</strong> ${currentUser.email}`;
-    phoneElement.innerHTML = `<strong>Phone:</strong> ${currentUser.phone || ''}`;
+    usernameValue.textContent = currentUser.name;
+    passwordValue.textContent = currentUser.password;
+    emailValue.textContent = currentUser.email;
+    phoneValue.textContent = currentUser.phone || 'Not provided';
 
     const editButton = document.querySelector('.edit-button');
-    editButton.innerHTML = 'Edit Personal Data';
+    editButton.textContent = 'Edit Personal Data';
     editButton.onclick = editPersonalData;
 }
 
