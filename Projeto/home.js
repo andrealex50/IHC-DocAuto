@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", function() {
     if (currentUser) {
         authText.textContent = "Profile";
         authLink.href = "profile.html";
-        authIcon.src = "assets/profile.png";
+        authIcon.src = "assets/profile.svg";
         authIcon.alt = "Profile";
     } else {
         authText.textContent = "Sign In";
         authLink.href = "login.html";
-        authIcon.src = "assets/profile.png"; 
+        authIcon.src = "assets/profile.svg"; 
         authIcon.alt = "Sign In";
     }
 
@@ -24,92 +24,12 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'home.html';
     });
 
-    updateStepIndicators();
+    // Initialize the vehicle type dropdown
+    selectOption('car', 'assets/car.svg');
+    updateNotificationBadges();
 });
 
-// Handle license plate input formatting
-const licenseInput = document.getElementById("license-plate");
-
-licenseInput.addEventListener("input", (e) => {
-    let value = e.target.value.replace(/-/g, "");
-    value = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
-
-    if (value.length > 2) value = value.slice(0, 2) + "-" + value.slice(2);
-    if (value.length > 5) value = value.slice(0, 5) + "-" + value.slice(5);
-    if (value.length > 8) value = value.slice(0, 8);
-
-    e.target.value = value;
-});
-
-// Update license plate button state
-const searchButtonPlate = document.querySelector(".search-button-plate");
-
-function updateLicensePlateButtonState() {
-    if (licenseInput.value.length === 8) {
-        searchButtonPlate.disabled = false;
-        searchButtonPlate.style.backgroundColor = "#003aab";
-        searchButtonPlate.style.cursor = "pointer";
-    } else {
-        searchButtonPlate.disabled = true;
-        searchButtonPlate.style.backgroundColor = "#a0c4ff";
-        searchButtonPlate.style.cursor = "not-allowed";
-    }
-}
-
-licenseInput.addEventListener("input", updateLicensePlateButtonState);
-
-document.addEventListener("DOMContentLoaded", function () {
-    updateLicensePlateButtonState();
-});
-
-// Handle dropdown interactions for car brand, model, and year
-const brandSelect = document.getElementById('car-brand');
-const modelSelect = document.getElementById('car-model');
-const yearSelect = document.getElementById('car-year');
-
-modelSelect.disabled = true;
-yearSelect.disabled = true;
-
-brandSelect.addEventListener('change', function () {
-    modelSelect.disabled = this.value === '';
-    if (this.value === '') {
-        modelSelect.value = '';
-        yearSelect.disabled = true;
-        yearSelect.value = '';
-    }
-    updateStepIndicators();
-});
-
-modelSelect.addEventListener('change', function () {
-    yearSelect.disabled = this.value === '';
-    if (this.value === '') {
-        yearSelect.value = '';
-    }
-    updateStepIndicators();
-});
-
-// Update step indicators
-function updateStepIndicators() {
-    const steps = document.querySelectorAll('.step-number');
-    steps[0].style.backgroundColor = '#4caf50';
-    steps[1].style.backgroundColor = brandSelect.value ? '#4caf50' : '#ccc';
-    steps[2].style.backgroundColor = modelSelect.value ? '#4caf50' : '#ccc';
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    updateStepIndicators();
-});
-
-// Handle search layout updates based on vehicle type
-const typeSelect = document.getElementById("type");
-const licensePlateSection = document.querySelector(".search-plate");
-const modelSearchSection = document.getElementById("model-search-section");
-const searchButtonModel = document.querySelector(".search-button-model");
-
-// Vehicle dictionary for model and brand options (this should be your `vehicleModels` dictionary)
-let currentType = '';
-let currentEditType = '';
-
+// Vehicle models database
 const vehicleModels = {
     car: {
         'Ford': ['Focus', 'Fiesta', 'Mustang', 'Ranger', 'Explorer', 'Edge', 'Escape', 'Bronco', 'Transit', 'F-150', 'Fusion', 'Taurus', 'EcoSport', 'Ka', 'Puma'],
@@ -155,14 +75,92 @@ const vehicleModels = {
     }
 };
 
-// Function to populate the brand dropdown based on vehicle type
+// DOM elements
+const licenseInput = document.getElementById("license-plate");
+const searchButtonPlate = document.querySelector(".search-button-plate");
+const brandSelect = document.getElementById('car-brand');
+const modelSelect = document.getElementById('car-model');
+const yearSelect = document.getElementById('car-year');
+const searchButtonModel = document.querySelector(".search-button-model");
+const licensePlateSection = document.querySelector(".search-plate");
+const modelSearchSection = document.getElementById("model-search-section");
+
+// Initialize the page
+function initializePage() {
+    // License plate input formatting
+    licenseInput.addEventListener("input", formatLicensePlate);
+    
+    // Brand, model, year select interactions
+    brandSelect.addEventListener('change', handleBrandChange);
+    modelSelect.addEventListener('change', handleModelChange);
+    yearSelect.addEventListener('change', updateSearchButtonState);
+    
+    // Set initial states
+    updateLicensePlateButtonState();
+    updateStepIndicators();
+    updateSearchButtonState();
+}
+
+// Format license plate input
+function formatLicensePlate(e) {
+    let value = e.target.value.replace(/-/g, "");
+    value = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
+
+    if (value.length > 2) value = value.slice(0, 2) + "-" + value.slice(2);
+    if (value.length > 5) value = value.slice(0, 5) + "-" + value.slice(5);
+    if (value.length > 8) value = value.slice(0, 8);
+
+    e.target.value = value;
+    updateLicensePlateButtonState();
+}
+
+// Update license plate search button state
+function updateLicensePlateButtonState() {
+    const isComplete = licenseInput.value.length === 8;
+    searchButtonPlate.disabled = !isComplete;
+    searchButtonPlate.style.backgroundColor = isComplete ? "#003aab" : "#a0c4ff";
+    searchButtonPlate.style.cursor = isComplete ? "pointer" : "not-allowed";
+}
+
+// Handle brand selection change
+function handleBrandChange() {
+    const selectedBrand = this.value;
+    modelSelect.innerHTML = '<option value="">Selecione um modelo</option>';
+    yearSelect.innerHTML = '<option value="">Selecione uma modificação</option>';
+    
+    if (selectedBrand && currentType) {
+        populateModels(currentType, selectedBrand);
+        modelSelect.disabled = false;
+    } else {
+        modelSelect.disabled = true;
+        yearSelect.disabled = true;
+    }
+    
+    updateStepIndicators();
+    updateSearchButtonState();
+}
+
+// Handle model selection change
+function handleModelChange() {
+    yearSelect.innerHTML = '<option value="">Selecione uma modificação</option>';
+    
+    if (this.value) {
+        populateYears();
+        yearSelect.disabled = false;
+    } else {
+        yearSelect.disabled = true;
+    }
+    
+    updateStepIndicators();
+    updateSearchButtonState();
+}
+
+// Populate brand dropdown
 function populateBrands(type) {
-    const brandSelect = document.getElementById('car-brand');
     brandSelect.innerHTML = '<option value="">Selecione uma marca</option>';
     
     if (vehicleModels[type]) {
-        const brands = Object.keys(vehicleModels[type]);
-        brands.forEach(brand => {
+        Object.keys(vehicleModels[type]).forEach(brand => {
             const option = document.createElement("option");
             option.value = brand;
             option.textContent = brand;
@@ -171,27 +169,23 @@ function populateBrands(type) {
     }
 }
 
-// Function to populate the model dropdown based on selected brand
+// Populate model dropdown
 function populateModels(type, brand) {
     modelSelect.innerHTML = '<option value="">Selecione um modelo</option>';
     
     if (type && brand && vehicleModels[type] && vehicleModels[type][brand]) {
-        const models = vehicleModels[type][brand];
-        models.forEach(model => {
+        vehicleModels[type][brand].forEach(model => {
             const option = document.createElement("option");
             option.value = model;
             option.textContent = model;
             modelSelect.appendChild(option);
         });
     }
-    
-    modelSelect.disabled = !(type && brand && vehicleModels[type] && vehicleModels[type][brand]);
 }
 
-// Function to populate the year dropdown based on selected model (placeholder)
+// Populate year dropdown (simplified for example)
 function populateYears() {
-    yearSelect.innerHTML = '<option value="">Selecione o ano</option>'; // Clear existing options
-    // Example of years, you can replace with dynamic data
+    yearSelect.innerHTML = '<option value="">Selecione uma modificação</option>';
     const years = ["2023", "2022", "2021", "2020"];
     years.forEach(year => {
         const option = document.createElement("option");
@@ -199,80 +193,35 @@ function populateYears() {
         option.textContent = year;
         yearSelect.appendChild(option);
     });
-    yearSelect.disabled = false;
 }
 
-function updateSearchButtonState() {
-    const searchButtonModel = document.querySelector(".search-button-model");
-    const isComplete = brandSelect.value && modelSelect.value && yearSelect.value;
+// Update step indicators
+function updateStepIndicators() {
+    const steps = document.querySelectorAll('.step-number');
     
+    // Primeiro step sempre verde (para selecionar marca)
+    steps[0].style.backgroundColor = '#4caf50';
+    
+    // Segundo step verde apenas se marca selecionada
+    steps[1].style.backgroundColor = brandSelect.value ? '#4caf50' : '#ccc';
+    
+    // Terceiro step verde apenas se modelo selecionado
+    steps[2].style.backgroundColor = modelSelect.value ? '#4caf50' : '#ccc';
+}
+// Update model search button state
+function updateSearchButtonState() {
+    const isComplete = brandSelect.value && modelSelect.value && yearSelect.value;
     searchButtonModel.disabled = !isComplete;
     searchButtonModel.style.backgroundColor = isComplete ? "#003aab" : "#a0c4ff";
     searchButtonModel.style.cursor = isComplete ? "pointer" : "not-allowed";
 }
 
-typeSelect.addEventListener("change", function () {
-    const selectedType = this.value;
-    currentType = selectedType;
-    
-    // Limpa os selects dependentes
-    brandSelect.innerHTML = '<option value="">Selecione uma marca</option>';
-    modelSelect.innerHTML = '<option value="">Selecione um modelo</option>';
-    yearSelect.innerHTML = '<option value="">Selecione o ano</option>';
-    
-    modelSelect.disabled = true;
-    yearSelect.disabled = true;
-    
-    if (selectedType) {
-        populateBrands(selectedType);
-    }
-    
-    updateSearchLayout();
-    updateSearchButtonState();
-});
-
-brandSelect.addEventListener("change", function () {
-    const selectedBrand = brandSelect.value;
-    
-    // Limpa os selects dependentes
-    modelSelect.innerHTML = '<option value="">Selecione um modelo</option>';
-    yearSelect.innerHTML = '<option value="">Selecione o ano</option>';
-    
-    yearSelect.disabled = true;
-    
-    if (currentType && selectedBrand) {
-        populateModels(currentType, selectedBrand);
-    }
-    
-    updateSearchButtonState();
-});
-
-modelSelect.addEventListener("change", function () {
-    yearSelect.disabled = !this.value;
-    if (this.value) {
-        populateYears();
-    } else {
-        yearSelect.innerHTML = '<option value="">Selecione o ano</option>';
-        yearSelect.disabled = true;
-    }
-    updateSearchButtonState();
-});
-
-yearSelect.addEventListener("change", function() {
-    updateSearchButtonState();
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    updateSearchLayout();
-    updateSearchButtonState();
-});
-
-// Handle search layout updates based on vehicle type
+// Update search layout based on vehicle type
 function updateSearchLayout() {
-    const selectedType = typeSelect.value;
     const promoSlider = document.querySelector('.promo-slider');
     const promoContent = document.querySelectorAll('.promo-content');
 
+    // Reset form fields
     licenseInput.value = "";
     brandSelect.value = "";
     modelSelect.value = "";
@@ -280,21 +229,14 @@ function updateSearchLayout() {
     modelSelect.disabled = true;
     yearSelect.disabled = true;
 
-    const steps = document.querySelectorAll('.step-number');
-    steps.forEach(step => {
-        step.style.backgroundColor = '#ccc';
-    });
-
-    updateSearchButtonState();
-
-    if (selectedType === "motorcycle" || selectedType === "truck") {
+    if (currentType === "motorcycle" || currentType === "truck") {
         licensePlateSection.style.display = "none";
         document.querySelector(".search-subtitle").textContent = 
-            `Selecionar o modelo da ${selectedType === "motorcycle" ? "moto" : "camião"} para procurar peças`;
+            `Selecionar o modelo da ${currentType === "motorcycle" ? "moto" : "camião"} para procurar peças`;
         document.getElementById("car-brand").options[0].text = 
-            `Selecione uma marca de ${selectedType === "motorcycle" ? "moto" : "camião"}`;
+            `Selecione uma marca de ${currentType === "motorcycle" ? "moto" : "camião"}`;
         document.getElementById("car-model").options[0].text = 
-            `Selecione um modelo de ${selectedType === "motorcycle" ? "moto" : "camião"}`;
+            `Selecione um modelo de ${currentType === "motorcycle" ? "moto" : "camião"}`;
         modelSearchSection.style.width = "100%";
         promoContent.forEach(content => {
             content.style.transform = "translateY(-20px)";
@@ -313,28 +255,69 @@ function updateSearchLayout() {
         promoSlider.style.height = "410px";
     }
 
-    steps[0].style.backgroundColor = '#4caf50';
+    // Populate brands for the selected type
+    populateBrands(currentType);
+    updateStepIndicators();
+    updateSearchButtonState();
 }
 
-typeSelect.addEventListener("change", function () {
+// Custom dropdown functionality
+function toggleDropdown() {
+    const dropdown = document.getElementById('dropdown-options');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+function selectOption(value, iconSrc) {
+    currentType = value;
+    document.getElementById('vehicleType').value = value;
+    document.getElementById('selected-icon').src = iconSrc;
+    document.getElementById('selected-text').textContent = value.charAt(0).toUpperCase() + value.slice(1);
+    document.getElementById('dropdown-options').style.display = 'none';
+    
+    updateDropdownOptions(value);
     updateSearchLayout();
-    updateSearchButtonState();
+}
+
+function updateDropdownOptions(selectedType) {
+    const dropdownOptions = document.getElementById('dropdown-options');
+    dropdownOptions.innerHTML = '';
+    
+    const availableTypes = {
+        'car': [
+            {value: 'motorcycle', icon: 'assets/motorcycle.svg', label: 'Motorcycle'},
+            {value: 'truck', icon: 'assets/truck.svg', label: 'Truck'}
+        ],
+        'motorcycle': [
+            {value: 'car', icon: 'assets/car.svg', label: 'Car'},
+            {value: 'truck', icon: 'assets/truck.svg', label: 'Truck'}
+        ],
+        'truck': [
+            {value: 'car', icon: 'assets/car.svg', label: 'Car'},
+            {value: 'motorcycle', icon: 'assets/motorcycle.svg', label: 'Motorcycle'}
+        ]
+    };
+    
+    availableTypes[selectedType].forEach(type => {
+        const option = document.createElement('div');
+        option.className = 'option';
+        option.onclick = () => selectOption(type.value, type.icon);
+        option.innerHTML = `
+            <img src="${type.icon}" alt="${type.label}" class="vehicle-icon">
+            <span>${type.label}</span>
+        `;
+        dropdownOptions.appendChild(option);
+    });
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const dropdown = document.querySelector('.custom-dropdown');
+    if (!dropdown.contains(e.target)) {
+        document.getElementById('dropdown-options').style.display = 'none';
+    }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    updateSearchLayout();
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Define o tipo inicial como 'car' e popula as marcas
-    typeSelect.value = 'car';
-    currentType = 'car';
-    populateBrands('car');
-    updateSearchLayout();
-    updateSearchButtonState();
-});
-
-// Handle slider functionality
+// Slider functionality
 document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelectorAll('.promo-slide');
     const dots = document.querySelectorAll('.dot');
@@ -364,12 +347,44 @@ document.addEventListener('DOMContentLoaded', function() {
     prevBtn.addEventListener('click', prevSlide);
 
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', function() {
-            currentSlide = index;
-            showSlide(currentSlide);
-        });
+        dot.addEventListener('click', () => showSlide(index));
     });
 
     setInterval(nextSlide, slideInterval);
     showSlide(currentSlide);
 });
+
+// Notification badges
+function updateNotificationBadges() {
+    // Garage
+    const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+    const garageBadge = document.querySelector('.notification-badge-garage');
+    if (garageBadge) {
+        garageBadge.textContent = vehicles.length;
+        garageBadge.style.display = vehicles.length > 0 ? 'flex' : 'none';
+    }
+
+    // Appointments
+    const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+    const appointBadge = document.querySelector('.notification-badge-appoint');
+    if (appointBadge) {
+        appointBadge.textContent = appointments.length;
+        appointBadge.style.display = appointments.length > 0 ? 'flex' : 'none';
+    }
+
+    // Cart
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const cartBadge = document.querySelector('.notification-badge-cart');
+    if (cartBadge) {
+        cartBadge.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
+        cartBadge.style.display = cartItems.length > 0 ? 'flex' : 'none';
+    }
+}
+
+// Listen for updates
+document.addEventListener('cartUpdated', updateNotificationBadges);
+document.addEventListener('garageUpdated', updateNotificationBadges);
+document.addEventListener('appointmentsUpdated', updateNotificationBadges);
+
+// Initialize the page
+initializePage();

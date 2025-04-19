@@ -4,40 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DocAuto</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="css/home.css">
     <script src="home.js" defer></script>
 </head>
 <body>
     <div class="top-bar">
-        <a href="garage.html" class="my-garage-icon">
-            <img src="assets/my-garage-icon.png" alt="My Garage" class="my-garage-icon-img">
-        </a>
-        <a href="appointments.html" class="appointments-icon">
-            <img src="assets/appointments_logo.png" alt="Appointments" class="appointments-icon">
-        </a>
+        <div class="left-icons">
+            <div class="icon-container">
+                <a href="garage.html" class="nav-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/garage.svg" alt="My Garage" class="nav-icon-img">
+                        <span class="notification-badge notification-badge-garage">0</span>
+                    </div>
+                    <span class="nav-text">My Garage</span>
+                </a>
+            </div>
+            
+            <div class="icon-container">
+                <a href="appointments.html" class="nav-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/appointments.svg" alt="Appointments" class="nav-icon-img">
+                        <span class="notification-badge notification-badge-appoint">0</span>
+                    </div>
+                    <span class="nav-text">Appointments</span>
+                </a>
+            </div>
+        </div>
+        
         <div class="logo-box">
             <a href="home.html">
                 <img src="assets/logo.png" alt="DocAuto" class="logo">
             </a>
         </div>
-        <a href="login.html" class="auth-icon" id="auth-link">
-            <img src="assets/profile.png" alt="Sign In" class="auth-icon-img" id="auth-icon-img">
-            <span id="auth-text">Sign In</span>
-        </a>
+        
+        <div class="right-icons">
+            <div class="icon-container">
+                <a href="cart.html" class="nav-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/shopping-cart.png" alt="Cart" class="nav-icon-img">
+                        <span class="notification-badge notification-badge-cart">0</span>
+                    </div>
+                    <span class="nav-text">Cart</span>
+                </a>
+            </div>
+            
+            <div class="icon-container">
+                <a href="login.html" class="nav-icon" id="auth-link">
+                    <div class="icon-badge-container">
+                        <img src="assets/profile.svg" alt="Sign In" class="nav-icon-img" id="auth-icon-img">
+                    </div>
+                    <span class="nav-text" id="auth-text">Sign In</span>
+                </a>
+            </div>
+        </div>
     </div>
+
     <div class="search-container">
-        <label for="type" class="search-label">Type:</label>
-        <select id="type" name="type" class="search-dropdown">
-            <option value="car">Car</option>
-            <option value="motorcycle">Motorcycle</option>
-            <option value="truck">Truck</option>
-        </select>
+        <div class="custom-dropdown">
+            <div class="selected-option" onclick="toggleDropdown()">
+                <img src="assets/car.svg" alt="Car" class="vehicle-icon" id="selected-icon">
+                <span id="selected-text">Car</span>
+            </div>
+            <div class="dropdown-options" id="dropdown-options">
+                <!-- Options will be populated by JavaScript -->
+            </div>
+            <input type="hidden" id="vehicleType" name="type" value="car">
+        </div>
+        
         <input type="text" id="search-term" placeholder="Insert name or part number" class="search-input">
-        <button class="search-button" onclick="performSearch()">SEARCH</button>
+        <button class="search-button" onclick="performSearch()">
+            <img src="assets/search.svg" alt="Search" class="vehicle-icon">
+        </button>
     </div>
 
     <div class="content">
-
         <section class="search">
             <div class="search-group">
                 <div class="search-plate">
@@ -67,7 +108,7 @@
                     </div>
                 </div>
             
-                <div class="search-model"  id="model-search-section">
+                <div class="search-model" id="model-search-section">
                     <h3 class="search-subtitle">Selecionar o modelo do carro para procurar peças para automóveis</h3>
                     <div class="vehicle-details">
                         <div class="select-container">
@@ -86,34 +127,27 @@
             
                         <div class="select-container">
                             <span class="step-number">3</span>
-                            <select name="car-year" id="car-year" class="form-select">
+                            <select name="car-year" id="car-year" class="form-select" disabled>
                                 <option value="">Selecione uma modificação</option>
-                                <option value="2025">2025</option>
-                                <option value="2024">2024</option>
-                                <option value="2023">2023</option>
                             </select>
                         </div>
             
-                        <button class="search-button-model" aria-label="search">Pesquisar</button>
+                        <button class="search-button-model" aria-label="search" disabled>Pesquisar</button>
                     </div>
                 </div>
             </div>
             
-
             <div class="type-group">
                 <div class="promo-slider">
-                    <!-- Slide 1 -->
                     <div class="promo-slide active">
                         <img src="assets/garage_wp.jpg" alt="Promoção 1" class="promo-image">
                         <div class="promo-content">
                             <h3>My Garage</h3>
                             <p>Adicione os seus veículos à sua <br> garagem para facilitar a pesquisa de peças</p>
-                            </p>
                             <button class="promo-button" onclick="window.location.href='ofertas-pascoa.html'">VER GARAGEM</button>
                         </div>
                     </div>
                     
-                    <!-- Slide 2 -->
                     <div class="promo-slide">
                         <img src="assets/mechanic_wp.jpg" alt="Promoção 2" class="promo-image">
                         <div class="promo-content">
@@ -123,7 +157,6 @@
                         </div>
                     </div>
                     
-                    <!-- Slide 3 -->
                     <div class="promo-slide">
                         <img src="assets/car_parts_wp.jpg" alt="Promoção 3" class="promo-image">
                         <div class="promo-content">
@@ -133,7 +166,6 @@
                         </div>
                     </div>
                     
-                    <!-- Controles do slider -->
                     <div class="slider-controls">
                         <button class="slider-prev">&lt;</button>
                         <div class="slider-dots">
@@ -146,8 +178,6 @@
                 </div>
             </div>
         </section>
-        
-
         
         <section class="most-searched">
             <h2>Most Searched Parts:</h2>
@@ -174,6 +204,7 @@
                 </a>
             </div>
         </section>
+        
         <section class="search-by-brand">
             <h2>Search by Brand:</h2>
             <div class="brands">
@@ -195,32 +226,5 @@
             </div>
         </section>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-            const authLink = document.getElementById('auth-link');
-            const authText = document.getElementById('auth-text');
-            const authIcon = document.getElementById('auth-icon-img');
-
-            if (currentUser) {
-                authText.textContent = "Profile";
-                authLink.href = "profile.html";
-                authIcon.src = "assets/profile.png";
-                authIcon.alt = "Profile";
-            } else {
-                authText.textContent = "Sign In";
-                authLink.href = "login.html";
-                authIcon.src = "assets/profile.png";
-                authIcon.alt = "Sign In";
-            }
-        });
-
-        function performSearch() {
-            const type = document.getElementById('type').value;
-            const searchTerm = document.getElementById('search-term').value;
-            window.location.href = `results.html?type=${type}&term=${searchTerm}`;
-        }
-    </script>
 </body>
 </html>
