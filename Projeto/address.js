@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize
     setupEventListeners();
     loadAddressData();
+    updateNotificationBadges(); // Adicionado
     
     // Functions
     function setupEventListeners() {
@@ -109,6 +110,26 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.removeItem('nif');
             localStorage.removeItem('phone');
             loadAddressData();
+            updateNotificationBadges(); // Atualiza notificações após remoção
+        }
+    }
+
+    // Função para atualizar os badges de notificação
+    function updateNotificationBadges() {
+        // Atualiza notificações de appointments
+        const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+        const appointBadge = document.querySelector('.notification-badge-appoint');
+        if (appointBadge) {
+            appointBadge.textContent = appointments.length;
+            appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
+        }
+
+        // Atualiza notificações de garage
+        const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+        const garageBadge = document.querySelector('.notification-badge-garage, .notification-badge');
+        if (garageBadge) {
+            garageBadge.textContent = vehicles.length;
+            garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
         }
     }
 });

@@ -1,3 +1,9 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize
+    loadUserData();
+    updateNotificationBadges(); // Adicionado
+});
+
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.querySelector('.sidebar-overlay');
@@ -34,7 +40,7 @@ function getPersonalDataElements() {
     };
 }
 
-window.onload = function() {
+function loadUserData() {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     const { usernameValue, passwordValue, emailValue, phoneValue } = getPersonalDataElements();
 
@@ -43,7 +49,7 @@ window.onload = function() {
         document.querySelector('.user-email').textContent = currentUser.email;
         
         usernameValue.textContent = currentUser.name;
-        passwordValue.textContent = currentUser.password;
+        passwordValue.textContent = '••••••••'; // Mostra placeholder para senha
         emailValue.textContent = currentUser.email;
         phoneValue.textContent = currentUser.phone || 'Not provided';
     } else {
@@ -99,13 +105,15 @@ function savePersonalData() {
     }
 
     usernameValue.textContent = currentUser.name;
-    passwordValue.textContent = currentUser.password;
+    passwordValue.textContent = '••••••••'; // Volta a mostrar placeholder
     emailValue.textContent = currentUser.email;
     phoneValue.textContent = currentUser.phone || 'Not provided';
 
     const editButton = document.querySelector('.edit-button');
     editButton.textContent = 'Edit Personal Data';
     editButton.onclick = editPersonalData;
+
+    updateNotificationBadges(); // Atualiza notificações após salvar
 }
 
 function logout() {
@@ -113,8 +121,6 @@ function logout() {
     window.location.href = 'login.html';
 }
 
-
-// ocultar e mostrar a senha no perfil
 function toggleProfilePasswordVisibility() {
     const passwordInput = document.getElementById('password-value');
     const eyeOpen = document.getElementById('profileEyeOpen');
@@ -128,8 +134,27 @@ function toggleProfilePasswordVisibility() {
         eyeClosed.style.display = 'inline';
     } else {
         passwordInput.type = 'password';
-        passwordInput.value = '••••••••'; // Mostra placeholder
+        passwordInput.value = currentUser.password; // Mantém o valor real mas escondido
         eyeOpen.style.display = 'inline';
         eyeClosed.style.display = 'none';
+    }
+}
+
+// Função para atualizar os badges de notificação
+function updateNotificationBadges() {
+    // Atualiza notificações de appointments
+    const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+    const appointBadge = document.querySelector('.notification-badge-appoint');
+    if (appointBadge) {
+        appointBadge.textContent = appointments.length;
+        appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
+    }
+
+    // Atualiza notificações de garage
+    const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+    const garageBadge = document.querySelector('.notification-badge-garage, .notification-badge');
+    if (garageBadge) {
+        garageBadge.textContent = vehicles.length;
+        garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
     }
 }

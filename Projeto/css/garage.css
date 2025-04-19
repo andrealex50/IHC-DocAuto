@@ -253,7 +253,17 @@ select:disabled {
     opacity: 1;
 }
 
-.notification-badge {
+.notification-badge-garage {
+    background-color: #e53935;
+    color: white;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: auto;
+}
+
+.notification-badge-appoint {
     background-color: #e53935;
     color: white;
     border-radius: 10px;

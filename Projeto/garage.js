@@ -426,3 +426,27 @@ function formatLicensePlate(input) {
     if (value.length > 5) value = value.slice(0, 5) + "-" + value.slice(5);
     input.value = value.slice(0, 8);
 }
+
+// Função para atualizar o contador de notificações
+function updateNotificationBadge() {
+    const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+    const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+    
+    // Atualizar badge de appointments
+    const appointBadge = document.querySelector('.notification-badge-appoint');
+    if (appointBadge) {
+        appointBadge.textContent = appointments.length;
+        appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
+    }
+    
+    // Atualizar badge de garage
+    const garageBadge = document.querySelector('.notification-badge, .notification-badge-garage');
+    if (garageBadge) {
+        garageBadge.textContent = vehicles.length;
+        garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
+    }
+}
+
+// Chame esta função sempre que os dados forem atualizados
+document.addEventListener('DOMContentLoaded', updateNotificationBadge);
+document.addEventListener('garageUpdated', updateNotificationBadge);

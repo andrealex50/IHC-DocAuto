@@ -27,25 +27,26 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
     renderCalendar();
     renderEventsList();
+    updateNotificationBadges();
     
     // Functions
     function setupEventListeners() {
         // Sidebar toggle
-        sidebarToggle.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', closeSidebar);
+        if (sidebarToggle) sidebarToggle.addEventListener('click', toggleSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
         
         // Calendar navigation
-        prevMonthButton.addEventListener('click', () => {
+        if (prevMonthButton) prevMonthButton.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
             renderCalendar();
         });
         
-        nextMonthButton.addEventListener('click', () => {
+        if (nextMonthButton) nextMonthButton.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() + 1);
             renderCalendar();
         });
         
-        todayButton.addEventListener('click', () => {
+        if (todayButton) todayButton.addEventListener('click', () => {
             currentDate = new Date();
             selectedDate = new Date();
             renderCalendar();
@@ -53,15 +54,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Event management
-        addEventButton.addEventListener('click', openAddAppointmentModal);
-        closeModalButton.addEventListener('click', closeAddAppointmentModal);
-        cancelButton.addEventListener('click', closeAddAppointmentModal);
+        if (addEventButton) addEventButton.addEventListener('click', openAddAppointmentModal);
+        if (closeModalButton) closeModalButton.addEventListener('click', closeAddAppointmentModal);
+        if (cancelButton) cancelButton.addEventListener('click', closeAddAppointmentModal);
         
-        appointmentForm.addEventListener('submit', handleEventSubmit);
+        if (appointmentForm) appointmentForm.addEventListener('submit', handleEventSubmit);
         
         window.addEventListener('resize', handleResize);
         window.addEventListener('click', (e) => {
-            if (e.target === eventModal) {
+            if (eventModal && e.target === eventModal) {
                 closeAddAppointmentModal();
             }
         });
@@ -90,6 +91,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function renderCalendar() {
+        if (!monthYearElement || !calendarDates) return;
+        
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
                           'July', 'August', 'September', 'October', 'November', 'December'];
         monthYearElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
@@ -171,6 +174,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function renderEventsList() {
+        if (!eventsList) return;
+        
         eventsList.innerHTML = '';
         
         if (!selectedDate) {
@@ -230,6 +235,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
         const vehicleSelect = document.getElementById('appointment-vehicle');
         
+        if (!vehicleSelect) return;
+        
         vehicleSelect.innerHTML = '<option value="">Select a vehicle</option>';
         
         if (vehicles.length === 0) {
@@ -249,13 +256,17 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('appointment-time').value = '';
         document.getElementById('appointment-notes').value = '';
         
-        eventModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        if (eventModal) {
+            eventModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
     }
     
     function closeAddAppointmentModal() {
-        eventModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+        if (eventModal) {
+            eventModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
     }
     
     function handleEventSubmit(e) {
@@ -297,6 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
         closeAddAppointmentModal();
         renderCalendar();
         renderEventsList();
+        updateNotificationBadges();
     }
     
     function deleteEvent(date, index) {
@@ -318,6 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('calendarEvents', JSON.stringify(events));
             renderCalendar();
             renderEventsList();
+            updateNotificationBadges();
         }
     }
     
@@ -326,5 +339,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
+    }
+
+    function updateNotificationBadges() {
+        // Update appointments badge
+        const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+        const appointBadge = document.querySelector('.notification-badge-appoint');
+        if (appointBadge) {
+            appointBadge.textContent = appointments.length;
+            appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
+        }
+
+        // Update garage badge
+        const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+        const garageBadge = document.querySelector('.notification-badge-garage, .notification-badge');
+        if (garageBadge) {
+            garageBadge.textContent = vehicles.length;
+            garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
+        }
     }
 });
