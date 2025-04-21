@@ -26,7 +26,6 @@ body {
     background-color: #f9f9f9;
     color: var(--text-color);
     position: relative;
-    overflow: hidden;
 }
 
 /* Header */
