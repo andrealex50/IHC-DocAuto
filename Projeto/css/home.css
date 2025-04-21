@@ -748,3 +748,161 @@ body {
         flex-basis: 120px;
     }
 }
+
+
+
+/* cart - popup */
+.cart-popup {   
+    padding-top: 10px;
+    margin-top: -10px;
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 320px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    z-index: 100;
+}
+#cart-icon-container {
+    cursor: pointer;
+  }
+  
+#cart-icon-container:hover .cart-popup {
+    display: block;
+}
+
+.cart-popup-content {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item img {
+    width: 60px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-title {
+    font-weight: 500;
+    color: #014357;
+    margin-bottom: 5px;
+}
+
+.cart-item-price {
+    font-weight: bold;
+    color: #003aab;
+}
+
+.cart-item-quantity {
+    color: #666;
+    font-size: 14px;
+}
+
+.total-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.tax-note {
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.cart-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.wishlist-link {
+    color: #014357;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 0;
+}
+
+.wishlist-link:hover {
+    text-decoration: underline;
+}
+
+.checkout-button {
+    background-color: #003aab;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.checkout-button:hover {
+    background-color: #002a8b;
+}
+
+.empty-cart-message {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.quantity-btn {
+  background-color: #ddd;
+  border: none;
+  padding: 3px 8px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-left: 2px;
+}
+
+.quantity-btn:hover {
+  background-color: #ccc;
+}
+
+.remove-btn {
+  background-color: transparent;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.remove-btn:hover {
+  color: #c00;
+}
+

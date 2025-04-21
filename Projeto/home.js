@@ -84,6 +84,9 @@ const yearSelect = document.getElementById('car-year');
 const searchButtonModel = document.querySelector(".search-button-model");
 const licensePlateSection = document.querySelector(".search-plate");
 const modelSearchSection = document.getElementById("model-search-section");
+const cartIconContainer = document.getElementById('cart-icon-container');
+const cartPopupContent = document.getElementById('cartPopupContent');
+const cartTotalElement = document.getElementById('cart-total');
 
 // Initialize the page
 function initializePage() {
@@ -99,6 +102,12 @@ function initializePage() {
     updateLicensePlateButtonState();
     updateStepIndicators();
     updateSearchButtonState();
+    
+    // Initialize cart
+    if (!localStorage.getItem('cartItems')) {
+        localStorage.setItem('cartItems', JSON.stringify([]));
+    }
+    updateCartPopup();
 }
 
 // Format license plate input
@@ -377,14 +386,114 @@ function updateNotificationBadges() {
     const cartBadge = document.querySelector('.notification-badge-cart');
     if (cartBadge) {
         cartBadge.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
-        cartBadge.style.display = cartItems.length > 0 ? 'flex' : 'none';
+        cartBadge.style.display = 'flex';
+
     }
+    
+    // Update cart popup and total
+    updateCartPopup();
+}
+
+// Update cart popup
+function updateCartPopup() {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    
+    // Update cart total in header
+    cartTotalElement.textContent = `${cartTotal.toFixed(2)}€`;
+    
+    // Update popup content
+    if (cartItems.length === 0) {
+        cartPopupContent.innerHTML = '<div class="empty-cart-message">Cart empty</div>';
+    } else {
+        cartPopupContent.innerHTML = cartItems.map((item, index) => `
+        <div class="cart-item">
+            <img src="${item.image || 'assets/default-part.png'}" alt="${item.name}">
+            <div class="cart-item-info">
+            <div class="cart-item-title">${item.name}</div>
+            <div class="cart-item-price">${item.price.toFixed(2)}€</div>
+            <div class="cart-item-quantity">
+                <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                <span>${item.quantity}</span>
+                <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
+            </div>
+            </div>
+            <button class="remove-btn" onclick="removeFromCart(${index})">✖</button>
+        </div>
+        `).join('');
+
+    }
+    
+    // Update totals
+    document.querySelector('.total-price').textContent = `${cartTotal.toFixed(2)}€`;
 }
 
 // Listen for updates
 document.addEventListener('cartUpdated', updateNotificationBadges);
 document.addEventListener('garageUpdated', updateNotificationBadges);
 document.addEventListener('appointmentsUpdated', updateNotificationBadges);
+document.addEventListener('cartUpdated', function() {
+    updateNotificationBadges();
+    updateCartPopup();
+});
 
 // Initialize the page
 initializePage();
+
+
+// Cart icon hover functionality
+const cartIcon = document.getElementById('cart-icon-container');
+const cartPopup = cartIconContainer.querySelector('.cart-popup');
+
+let hideTimeout;
+
+cartIconContainer.addEventListener('mouseenter', () => {
+  clearTimeout(hideTimeout);
+  cartPopup.style.display = 'block';
+});
+
+cartIconContainer.addEventListener('mouseleave', (e) => {
+  hideTimeout = setTimeout(() => {
+    if (!cartPopup.contains(e.relatedTarget)) {
+      cartPopup.style.display = 'none';
+    }
+  }, 200);
+});
+
+cartPopup.addEventListener('mouseenter', () => {
+  clearTimeout(hideTimeout);
+  cartPopup.style.display = 'block';
+});
+
+cartPopup.addEventListener('mouseleave', (e) => {
+  hideTimeout = setTimeout(() => {
+    if (!cartIconContainer.contains(e.relatedTarget)) {
+      cartPopup.style.display = 'none';
+    }
+  }, 200);
+});
+
+
+// change quantity products
+function changeQuantity(index, delta) {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItems[index].quantity += delta;
+  
+    // Remover se quantidade for 0 ou menos
+    if (cartItems[index].quantity <= 0) {
+      cartItems.splice(index, 1);
+    }
+  
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    document.dispatchEvent(new Event('cartUpdated'));
+  }
+  
+  function removeFromCart(index) {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItems.splice(index, 1);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    document.dispatchEvent(new Event('cartUpdated'));
+  }
+  
+
+

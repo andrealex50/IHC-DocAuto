@@ -22,6 +22,7 @@
             </div>
             
             <div class="icon-container">
+                
                 <a href="appointments.html" class="nav-icon">
                     <div class="icon-badge-container">
                         <img src="assets/appointments.svg" alt="Appointments" class="nav-icon-img">
@@ -39,15 +40,39 @@
         </div>
         
         <div class="right-icons">
-            <div class="icon-container">
-                <a href="cart.html" class="nav-icon">
+            <!-- In the right-icons section, update the cart icon container -->
+            <div class="icon-container" id="cart-icon-container">
+                <div class="nav-icon" id="cart-icon">
                     <div class="icon-badge-container">
                         <img src="assets/shopping-cart.png" alt="Cart" class="nav-icon-img">
                         <span class="notification-badge notification-badge-cart">0</span>
                     </div>
-                    <span class="nav-text">Cart</span>
-                </a>
+                    <span class="nav-text" id="cart-total">0.00€</span>
+                </div>
+                
+                <!-- Cart Popup -->
+                <div class="cart-popup">
+                    <div class="cart-popup-content" id="cartPopupContent">
+                        <!-- Content will be loaded via JS -->
+                    </div>
+                    <div class="total-section">
+                        <div class="total-row">
+                            <span>Entrega</span>
+                            <span class="delivery-price">0.00€</span>
+                        </div>
+                        <div class="total-row">
+                            <strong>Valor total</strong>
+                            <strong class="total-price">0.00€</strong>
+                        </div>
+                        <div class="tax-note">Inclui IVA de 23%</div>
+                    </div>
+                    <div class="cart-buttons">
+                        <a href="wishlist.html" class="wishlist-link">Ir para a Wishlist</a>
+                        <a href="checkout.html" class="checkout-button">Comprar</a>
+                    </div>
+                </div>
             </div>
+            
             
             <div class="icon-container">
                 <a href="login.html" class="nav-icon" id="auth-link">
