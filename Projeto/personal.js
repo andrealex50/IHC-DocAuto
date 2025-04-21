@@ -198,38 +198,78 @@ function cancelEdit() {
     document.querySelector('.edit-controls').style.display = 'none';
 }
 
+
+
+function validateForm() {
+    let isValid = true;
+
+    // Limpar todas as mensagens de erro
+    const errorMessages = document.querySelectorAll('.error-message');
+    errorMessages.forEach(msg => msg.style.display = 'none');
+
+    // Verificar cada campo
+    const inputs = [
+        { id: 'username-edit', errorId: 'username-error' },
+        { id: 'password-edit', errorId: 'password-error' },
+        { id: 'email-edit', errorId: 'email-error', validateEmail: true },
+        { id: 'phone-edit', errorId: 'phone-error' }
+    ];
+
+    inputs.forEach(input => {
+        const field = document.getElementById(input.id);
+        if (!field.value.trim()) {
+            document.getElementById(input.errorId).style.display = 'block';
+            isValid = false;
+        } else if (input.validateEmail && !isValidEmail(field.value.trim())) {
+            // Verifica se o email tem formato válido
+            document.getElementById(input.errorId).textContent = 'Por favor, insira um e-mail válido.';
+            document.getElementById(input.errorId).style.display = 'block';
+            isValid = false;
+        }
+    });
+
+    return isValid;
+}
+
+// Função de verificação de formato de e-mail
+function isValidEmail(email) {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailPattern.test(email);
+}
+
+
+
+
 function savePersonalData() {
+    if (!validateForm()) {
+        return; // Não salvar se houver erro de validação
+    }
+
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (!currentUser) return;
 
-    currentUser.name = document.getElementById('username-edit').value;
-    currentUser.password = document.getElementById('password-edit').value;
-    currentUser.email = document.getElementById('email-edit').value;
-    currentUser.phone = document.getElementById('phone-edit').value || 'Not provided';
+    const username = document.getElementById('username-edit').value;
+    const password = document.getElementById('password-edit').value;
+    const email = document.getElementById('email-edit').value;
+    const phone = document.getElementById('phone-edit').value;
 
-    const avatarUpload = document.getElementById('avatar-upload');
-    if (avatarUpload) {
-        if (avatarUpload.dataset.preview) {
-            currentUser.avatar = avatarUpload.dataset.preview;
-        } else {
-            currentUser.avatar = null;
-        }
-    }
+    // Atualize os dados do usuário
+    currentUser.name = username;
+    currentUser.password = password;
+    currentUser.email = email;
+    currentUser.phone = phone;
 
-    // Grava no sessionStorage
+    // Salvar no sessionStorage
     sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
 
-    // Atualiza localStorage
-    const users = JSON.parse(localStorage.getItem('logins')) || [];
-    const userIndex = users.findIndex(u => u.email === currentUser.email);
-    if (userIndex !== -1) {
-        users[userIndex] = currentUser;
-        localStorage.setItem('logins', JSON.stringify(users));
-    }
-
-    loadUserData();
-    cancelEdit();
+    // Atualize os dados na interface
     document.querySelector('.user-name').textContent = currentUser.name;
+    document.getElementById('username-value').textContent = currentUser.name || 'Not provided';
+    document.getElementById('password-value').textContent = '•'.repeat(currentUser.password.length) || 'Not provided';
+    document.getElementById('email-value').textContent = currentUser.email || 'Not provided';
+    document.getElementById('phone-value').textContent = currentUser.phone || 'Not provided';
+
+    cancelEdit();  // Função para fechar o modo de edição
 }
 
 
@@ -259,33 +299,34 @@ function logout() {
 }
 
 function updateNotificationBadges() {
-    // Garage
-    const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
-    const garageBadge = document.querySelector('.notification-badge-garage');
-    if (garageBadge) {
-        garageBadge.textContent = vehicles.length;
-        garageBadge.style.display = vehicles.length > 0 ? 'flex' : 'none';
-    }
-
-    // Appointments
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+    const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+    
+    // Atualiza o badge da wishlist
+    const wishlistBadge = document.querySelector('.notification-badge-wishlist');
+    if (wishlistBadge) {
+        wishlistBadge.textContent = wishlist.length;
+        wishlistBadge.style.display = wishlist.length > 0 ? 'inline-block' : 'none';
+    }
+    
+    // Atualiza o badge de appointments
     const appointBadge = document.querySelector('.notification-badge-appoint');
     if (appointBadge) {
         appointBadge.textContent = appointments.length;
-        appointBadge.style.display = appointments.length > 0 ? 'flex' : 'none';
-    }
-
-    // Cart
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const cartBadge = document.querySelector('.notification-badge-cart');
-    if (cartBadge) {
-        cartBadge.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
-        cartBadge.style.display = 'flex';
+        appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
     }
     
-    // Update cart popup and total
-    updateCartPopup();
+    // Atualiza o badge de vehicles
+    const garageBadge = document.querySelector('.notification-badge-garage');
+    if (garageBadge) {
+        garageBadge.textContent = vehicles.length;
+        garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
+    }
 }
+
+
+
 
 function updateCartPopup() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
