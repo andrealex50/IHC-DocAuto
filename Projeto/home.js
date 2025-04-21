@@ -398,81 +398,86 @@ function updateNotificationBadges() {
 function updateCartPopup() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-    
+  
     // Update cart total in header
     cartTotalElement.textContent = `${cartTotal.toFixed(2)}€`;
-    
+  
     // Update popup content
     if (cartItems.length === 0) {
-        cartPopupContent.innerHTML = '<div class="empty-cart-message">Cart empty</div>';
+      cartPopupContent.innerHTML = '<div class="empty-cart-message">Cart empty</div>';
     } else {
-        cartPopupContent.innerHTML = cartItems.map((item, index) => `
+      cartPopupContent.innerHTML = cartItems.map((item, index) => `
         <div class="cart-item">
-            <img src="${item.image || 'assets/default-part.png'}" alt="${item.name}">
-            <div class="cart-item-info">
+          <img src="${item.image || 'assets/default-part.png'}" alt="${item.name}">
+          <div class="cart-item-info">
             <div class="cart-item-title">${item.name}</div>
             <div class="cart-item-price">${item.price.toFixed(2)}€</div>
             <div class="cart-item-quantity">
-                <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
-                <span>${item.quantity}</span>
-                <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
+              <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
+              <span>${item.quantity}</span>
+              <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
             </div>
-            </div>
-            <button class="remove-btn" onclick="removeFromCart(${index})">✖</button>
+          </div>
+          <button class="remove-btn" onclick="removeFromCart(${index})">✖</button>
         </div>
-        `).join('');
-
+      `).join('');
     }
-    
+  
     // Update totals
     document.querySelector('.total-price').textContent = `${cartTotal.toFixed(2)}€`;
 }
 
-// Listen for updates
-document.addEventListener('cartUpdated', updateNotificationBadges);
-document.addEventListener('garageUpdated', updateNotificationBadges);
-document.addEventListener('appointmentsUpdated', updateNotificationBadges);
-document.addEventListener('cartUpdated', function() {
+  // Fecha o popup do carrinho se a janela for redimensionada
+window.addEventListener('resize', function() {
+    const cartPopup = document.getElementById('cartPopup');
+    if (cartPopup && cartPopup.style.display === 'block') {
+        cartPopup.style.display = 'none';
+    }
+});
+
+  
+  // Listen for updates
+  document.addEventListener('cartUpdated', () => {
     updateNotificationBadges();
     updateCartPopup();
-});
-
-// Initialize the page
-initializePage();
-
-
-// Cart icon hover functionality
-const cartIcon = document.getElementById('cart-icon-container');
+  });
+  document.addEventListener('garageUpdated', updateNotificationBadges);
+  document.addEventListener('appointmentsUpdated', updateNotificationBadges);
+  
+  // Initialize the page
+  initializePage();
+  
+// Cart popup functionality
 const cartPopup = cartIconContainer.querySelector('.cart-popup');
 
-let hideTimeout;
-
-cartIconContainer.addEventListener('mouseenter', () => {
-  clearTimeout(hideTimeout);
-  cartPopup.style.display = 'block';
-});
-
-cartIconContainer.addEventListener('mouseleave', (e) => {
-  hideTimeout = setTimeout(() => {
-    if (!cartPopup.contains(e.relatedTarget)) {
-      cartPopup.style.display = 'none';
+// Mobile behavior
+function toggleCartPopup(event) {
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        event.stopPropagation();
+        cartPopup.classList.toggle('show');
     }
-  }, 200);
-});
+}
 
-cartPopup.addEventListener('mouseenter', () => {
-  clearTimeout(hideTimeout);
-  cartPopup.style.display = 'block';
-});
+cartIconContainer.addEventListener('click', toggleCartPopup);
 
-cartPopup.addEventListener('mouseleave', (e) => {
-  hideTimeout = setTimeout(() => {
-    if (!cartIconContainer.contains(e.relatedTarget)) {
-      cartPopup.style.display = 'none';
+// Close popup when clicking outside on mobile
+document.addEventListener('click', (event) => {
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        if (!cartIconContainer.contains(event.target)) {
+            cartPopup.classList.remove('show');
+        }
     }
-  }, 200);
 });
 
+// Prevent popup from closing when clicking inside it
+cartPopup.addEventListener('click', (event) => {
+    event.stopPropagation();
+});
+
+// Close popup completely on resize
+window.addEventListener('resize', () => {
+    cartPopup.classList.remove('show');
+});
 
 // change quantity products
 function changeQuantity(index, delta) {
@@ -486,14 +491,11 @@ function changeQuantity(index, delta) {
   
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     document.dispatchEvent(new Event('cartUpdated'));
-  }
-  
-  function removeFromCart(index) {
+}
+
+function removeFromCart(index) {
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     cartItems.splice(index, 1);
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     document.dispatchEvent(new Event('cartUpdated'));
-  }
-  
-
-
+}
