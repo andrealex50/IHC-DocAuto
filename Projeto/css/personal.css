@@ -1,3 +1,4 @@
+/* personal.css - Updated version */
 :root {
     --primary-color: #014357;
     --secondary-color: #4FCB6B;
@@ -9,7 +10,7 @@
     --white: #ffffff;
     --error-color: #e53935;
     --sidebar-width: 280px;
-    --header-height: 80px;
+    --header-height: 70px;
     --overlay-opacity: 0.5;
     --transition-speed: 0.3s;
 }
@@ -43,16 +44,25 @@ body {
 }
 
 .logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content;
-    z-index: 1001;
+    height: 40px;
+    width: auto;
+    max-width: 200px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@media (max-width: 992px) {
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        justify-content: center;
+    }
 }
 
 .header-icon {
     display: none;
-    margin-left: auto;
 }
 
 .header-icon img, .logo img {
@@ -60,12 +70,7 @@ body {
     width: auto;
 }
 
-.logo img {
-    height: 50px;
-}
-
 /* Sidebar - Desktop */
-
 .notification-badge-garage {
     background-color: #e53935;
     color: white;
@@ -86,8 +91,6 @@ body {
     margin-left: auto;
 }
 
-
-
 .sidebar {
     position: fixed;
     top: var(--header-height);
@@ -102,14 +105,13 @@ body {
     flex-direction: column;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
     transform: translateX(0);
-    transition: none;
+    transition: transform var(--transition-speed) ease;
 }
 
 /* Sidebar - Mobile */
 @media (max-width: 992px) {
     .sidebar {
         transform: translateX(-100%);
-        transition: transform var(--transition-speed) ease;
     }
     
     .sidebar.active {
@@ -119,6 +121,7 @@ body {
     
     .header-icon {
         display: block;
+        margin-left: auto;
     }
 }
 
@@ -364,75 +367,16 @@ body {
     width: 100px;
 }
 
-/* Buttons */
-.edit-button,
-.logout-button {
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s;
-}
-
-.edit-button {
-    background-color: var(--secondary-color);
-    color: var(--white);
-}
-
-.edit-button:hover {
-    background-color: #3da955;
-}
-
-.logout-button {
-    background-color: var(--error-color);
-    color: var(--white);
-}
-
-.logout-button:hover {
-    background-color: #c0392b;
-}
-
-.button-group {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .personal-data-container {
-        margin: 100px 20px 50px;
-        padding: 20px;
-    }
-    
-    .data-field p {
-        padding: 10px;
-    }
-    
-    .data-field strong {
-        width: 80px;
-    }
-    
-    .personal-data-container input {
-        width: calc(100% - 90px);
-        margin-left: 5px;
-    }
-}
-
-
-
-/* ocultar password */
-
+/* Password Field */
 .password-field {
     position: relative;
     margin-top: 8px;
+    width: 100%;
 }
 
 .password-field input {
     width: 100%;
-    padding: 10px 40px 10px 15px;
+    padding: 12px 40px 12px 15px;
     border: 1px solid var(--medium-gray);
     border-radius: 6px;
     background-color: var(--light-gray);
@@ -465,4 +409,569 @@ body {
 
 .password-field .toggle-password:hover svg {
     stroke: var(--primary-color);
+}
+
+/* Buttons */
+.edit-button,
+.logout-button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.edit-button {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.edit-button:hover {
+    background-color: #3da955;
+}
+
+.logout-button {
+    background-color: var(--error-color);
+    color: var(--white);
+}
+
+.logout-button:hover {
+    background-color: #c0392b;
+}
+
+.button-group {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.edit-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.cancel-button {
+    background-color: #757575;
+    color: white;
+    flex: 1;
+}
+
+.save-button {
+    background-color: #4FCB6B;
+    color: white;
+    flex: 1;
+}
+
+/* Header Icons */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+}
+
+.header-profile img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #4FCB6B;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    min-width: 80px;
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e53935;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-icon-img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Cart Popup */
+.notification-badge-cart {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #4fcb6b;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-badge-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.cart-popup {   
+    padding-top: 10px;
+    margin-top: -10px;
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 320px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    z-index: 9999;
+}
+
+#cart-icon-container {
+    cursor: pointer;
+}
+
+/* Desktop behavior */
+@media (min-width: 769px) {
+    #cart-icon-container:hover .cart-popup {
+        display: block;
+    }
+}
+
+/* Mobile behavior */
+@media (max-width: 768px) {
+    .cart-popup.show {
+        display: block;
+    }
+}
+
+.cart-popup-content {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item img {
+    width: 60px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-title {
+    font-weight: 500;
+    color: #002a38;
+    margin-bottom: 5px;
+}
+
+.cart-item-price {
+    font-weight: bold;
+    color: #003aab;
+}
+
+.cart-item-quantity {
+    color: #666;
+    font-size: 14px;
+}
+
+.total-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.tax-note {
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.cart-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.wishlist-link {
+    color: #014357;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 0;
+}
+
+.wishlist-link:hover {
+    text-decoration: underline;
+}
+
+.checkout-button {
+    background-color: #4FCB6B;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.checkout-button:hover {
+    background-color: #45b963;
+    transform: translateY(-1px);
+}
+
+.empty-cart-message {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.quantity-btn {
+    background-color: #ddd;
+    border: none;
+    padding: 3px 8px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-left: 2px;
+}
+
+.quantity-btn:hover {
+    background-color: #ccc;
+}
+
+.remove-btn {
+    background-color: transparent;
+    border: none;
+    color: #888;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.remove-btn:hover {
+    color: #c00;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .personal-data-container {
+        margin: 100px 20px 50px;
+        padding: 20px;
+    }
+    
+    .data-field p {
+        padding: 10px;
+    }
+    
+    .data-field strong {
+        width: 80px;
+    }
+    
+    .personal-data-container input {
+        width: calc(100% - 90px);
+        margin-left: 5px;
+    }
+
+    .header-icons .nav-text {
+        display: none;
+    }
+    
+    .header-profile img {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .avatar-upload img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .icon-container {
+        min-width: 36px;
+        padding: 0 2px;
+        justify-content: center;
+    }
+}
+
+
+
+/* Adicione estas regras ao final do arquivo personal.css */
+
+/* Avatar Upload Section */
+.avatar-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+#profile-avatar-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--secondary-color);
+    margin-bottom: 15px;
+    background-color: #002a38;
+}
+
+.avatar-upload-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.avatar-upload-btn, .avatar-remove-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.avatar-upload-btn {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.avatar-remove-btn {
+    background-color: var(--dark-gray);
+    color: white;
+}
+
+.avatar-upload-btn:hover {
+    background-color: #0095d9;
+}
+
+.avatar-remove-btn:hover {
+    background-color: #616161;
+}
+
+/* Data Fields */
+.data-field {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.data-field label {
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.data-field p {
+    margin: 0;
+    padding: 12px 15px;
+    background-color: var(--light-gray);
+    border-radius: 6px;
+    border-left: 4px solid var(--secondary-color);
+    font-size: 15px;
+}
+
+.edit-input {
+    padding: 12px 15px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 6px;
+    font-size: 15px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.edit-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(0, 168, 232, 0.2);
+}
+
+/* Password Field */
+.password-field {
+    position: relative;
+    width: 100%;
+}
+
+.password-field input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 1px solid var(--medium-gray);
+    border-radius: 6px;
+    background-color: var(--light-gray);
+    font-size: 15px;
+    color: var(--text-color);
+    margin-top: 5px;
+}
+
+/* Buttons */
+.button-group {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.edit-button, .logout-button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    width: 100%;
+    font-size: 15px;
+}
+
+.edit-button {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.edit-button:hover {
+    background-color: #3da955;
+}
+
+.logout-button {
+    background-color: var(--error-color);
+    color: var(--white);
+}
+
+.logout-button:hover {
+    background-color: #c62828;
+}
+
+.edit-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.cancel-button, .save-button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    flex: 1;
+    font-size: 15px;
+}
+
+.cancel-button {
+    background-color: var(--dark-gray);
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #616161;
+}
+
+.save-button {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.save-button:hover {
+    background-color: #3da955;
+}
+
+/* Uniformizar os campos */
+.data-field p, .edit-input, .password-display {
+    padding: 12px 15px;
+    background-color: var(--light-gray);
+    border-radius: 6px;
+    border-left: 4px solid var(--secondary-color);
+    font-size: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.password-display {
+    display: flex;
+    align-items: center;
+    min-height: 44px; /* Mesma altura dos outros campos */
+}
+
+/* Garantir que os inputs editáveis tenham o mesmo estilo */
+.edit-input {
+    background-color: white;
+    border: 1px solid var(--medium-gray);
+    border-left: 4px solid var(--secondary-color);
+}
+
+/* Esconder o input de password quando não estiver em edição */
+.edit-input[style*="display: none"] {
+    display: none !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .personal-data-container {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    #profile-avatar-preview {
+        width: 100px;
+        height: 100px;
+    }
 }

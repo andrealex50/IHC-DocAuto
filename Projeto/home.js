@@ -7,11 +7,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const authIcon = document.getElementById('auth-icon-img');
     const logoBox = document.querySelector('.logo-box');
 
+
     if (currentUser) {
-        authText.textContent = "Profile";
-        authLink.href = "profile.html";
-        authIcon.src = "assets/profile.svg";
-        authIcon.alt = "Profile";
+        authText.textContent = currentUser.name || "user1234";
+        authLink.href = "personal.html";
+        authIcon.src = currentUser.avatar || "assets/profile.svg"; // Use avatar property
+        authIcon.alt = currentUser.name || "user1234";
     } else {
         authText.textContent = "Sign In";
         authLink.href = "login.html";
@@ -499,3 +500,5 @@ function removeFromCart(index) {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     document.dispatchEvent(new Event('cartUpdated'));
 }
+
+

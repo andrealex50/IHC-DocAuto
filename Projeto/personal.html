@@ -11,24 +11,59 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <button class="sidebar-toggle">
             <span class="toggle-bar"></span>
             <span class="toggle-bar"></span>
             <span class="toggle-bar"></span>
         </button>
+
         <a href="home.html" class="logo">
             <img src="assets/logo.png" alt="DocAuto">
         </a>
-        <a href="profile.html" class="header-icon">
-            <img src="assets/profile-icon.png" alt="Profile">
-        </a>
+        
+        <div class="header-icons">
+            <div class="icon-container" id="cart-icon-container">
+                <div class="nav-icon" id="cart-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/shopping-cart.png" alt="Cart" class="nav-icon-img">
+                        <span class="notification-badge-cart">0</span>
+                    </div>
+                    <span class="nav-text" id="cart-total">0.00€</span>
+                </div>
+                
+                <!-- Cart Popup -->
+                <div class="cart-popup">
+                    <div class="cart-popup-content" id="cartPopupContent">
+                        <!-- Content will be loaded via JS -->
+                    </div>
+                    <div class="total-section">
+                        <div class="total-row">
+                            <span>Entrega</span>
+                            <span class="delivery-price">0.00€</span>
+                        </div>
+                        <div class="total-row">
+                            <strong>Valor total</strong>
+                            <strong class="total-price">0.00€</strong>
+                        </div>
+                        <div class="tax-note">Inclui IVA de 23%</div>
+                    </div>
+                    <div class="cart-buttons">
+                        <a href="wishlist.html" class="wishlist-link">Ir para a Wishlist</a>
+                        <a href="checkout.html" class="checkout-button">Checkout</a>
+                    </div>
+                </div>
+            </div>
+            <a href="personal.html" class="header-profile">
+                <img id="header-profile-img" src="assets/profile.svg" alt="Profile">
+            </a>
+        </div>
     </header>
 
     <!-- Sidebar -->
     <nav class="sidebar">
         <div class="sidebar-header">
             <div class="user-profile">
-                <img src="assets/user-avatar.png" alt="User" class="user-avatar">
+                <img id="profile-avatar" src="assets/profile.svg" alt="User" class="user-avatar">
                 <div class="user-info">
                     <span class="user-name">John Doe</span>
                     <span class="user-email">john@example.com</span>
@@ -91,37 +126,59 @@
     <main class="main-content">
         <div class="personal-data-container">
             <h2>Personal Data</h2>
+            
+            <div class="avatar-upload">
+                <img id="profile-avatar-preview" src="assets/profile.svg" alt="Profile Avatar">
+                <div class="avatar-upload-controls" style="display: none;">
+                    <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+                    <button class="avatar-upload-btn" onclick="document.getElementById('avatar-upload').click()">Change Photo</button>
+                    <button class="avatar-remove-btn" onclick="removeAvatar()">Remove</button>
+                </div>
+            </div>
+            
             <div class="data-field">
-                <p><strong>Username:</strong> <span id="username-value"></span></p>
+                <label>Username</label>
+                <p id="username-value"></p>
+                <input type="text" id="username-edit" class="edit-input" style="display: none;" required>
             </div>
 
             <div class="data-field">
-                <p><strong>Password:</strong></p>
+                <label>Password</label>
                 <div class="password-field">
-                    <input type="password" id="password-value" value="••••••••" readonly>
+                    <p id="password-value">••••••••</p>
                     <button type="button" class="toggle-password" onclick="toggleProfilePasswordVisibility()">
-                        <!-- Olho aberto -->
                         <svg id="profileEyeOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
                             <circle cx="12" cy="12" r="3"/>
                         </svg>
-                        <!-- Olho fechado -->
                         <svg id="profileEyeClosed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: none;">
                             <path d="M17.94 17.94C16.13 19.16 14.11 20 12 20c-7 0-11-8-11-8 1.21-2.15 3-4.09 5.26-5.46M9.88 9.88a3 3 0 104.24 4.24"/>
                             <path d="M1 1l22 22"/>
                         </svg>
                     </button>
                 </div>
+                <input type="password" id="password-edit" class="edit-input" style="display: none;" required>
+                
             </div>
             
             <div class="data-field">
-                <p><strong>Email:</strong> <span id="email-value"></span></p>
+                <label>Email</label>
+                <p id="email-value"></p>
+                <input type="email" id="email-edit" class="edit-input" style="display: none;" required>
             </div>
+            
             <div class="data-field">
-                <p><strong>Phone:</strong> <span id="phone-value"></span></p>
+                <label>Phone</label>
+                <p id="phone-value"></p>
+                <input type="tel" id="phone-edit" class="edit-input" style="display: none;">
             </div>
+            
             <div class="button-group">
-                <button class="edit-button" onclick="editPersonalData()">Edit Personal Data</button>
+                <button class="edit-button" id="edit-btn" onclick="editPersonalData()">Edit Personal Data</button>
+                <div class="edit-controls" style="display: none;">
+                    <button class="cancel-button" onclick="cancelEdit()">Cancel</button>
+                    <button class="save-button" onclick="savePersonalData()">Save Changes</button>
+                </div>
                 <button class="logout-button" onclick="logout()">Logout</button>
             </div>
         </div>
