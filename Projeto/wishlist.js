@@ -1,3 +1,6 @@
+/**
+ * Initializes the page when DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', function() {
     // Main elements
     const elements = {
@@ -7,7 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar: document.querySelector('.sidebar'),
         sidebarToggle: document.querySelector('.sidebar-toggle'),
         sidebarOverlay: document.querySelector('.sidebar-overlay'),
-        headerIcon: document.querySelector('.header-icon')
+        searchBtn: document.querySelector('.search-btn'),
+        searchInput: document.querySelector('.search-input'),
+        typeFilter: document.getElementById('type')
     };
 
     // Check if user is logged in
@@ -18,14 +23,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize
+    setupCart();
+    updateCartPopup();
     initEventListeners();
     loadWishlist();
     updateNotificationBadges();
     setupResponsiveLayout();
+    loadUserProfile();
 
     // Listen for wishlist updates
     document.addEventListener('wishlistUpdated', loadWishlist);
 
+    /**
+     * Sets up cart functionality
+     */
+    function setupCart() {
+        const cartIconContainer = document.getElementById('cart-icon-container');
+        if (!cartIconContainer) return;
+
+        const cartPopup = cartIconContainer.querySelector('.cart-popup');
+        
+        // Atualização inicial
+        updateCartPopup();
+
+        // Comportamento mobile
+        function toggleCartPopup(event) {
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                event.stopPropagation();
+                cartPopup.classList.toggle('show');
+            }
+        }
+
+        cartIconContainer.addEventListener('click', toggleCartPopup);
+
+        // Fechar popup ao clicar fora (mobile)
+        document.addEventListener('click', (event) => {
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                if (!cartIconContainer.contains(event.target)) {
+                    cartPopup.classList.remove('show');
+                }
+            }
+        });
+
+        // Prevenir fechar ao clicar dentro
+        cartPopup.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
+        // Resetar popup no resize
+        window.addEventListener('resize', () => {
+            cartPopup.classList.remove('show');
+        });
+    }
+
+    
+
+    /**
+     * Initializes event listeners
+     */
     function initEventListeners() {
         // Browse products button
         if (elements.browseProductsBtn) {
@@ -48,12 +103,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Search functionality
-        const searchBtn = document.querySelector('.search-btn');
-        if (searchBtn) {
-            searchBtn.addEventListener('click', searchWishlist);
+        if (elements.searchBtn) {
+            elements.searchBtn.addEventListener('click', searchWishlist);
         }
     }
 
+    /**
+     * Loads and displays wishlist items
+     */
     function loadWishlist() {
         const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         
@@ -74,6 +131,9 @@ document.addEventListener('DOMContentLoaded', function() {
         updateNotificationBadges();
     }
 
+    /**
+     * Creates a wishlist item card
+     */
     function createWishlistItemCard(item, index) {
         const card = document.createElement('div');
         card.className = 'wishlist-card';
@@ -101,6 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             <button class="view-product-btn">View Product Details</button>
+            <button class="add-to-cart-btn">Add to Cart</button>
         `;
         
         // Add event listeners
@@ -112,15 +173,17 @@ document.addEventListener('DOMContentLoaded', function() {
         card.querySelector('.view-product-btn').addEventListener('click', () => {
             viewProductDetails(item.id);
         });
-        
-        // Make the whole card clickable
-        card.addEventListener('click', () => {
-            viewProductDetails(item.id);
+
+        card.querySelector('.add-to-cart-btn').addEventListener('click', () => {
+            addToCart(item);
         });
         
         return card;
     }
 
+    /**
+     * Removes item from wishlist
+     */
     function removeFromWishlist(index) {
         const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         wishlist.splice(index, 1);
@@ -128,14 +191,43 @@ document.addEventListener('DOMContentLoaded', function() {
         document.dispatchEvent(new CustomEvent('wishlistUpdated'));
     }
 
+    /**
+     * Adds item to cart
+     */
+    function addToCart(product) {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        
+        // Check if product already in cart
+        const existingItem = cartItems.find(item => item.id === product.id);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cartItems.push({
+                ...product,
+                quantity: 1
+            });
+        }
+        
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        document.dispatchEvent(new CustomEvent('cartUpdated'));
+        updateNotificationBadges();
+        updateCartPopup();
+    }
+
+    /**
+     * Redirects to product details page
+     */
     function viewProductDetails(productId) {
-        // Redirect to product details page with the product ID
         window.location.href = `product-details.html?id=${productId}`;
     }
 
+    /**
+     * Searches wishlist items
+     */
     function searchWishlist() {
-        const searchTerm = document.querySelector('.search-input').value.toLowerCase();
-        const typeFilter = document.getElementById('type').value;
+        const searchTerm = elements.searchInput.value.toLowerCase();
+        const typeFilter = elements.typeFilter.value;
         
         const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         const filteredItems = wishlist.filter(item => {
@@ -161,6 +253,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    /**
+     * Toggles sidebar visibility
+     */
     function toggleSidebar(e) {
         e.stopPropagation();
         elements.sidebar.classList.toggle('active');
@@ -168,53 +263,187 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.sidebarOverlay.style.display = elements.sidebar.classList.contains('active') ? 'block' : 'none';
     }
 
+    /**
+     * Closes sidebar
+     */
     function closeSidebar() {
         elements.sidebar.classList.remove('active');
         elements.sidebarToggle.classList.remove('active');
         elements.sidebarOverlay.style.display = 'none';
     }
 
+    /**
+     * Sets up responsive layout
+     */
     function setupResponsiveLayout() {
         window.addEventListener('resize', function() {
             if (window.innerWidth > 992) {
                 closeSidebar();
             }
-            
-            if (elements.headerIcon) {
-                elements.headerIcon.style.display = window.innerWidth <= 992 ? 'block' : 'none';
-            }
         });
     }
 
+    /**
+     * Updates all notification badges
+     */
     function updateNotificationBadges() {
+        // Cart badge
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartBadge = document.querySelector('.notification-badge-cart');
+        if (cartBadge) {
+            const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+            cartBadge.textContent = totalItems;
+            //cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+
+        // Wishlist badge
         const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-        const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
-        
-        // Update wishlist badge
         const wishlistBadge = document.querySelector('.notification-badge-wishlist');
         if (wishlistBadge) {
             wishlistBadge.textContent = wishlist.length;
-            wishlistBadge.style.display = wishlist.length > 0 ? 'inline-block' : 'none';
+            //wishlistBadge.style.display = wishlist.length > 0 ? 'inline-block' : 'none';
         }
-        
-        // Update appointments badge
+
+        // Appointments badge
+        const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
         const appointBadge = document.querySelector('.notification-badge-appoint');
         if (appointBadge) {
             appointBadge.textContent = appointments.length;
-            appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
+            //appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
         }
-        
-        // Update garage badge
+
+        // Garage badge
+        const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
         const garageBadge = document.querySelector('.notification-badge-garage');
         if (garageBadge) {
             garageBadge.textContent = vehicles.length;
-            garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
+            //garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
+        }
+    }
+
+    /**
+     * Updates the cart popup content and totals
+     */
+    function updateCartPopup() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+        
+        // Atualizar total no cabeçalho
+        const cartTotalElement = document.getElementById('cart-total');
+        if (cartTotalElement) {
+            cartTotalElement.textContent = `${cartTotal.toFixed(2)}€`;
+        }
+        
+        // Atualizar conteúdo do popup
+        const cartPopupContent = document.getElementById('cartPopupContent');
+        if (cartPopupContent) {
+            if (cartItems.length === 0) {
+                cartPopupContent.innerHTML = '<div class="empty-cart-message">Cart empty</div>';
+            } else {
+                cartPopupContent.innerHTML = cartItems.map((item, index) => `
+                    <div class="cart-item">
+                        <img src="${item.image || 'assets/default-part.png'}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">${item.price.toFixed(2)}€</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn" data-index="${index}" data-delta="-1">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn" data-index="${index}" data-delta="1">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-btn" data-index="${index}">✖</button>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // Atualizar totais
+        const totalPriceElement = document.querySelector('.total-price');
+        if (totalPriceElement) {
+            totalPriceElement.textContent = `${cartTotal.toFixed(2)}€`;
+        }
+        
+        // Configurar event listeners para os novos botões
+        setupCartEventListeners();
+    }
+
+    function setupCartEventListeners() {
+        document.querySelectorAll('.quantity-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                const delta = parseInt(this.getAttribute('data-delta'));
+                changeQuantity(index, delta);
+            });
+        });
+        
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                removeFromCart(index);
+            });
+        });
+    }
+
+
+    /**
+     * Changes the quantity of a cart item
+     */
+    function changeQuantity(index, delta) {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        if (cartItems[index]) {
+            cartItems[index].quantity += delta;
+            
+            // Remove se quantidade for 0 ou menos
+            if (cartItems[index].quantity <= 0) {
+                cartItems.splice(index, 1);
+            }
+            
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCartPopup();
+            updateNotificationBadges();
+        }
+    }
+
+    /**
+     * Removes an item from the cart
+     */
+    function removeFromCart(index) {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        if (cartItems[index]) {
+            cartItems.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCartPopup();
+            updateNotificationBadges();
+        }
+    }
+
+    /**
+     * Loads user profile data
+     */
+    function loadUserProfile() {
+        const authText = document.getElementById('auth-text');
+        const authIcon = document.getElementById('header-profile-img');
+        const authIconBig = document.getElementById('profile-avatar');
+        const emailValue = document.getElementById('email-value');
+
+        let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+        if (currentUser) {
+            authText.textContent = currentUser.name || "user1234";
+            emailValue.textContent = currentUser.email;
+            authIcon.src = currentUser.avatar || "assets/profile.svg";
+            authIconBig.src = currentUser.avatar || "assets/profile.svg";
+            authIcon.alt = currentUser.name || "user1234";
+        } else {
+            authText.textContent = "Sign In";
+            authIcon.src = "assets/profile.svg"; 
+            authIcon.alt = "Sign In";
         }
     }
 });
 
-// Make this function available globally to add items to wishlist from other pages
+// Global function to add items to wishlist
 function addToWishlist(product) {
     const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     
@@ -225,3 +454,13 @@ function addToWishlist(product) {
         document.dispatchEvent(new CustomEvent('wishlistUpdated'));
     }
 }
+
+// Event listeners for data updates
+document.addEventListener('cartUpdated', () => {
+    updateNotificationBadges();
+    updateCartPopup();
+});
+document.addEventListener('cartUpdated', updateNotificationBadges);
+document.addEventListener('garageUpdated', updateNotificationBadges);
+document.addEventListener('appointmentsUpdated', updateNotificationBadges);
+document.addEventListener('wishlistUpdated', updateNotificationBadges);

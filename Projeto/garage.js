@@ -67,7 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebar: document.querySelector('.sidebar'),
         sidebarToggle: document.querySelector('.sidebar-toggle'),
         sidebarOverlay: document.querySelector('.sidebar-overlay'),
-        headerIcon: document.querySelector('.header-icon')
+        headerIcon: document.querySelector('.header-icon'),
+        cartIconContainer: document.getElementById('cart-icon-container')
     };
 
     // Constantes
@@ -84,11 +85,22 @@ document.addEventListener('DOMContentLoaded', function() {
     initEventListeners();
     loadGarage();
     setupResponsiveLayout();
+    setupCart();
+    updateCartPopup();
+    loadUserProfile();
+    updateNotificationBadges();
 
-    // Ouvinte para atualizações da garagem
+    // Ouvintes para atualizações
     document.addEventListener('garageUpdated', loadGarage);
+    document.addEventListener('garageUpdated', updateNotificationBadges);
+    document.addEventListener('cartUpdated', updateNotificationBadges);
+    document.addEventListener('cartUpdated', updateCartPopup);
+    document.addEventListener('wishlistUpdated', updateNotificationBadges);
+    document.addEventListener('appointmentsUpdated', updateNotificationBadges);
 
-    // Funções principais
+    /**
+     * Inicializa todos os event listeners
+     */
     function initEventListeners() {
         // Botões de adicionar veículo
         if (elements.addVehicleBtn) elements.addVehicleBtn.addEventListener('click', showAddModal);
@@ -193,6 +205,204 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    /**
+     * Configura o carrinho de compras
+     */
+    function setupCart() {
+        if (!elements.cartIconContainer) return;
+
+        const cartPopup = elements.cartIconContainer.querySelector('.cart-popup');
+        
+        // Comportamento mobile
+        function toggleCartPopup(event) {
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                event.stopPropagation();
+                cartPopup.classList.toggle('show');
+            }
+        }
+
+        elements.cartIconContainer.addEventListener('click', toggleCartPopup);
+
+        // Fechar popup ao clicar fora (mobile)
+        document.addEventListener('click', (event) => {
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                if (!elements.cartIconContainer.contains(event.target)) {
+                    cartPopup.classList.remove('show');
+                }
+            }
+        });
+
+        // Prevenir fechar ao clicar dentro
+        cartPopup.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
+        // Resetar popup no resize
+        window.addEventListener('resize', () => {
+            cartPopup.classList.remove('show');
+        });
+    }
+
+    /**
+     * Atualiza o popup do carrinho
+     */
+    function updateCartPopup() {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+        
+        // Atualizar total no cabeçalho
+        const cartTotalElement = document.getElementById('cart-total');
+        if (cartTotalElement) {
+            cartTotalElement.textContent = `${cartTotal.toFixed(2)}€`;
+        }
+        
+        // Atualizar conteúdo do popup
+        const cartPopupContent = document.getElementById('cartPopupContent');
+        if (cartPopupContent) {
+            if (cartItems.length === 0) {
+                cartPopupContent.innerHTML = '<div class="empty-cart-message">Cart empty</div>';
+            } else {
+                cartPopupContent.innerHTML = cartItems.map((item, index) => `
+                    <div class="cart-item">
+                        <img src="${item.image || 'assets/default-part.png'}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">${item.price.toFixed(2)}€</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn" data-index="${index}" data-delta="-1">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn" data-index="${index}" data-delta="1">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-btn" data-index="${index}">✖</button>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // Atualizar totais
+        const totalPriceElement = document.querySelector('.total-price');
+        if (totalPriceElement) {
+            totalPriceElement.textContent = `${cartTotal.toFixed(2)}€`;
+        }
+        
+        // Configurar event listeners para os novos botões
+        setupCartEventListeners();
+    }
+
+    /**
+     * Configura os event listeners do carrinho
+     */
+    function setupCartEventListeners() {
+        document.querySelectorAll('.quantity-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                const delta = parseInt(this.getAttribute('data-delta'));
+                changeQuantity(index, delta);
+            });
+        });
+        
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                removeFromCart(index);
+            });
+        });
+    }
+
+    /**
+     * Altera a quantidade de um item no carrinho
+     */
+    function changeQuantity(index, delta) {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        if (cartItems[index]) {
+            cartItems[index].quantity += delta;
+            
+            // Remove se quantidade for 0 ou menos
+            if (cartItems[index].quantity <= 0) {
+                cartItems.splice(index, 1);
+            }
+            
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            document.dispatchEvent(new CustomEvent('cartUpdated'));
+        }
+    }
+
+    /**
+     * Remove um item do carrinho
+     */
+    function removeFromCart(index) {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        if (cartItems[index]) {
+            cartItems.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            document.dispatchEvent(new CustomEvent('cartUpdated'));
+        }
+    }
+
+    /**
+     * Carrega os dados do perfil do usuário
+     */
+    function loadUserProfile() {
+        const authText = document.getElementById('auth-text');
+        const authIcon = document.getElementById('header-profile-img');
+        const authIconBig = document.getElementById('profile-avatar');
+        const emailValue = document.getElementById('email-value');
+
+        if (currentUser) {
+            authText.textContent = currentUser.name || "user1234";
+            emailValue.textContent = currentUser.email;
+            authIcon.src = currentUser.avatar || "assets/profile.svg";
+            authIconBig.src = currentUser.avatar || "assets/profile.svg";
+            authIcon.alt = currentUser.name || "user1234";
+        } else {
+            authText.textContent = "Sign In";
+            authIcon.src = "assets/profile.svg"; 
+            authIcon.alt = "Sign In";
+        }
+    }
+
+    /**
+     * Atualiza todos os badges de notificação
+     */
+    function updateNotificationBadges() {
+        // Cart badge
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartBadge = document.querySelector('.notification-badge-cart');
+        if (cartBadge) {
+            const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+            cartBadge.textContent = totalItems;
+            cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+
+        // Wishlist badge
+        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const wishlistBadge = document.querySelector('.notification-badge-wishlist');
+        if (wishlistBadge) {
+            wishlistBadge.textContent = wishlist.length;
+            wishlistBadge.style.display = wishlist.length > 0 ? 'inline-block' : 'none';
+        }
+
+        // Appointments badge
+        const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+        const appointBadge = document.querySelector('.notification-badge-appoint');
+        if (appointBadge) {
+            appointBadge.textContent = appointments.length;
+            appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
+        }
+
+        // Garage badge
+        const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+        const garageBadge = document.querySelector('.notification-badge-garage');
+        if (garageBadge) {
+            garageBadge.textContent = vehicles.length;
+            garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
+        }
+    }
+
+    /**
+     * Manipula o envio do formulário de adição de veículo
+     */
     function handleVehicleSubmit(event) {
         event.preventDefault();
         
@@ -225,6 +435,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('vehicle-form').reset();
     }
 
+    /**
+     * Manipula o envio do formulário de edição de veículo
+     */
     function handleEditSubmit(event) {
         event.preventDefault();
         
@@ -251,6 +464,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('edit-vehicle-modal').style.display = 'none';
     }
 
+    /**
+     * Carrega a garagem do localStorage
+     */
     function loadGarage() {
         const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
         
@@ -271,6 +487,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    /**
+     * Cria um card de veículo
+     */
     function createVehicleCard(vehicle, index) {
         const card = document.createElement('div');
         card.className = 'vehicle-card';
@@ -312,11 +531,17 @@ document.addEventListener('DOMContentLoaded', function() {
         return card;
     }
 
+    /**
+     * Mostra o modal de adição de veículo
+     */
     function showAddModal() {
         if (elements.vehicleForm) elements.vehicleForm.reset();
         if (elements.vehiclePopup) elements.vehiclePopup.style.display = 'flex';
     }
 
+    /**
+     * Alterna a visibilidade da sidebar
+     */
     function toggleSidebar(e) {
         e.stopPropagation();
         elements.sidebar.classList.toggle('active');
@@ -324,12 +549,18 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.sidebarOverlay.style.display = elements.sidebar.classList.contains('active') ? 'block' : 'none';
     }
 
+    /**
+     * Fecha a sidebar
+     */
     function closeSidebar() {
         elements.sidebar.classList.remove('active');
         elements.sidebarToggle.classList.remove('active');
         elements.sidebarOverlay.style.display = 'none';
     }
 
+    /**
+     * Configura o layout responsivo
+     */
     function setupResponsiveLayout() {
         window.addEventListener('resize', function() {
             if (window.innerWidth > 992) {
@@ -342,7 +573,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Funções utilitárias
+    /**
+     * Gera um VIN aleatório
+     */
     function generateRandomVIN() {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let vin = '';
@@ -352,6 +585,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return vin;
     }
 
+    /**
+     * Verifica se uma placa já existe na garagem
+     */
     function checkPlateExistence(plate, currentIndex = -1) {
         // Verifica se o formato está correto (00-00-XX)
         const plateRegex = /^[0-9]{2}-[0-9]{2}-[A-Za-z]{2}$/;
@@ -368,6 +604,9 @@ document.addEventListener('DOMContentLoaded', function() {
         );
     }
 
+    /**
+     * Formata uma data
+     */
     function formatDate(dateString) {
         if (!dateString) return '';
         if (dateString.length === 8 && !dateString.includes('-')) {
@@ -375,51 +614,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return dateString;
     }
-
-    // Funções globais
-    window.editVehicle = function(index) {
-        const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
-        const vehicle = vehicles[index];
-        
-        document.getElementById('edit-vehicle-index').value = index;
-        document.getElementById('edit-vehicle-plate').value = vehicle.plate;
-        
-        // Configura o tipo
-        const typeSelect = document.getElementById('edit-vehicle-type');
-        typeSelect.value = vehicle.type;
-        
-        // Dispara o evento change para carregar as marcas
-        const typeEvent = new Event('change');
-        typeSelect.dispatchEvent(typeEvent);
-        
-        // Configura a marca (com pequeno delay para garantir que as opções foram carregadas)
-        setTimeout(() => {
-            const brandSelect = document.getElementById('edit-vehicle-brand');
-            brandSelect.value = vehicle.brand;
-            
-            // Dispara o evento change para carregar os modelos
-            const brandEvent = new Event('change');
-            brandSelect.dispatchEvent(brandEvent);
-            
-            // Configura o modelo
-            setTimeout(() => {
-                const modelSelect = document.getElementById('edit-vehicle-model');
-                modelSelect.value = vehicle.model;
-            }, 50);
-        }, 50);
-        
-        document.getElementById('edit-vehicle-year').value = vehicle.year;
-        document.getElementById('edit-vehicle-modal').style.display = 'flex';
-    };
-
-    window.deleteVehicle = function(index) {
-            const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
-            vehicles.splice(index, 1);
-            localStorage.setItem('garage', JSON.stringify(vehicles));
-            document.dispatchEvent(new CustomEvent('garageUpdated'));
-    };
 });
 
+/**
+ * Formata uma placa de veículo automaticamente
+ */
 function formatLicensePlate(input) {
     let value = input.value.replace(/-/g, "").replace(/[^A-Za-z0-9]/g, "").toUpperCase();
     if (value.length > 2) value = value.slice(0, 2) + "-" + value.slice(2);
@@ -427,26 +626,50 @@ function formatLicensePlate(input) {
     input.value = value.slice(0, 8);
 }
 
-// Função para atualizar o contador de notificações
-function updateNotificationBadge() {
-    const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+/**
+ * Edita um veículo
+ */
+window.editVehicle = function(index) {
     const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+    const vehicle = vehicles[index];
     
-    // Atualizar badge de appointments
-    const appointBadge = document.querySelector('.notification-badge-appoint');
-    if (appointBadge) {
-        appointBadge.textContent = appointments.length;
-        appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
-    }
+    document.getElementById('edit-vehicle-index').value = index;
+    document.getElementById('edit-vehicle-plate').value = vehicle.plate;
     
-    // Atualizar badge de garage
-    const garageBadge = document.querySelector('.notification-badge, .notification-badge-garage');
-    if (garageBadge) {
-        garageBadge.textContent = vehicles.length;
-        garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
-    }
-}
+    // Configura o tipo
+    const typeSelect = document.getElementById('edit-vehicle-type');
+    typeSelect.value = vehicle.type;
+    
+    // Dispara o evento change para carregar as marcas
+    const typeEvent = new Event('change');
+    typeSelect.dispatchEvent(typeEvent);
+    
+    // Configura a marca (com pequeno delay para garantir que as opções foram carregadas)
+    setTimeout(() => {
+        const brandSelect = document.getElementById('edit-vehicle-brand');
+        brandSelect.value = vehicle.brand;
+        
+        // Dispara o evento change para carregar os modelos
+        const brandEvent = new Event('change');
+        brandSelect.dispatchEvent(brandEvent);
+        
+        // Configura o modelo
+        setTimeout(() => {
+            const modelSelect = document.getElementById('edit-vehicle-model');
+            modelSelect.value = vehicle.model;
+        }, 50);
+    }, 50);
+    
+    document.getElementById('edit-vehicle-year').value = vehicle.year;
+    document.getElementById('edit-vehicle-modal').style.display = 'flex';
+};
 
-// Chame esta função sempre que os dados forem atualizados
-document.addEventListener('DOMContentLoaded', updateNotificationBadge);
-document.addEventListener('garageUpdated', updateNotificationBadge);
+/**
+ * Remove um veículo
+ */
+window.deleteVehicle = function(index) {
+    const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+    vehicles.splice(index, 1);
+    localStorage.setItem('garage', JSON.stringify(vehicles));
+    document.dispatchEvent(new CustomEvent('garageUpdated'));
+};

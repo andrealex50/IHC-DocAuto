@@ -1,11 +1,17 @@
+/**
+ * Initializes the page when DOM is loaded
+ */
 document.addEventListener('DOMContentLoaded', function() {
     loadUserData();
-    updateNotificationBadges();
     setupCart();
     setupAvatarUpload();
     setupSidebarToggle();
+    updateNotificationBadges(); // Initialize all badges
 });
 
+/**
+ * Sets up sidebar toggle functionality
+ */
 function setupSidebarToggle() {
     const sidebar = document.querySelector('.sidebar');
     const sidebarToggle = document.querySelector('.sidebar-toggle');
@@ -40,16 +46,21 @@ function setupSidebarToggle() {
     });
 }
 
+/**
+ * Sets up cart functionality including popup and event listeners
+ */
 function setupCart() {
     const cartIconContainer = document.getElementById('cart-icon-container');
     if (!cartIconContainer) return;
 
     const cartPopup = cartIconContainer.querySelector('.cart-popup');
+    const cartTotalElement = document.getElementById('cart-total');
+    const cartPopupContent = document.getElementById('cartPopupContent');
 
-    // Update cart popup
+    // Initial cart update
     updateCartPopup();
 
-    // Mobile behavior
+    // Mobile behavior for cart popup
     function toggleCartPopup(event) {
         if (window.matchMedia("(max-width: 768px)").matches) {
             event.stopPropagation();
@@ -77,8 +88,138 @@ function setupCart() {
     window.addEventListener('resize', () => {
         cartPopup.classList.remove('show');
     });
+
+    // Event delegation for cart buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('quantity-btn')) {
+            console.log('Quantity button clicked');
+            const index = parseInt(e.target.getAttribute('data-index'));
+            const delta = parseInt(e.target.getAttribute('data-delta'));
+            changeQuantity(index, delta);
+        }
+        
+        if (e.target.classList.contains('remove-btn')) {
+            console.log('Remove button clicked');
+            const index = parseInt(e.target.getAttribute('data-index'));
+            removeFromCart(index);
+        }
+    });
 }
 
+/**
+ * Updates the cart popup content and totals
+ */
+function updateCartPopup() {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+    // Update cart total in header
+    const cartTotalElement = document.getElementById('cart-total');
+    if (cartTotalElement) {
+        cartTotalElement.textContent = `${cartTotal.toFixed(2)}€`;
+    }
+
+    // Update popup content
+    const cartPopupContent = document.getElementById('cartPopupContent');
+    if (cartPopupContent) {
+        if (cartItems.length === 0) {
+            cartPopupContent.innerHTML = '<div class="empty-cart-message">Cart empty</div>';
+        } else {
+            cartPopupContent.innerHTML = cartItems.map((item, index) => `
+                <div class="cart-item">
+                    <img src="${item.image || 'assets/default-part.png'}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">${item.price.toFixed(2)}€</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn" data-index="${index}" data-delta="-1">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn" data-index="${index}" data-delta="1">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-btn" data-index="${index}">✖</button>
+                </div>
+            `).join('');
+        }
+    }
+
+    // Update totals
+    const totalPriceElement = document.querySelector('.total-price');
+    if (totalPriceElement) {
+        totalPriceElement.textContent = `${cartTotal.toFixed(2)}€`;
+    }
+
+    // Update notification badge
+    updateNotificationBadges();
+}
+
+/**
+ * Changes the quantity of a cart item
+ */
+function changeQuantity(index, delta) {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    if (cartItems[index]) {
+        cartItems[index].quantity += delta;
+        
+        // Remove if quantity is 0 or less
+        if (cartItems[index].quantity <= 0) {
+            cartItems.splice(index, 1);
+        }
+        
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCartPopup();
+    }
+}
+
+/**
+ * Removes an item from the cart
+ */
+function removeFromCart(index) {
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    if (cartItems[index]) {
+        cartItems.splice(index, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCartPopup();
+    }
+}
+
+/**
+ * Updates all notification badges in the sidebar and header
+ */
+function updateNotificationBadges() {
+    // Cart badge
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const cartBadge = document.querySelector('.notification-badge-cart');
+    if (cartBadge) {
+        const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+        cartBadge.textContent = totalItems;
+    }
+
+    // Wishlist badge
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const wishlistBadge = document.querySelector('.notification-badge-wishlist');
+    if (wishlistBadge) {
+        wishlistBadge.textContent = wishlist.length;
+    }
+
+    // Appointments badge
+    const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+    const appointBadge = document.querySelector('.notification-badge-appoint');
+    if (appointBadge) {
+        appointBadge.textContent = appointments.length;
+    }
+
+    // Garage badge
+    const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
+    const garageBadge = document.querySelector('.notification-badge-garage');
+    if (garageBadge) {
+        garageBadge.textContent = vehicles.length;
+    }
+}
+
+/**
+ * Sets up avatar upload functionality
+ */
 function setupAvatarUpload() {
     const avatarUpload = document.getElementById('avatar-upload');
     if (avatarUpload) {
@@ -88,9 +229,7 @@ function setupAvatarUpload() {
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     const avatarPreview = document.getElementById('profile-avatar-preview');
-                    // Atualiza só o preview da área de edição
                     avatarPreview.src = event.target.result;
-                    // Guarda no dataset
                     avatarUpload.dataset.preview = event.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -99,21 +238,23 @@ function setupAvatarUpload() {
     }
 }
 
-
+/**
+ * Removes the avatar and resets to default
+ */
 function removeAvatar() {
     const defaultAvatar = 'assets/profile.svg';
     const avatarPreview = document.getElementById('profile-avatar-preview');
     const avatarUpload = document.getElementById('avatar-upload');
 
     avatarPreview.src = defaultAvatar;
-
-    // Limpa o dataset, mas NÃO atualiza nada no currentUser
     if (avatarUpload) {
         avatarUpload.dataset.preview = '';
     }
 }
 
-
+/**
+ * Loads user data from session storage
+ */
 function loadUserData() {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     const usernameValue = document.getElementById('username-value');
@@ -146,6 +287,9 @@ function loadUserData() {
     }
 }
 
+/**
+ * Toggles edit mode for personal data
+ */
 function editPersonalData() {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (!currentUser) return;
@@ -160,7 +304,6 @@ function editPersonalData() {
         input.style.display = 'block';
     });
 
-    
     document.querySelectorAll('.data-field p').forEach(p => {
         p.style.display = 'none';
     });
@@ -173,6 +316,9 @@ function editPersonalData() {
     document.querySelector('.edit-controls').style.display = 'flex';
 }
 
+/**
+ * Cancels edit mode and resets to display values
+ */
 function cancelEdit() {
     // Hide edit inputs and show display values
     document.querySelectorAll('.edit-input').forEach(input => {
@@ -198,16 +344,14 @@ function cancelEdit() {
     document.querySelector('.edit-controls').style.display = 'none';
 }
 
-
-
+/**
+ * Validates the personal data form
+ */
 function validateForm() {
     let isValid = true;
-
-    // Limpar todas as mensagens de erro
     const errorMessages = document.querySelectorAll('.error-message');
     errorMessages.forEach(msg => msg.style.display = 'none');
 
-    // Verificar cada campo
     const inputs = [
         { id: 'username-edit', errorId: 'username-error' },
         { id: 'password-edit', errorId: 'password-error' },
@@ -219,16 +363,13 @@ function validateForm() {
         const field = document.getElementById(input.id);
         const errorField = document.getElementById(input.errorId);
     
-        if (!field || !errorField) {
-            console.warn(`Campo ou mensagem de erro não encontrado para: ${input.id}`);
-            return; // Pula se não achar o input ou a mensagem de erro
-        }
+        if (!field || !errorField) return;
     
         if (!field.value.trim()) {
             errorField.style.display = 'block';
             isValid = false;
         } else if (input.validateEmail && !isValidEmail(field.value.trim())) {
-            errorField.textContent = 'Por favor, insira um e-mail válido.';
+            errorField.textContent = 'Please enter a valid email address.';
             errorField.style.display = 'block';
             isValid = false;
         }
@@ -237,19 +378,19 @@ function validateForm() {
     return isValid;
 }
 
-// Função de verificação de formato de e-mail
+/**
+ * Validates email format
+ */
 function isValidEmail(email) {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return emailPattern.test(email);
 }
 
-
-
-
+/**
+ * Saves personal data to session storage
+ */
 function savePersonalData() {
-    if (!validateForm()) {
-        return; // Não salvar se houver erro de validação
-    }
+    if (!validateForm()) return;
 
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (!currentUser) return;
@@ -261,126 +402,34 @@ function savePersonalData() {
     const avatarUpload = document.getElementById('avatar-upload');
     const avatarPreview = document.getElementById('profile-avatar-preview');
 
-    // Atualize os dados do usuário
+    // Update user data
     currentUser.name = username;
     currentUser.password = password;
     currentUser.email = email;
     currentUser.phone = phone;
 
-    // Salva o avatar, se existir um novo preview
+    // Save avatar if changed
     if (avatarUpload && avatarUpload.dataset.preview) {
         currentUser.avatar = avatarUpload.dataset.preview;
     } else {
-        currentUser.avatar = avatarPreview.src; // caso queira garantir que sempre salva alguma coisa
+        currentUser.avatar = avatarPreview.src;
     }
 
-    // Salvar no sessionStorage
+    // Save to session storage
     sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-
-    // Atualize os dados na interface
-    document.querySelector('.user-name').textContent = currentUser.name;
-    document.getElementById('username-value').textContent = currentUser.name || 'Not provided';
-    document.getElementById('password-value').textContent = '•'.repeat(currentUser.password.length) || 'Not provided';
-    document.getElementById('email-value').textContent = currentUser.email || 'Not provided';
-    document.getElementById('phone-value').textContent = currentUser.phone || 'Not provided';
-
-    // Força a atualização da página para mostrar as alterações
-    location.reload(); // Recarrega a página
+    location.reload(); // Refresh to show changes
 }
 
-
+/**
+ * Logs out the current user
+ */
 function logout() {
     sessionStorage.removeItem('currentUser');
     window.location.href = 'login.html';
 }
 
-function updateNotificationBadges() {
-    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    const appointments = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-    const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
-    
-    // Atualiza o badge da wishlist
-    const wishlistBadge = document.querySelector('.notification-badge-wishlist');
-    if (wishlistBadge) {
-        wishlistBadge.textContent = wishlist.length;
-        wishlistBadge.style.display = wishlist.length > 0 ? 'inline-block' : 'none';
-    }
-    
-    // Atualiza o badge de appointments
-    const appointBadge = document.querySelector('.notification-badge-appoint');
-    if (appointBadge) {
-        appointBadge.textContent = appointments.length;
-        appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
-    }
-    
-    // Atualiza o badge de vehicles
-    const garageBadge = document.querySelector('.notification-badge-garage');
-    if (garageBadge) {
-        garageBadge.textContent = vehicles.length;
-        garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
-    }
-}
-
-
-
-
-function updateCartPopup() {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  
-    // Update cart total in header
-    document.getElementById('cart-total').textContent = `${cartTotal.toFixed(2)}€`;
-  
-    // Update popup content
-    const cartPopupContent = document.getElementById('cartPopupContent');
-    if (cartItems.length === 0) {
-      cartPopupContent.innerHTML = '<div class="empty-cart-message">Cart empty</div>';
-    } else {
-      cartPopupContent.innerHTML = cartItems.map((item, index) => `
-        <div class="cart-item">
-          <img src="${item.image || 'assets/default-part.png'}" alt="${item.name}">
-          <div class="cart-item-info">
-            <div class="cart-item-title">${item.name}</div>
-            <div class="cart-item-price">${item.price.toFixed(2)}€</div>
-            <div class="cart-item-quantity">
-              <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
-              <span>${item.quantity}</span>
-              <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
-            </div>
-          </div>
-          <button class="remove-btn" onclick="removeFromCart(${index})">✖</button>
-        </div>
-      `).join('');
-    }
-  
-    // Update totals
-    document.querySelector('.total-price').textContent = `${cartTotal.toFixed(2)}€`;
-}
-
-function changeQuantity(index, delta) {
-    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    cartItems[index].quantity += delta;
-  
-    // Remove if quantity is 0 or less
-    if (cartItems[index].quantity <= 0) {
-      cartItems.splice(index, 1);
-    }
-  
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    document.dispatchEvent(new Event('cartUpdated'));
-}
-
-function removeFromCart(index) {
-    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    cartItems.splice(index, 1);
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    document.dispatchEvent(new Event('cartUpdated'));
-}
-
-// Event listeners
-document.addEventListener('cartUpdated', () => {
-    updateNotificationBadges();
-    updateCartPopup();
-});
+// Event listeners for data updates
+document.addEventListener('cartUpdated', updateNotificationBadges);
 document.addEventListener('garageUpdated', updateNotificationBadges);
 document.addEventListener('appointmentsUpdated', updateNotificationBadges);
+document.addEventListener('wishlistUpdated', updateNotificationBadges);
