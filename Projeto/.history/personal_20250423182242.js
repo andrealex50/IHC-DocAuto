@@ -258,21 +258,12 @@ function savePersonalData() {
     const password = document.getElementById('password-edit').value;
     const email = document.getElementById('email-edit').value;
     const phone = document.getElementById('phone-edit').value;
-    const avatarUpload = document.getElementById('avatar-upload');
-    const avatarPreview = document.getElementById('profile-avatar-preview');
 
     // Atualize os dados do usuário
     currentUser.name = username;
     currentUser.password = password;
     currentUser.email = email;
     currentUser.phone = phone;
-
-    // Salva o avatar, se existir um novo preview
-    if (avatarUpload && avatarUpload.dataset.preview) {
-        currentUser.avatar = avatarUpload.dataset.preview;
-    } else {
-        currentUser.avatar = avatarPreview.src; // caso queira garantir que sempre salva alguma coisa
-    }
 
     // Salvar no sessionStorage
     sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -284,10 +275,29 @@ function savePersonalData() {
     document.getElementById('email-value').textContent = currentUser.email || 'Not provided';
     document.getElementById('phone-value').textContent = currentUser.phone || 'Not provided';
 
-    // Força a atualização da página para mostrar as alterações
-    location.reload(); // Recarrega a página
+    cancelEdit();  // Função para fechar o modo de edição
 }
 
+
+function toggleProfilePasswordVisibility() {
+    const passwordDisplay = document.getElementById('password-value');
+    const eyeOpen = document.getElementById('profileEyeOpen');
+    const eyeClosed = document.getElementById('profileEyeClosed');
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    if (passwordDisplay.textContent === currentUser.password) {
+        // If showing password, switch back to dots
+        const passwordLength = currentUser.password ? currentUser.password.length : 8;
+        passwordDisplay.textContent = '•'.repeat(passwordLength);
+        eyeOpen.style.display = 'inline';
+        eyeClosed.style.display = 'none';
+    } else {
+        // If showing dots, show real password
+        passwordDisplay.textContent = currentUser.password || '';
+        eyeOpen.style.display = 'none';
+        eyeClosed.style.display = 'inline';
+    }
+}
 
 function logout() {
     sessionStorage.removeItem('currentUser');

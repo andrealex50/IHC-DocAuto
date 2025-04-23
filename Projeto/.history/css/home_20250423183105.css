@@ -50,7 +50,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #4FCB6B;
+    background-color: #4fcb6b; /* Cor de fundo padrão */
 }
 
 .profile-icon img {
@@ -58,7 +58,6 @@ body {
     height: 100%; /* Garante que a imagem ocupe toda a altura do contêiner */
     object-fit: cover; /* Garante que a imagem se ajuste corretamente ao contêiner sem distorções */
 }
-
 
 .nav-icon {
     text-decoration: none;

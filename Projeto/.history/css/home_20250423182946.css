@@ -50,15 +50,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #4FCB6B;
 }
-
-.profile-icon img {
-    width: 100%; /* A imagem ocupará 100% do espaço do contêiner */
-    height: 100%; /* Garante que a imagem ocupe toda a altura do contêiner */
-    object-fit: cover; /* Garante que a imagem se ajuste corretamente ao contêiner sem distorções */
-}
-
 
 .nav-icon {
     text-decoration: none;
