@@ -270,6 +270,26 @@ document.addEventListener('DOMContentLoaded', function() {
         if (totalPriceElement) {
             totalPriceElement.textContent = `${cartTotal.toFixed(2)}€`;
         }
+        
+        // Configurar event listeners para os novos botões
+        setupCartEventListeners();
+    }
+
+    function setupCartEventListeners() {
+        document.querySelectorAll('.quantity-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                const delta = parseInt(this.getAttribute('data-delta'));
+                changeQuantity(index, delta);
+            });
+        });
+        
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                removeFromCart(index);
+            });
+        });
     }
 
     /**

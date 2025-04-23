@@ -466,13 +466,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
       
-        // Update totals
+        // Atualizar totais
         const totalPriceElement = document.querySelector('.total-price');
         if (totalPriceElement) {
             totalPriceElement.textContent = `${cartTotal.toFixed(2)}€`;
         }
+        
+        // Configurar event listeners para os novos botões
+        setupCartEventListeners();
     }
 
+    function setupCartEventListeners() {
+        document.querySelectorAll('.quantity-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                const delta = parseInt(this.getAttribute('data-delta'));
+                changeQuantity(index, delta);
+            });
+        });
+        
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                removeFromCart(index);
+            });
+        });
+    }
+    
     /**
      * Changes the quantity of a cart item
      */
