@@ -10,7 +10,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     if (user) {
         sessionStorage.setItem('currentUser', JSON.stringify(user));
         alert('Login successful!');
-        window.location.href = 'profile.html';
+        window.location.href = 'personal.html';
     } else {
         alert('Invalid email or password!');
     }

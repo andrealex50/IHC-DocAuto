@@ -201,11 +201,20 @@ body {
     color: #014357;
 }
 
-.parts, .brands {
+.parts, .brands1 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
+    margin-bottom: 20px;
+}
+
+.brands2 {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
 }
 
 .part-item, .brand-item {
@@ -941,3 +950,16 @@ body {
   color: #c00;
 }
 
+#model-search-bar {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    font-size: 18px; 
+    font-weight: bold; 
+    color: #014357; 
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
