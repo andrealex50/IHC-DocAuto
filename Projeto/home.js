@@ -502,3 +502,20 @@ function removeFromCart(index) {
 }
 
 
+/* PARA A PESQUISA */
+function searchByPlate() {
+    const licensePlate = document.getElementById('license-plate').value;
+    if (licensePlate.length === 8) {
+        window.location.href = `vehicle_search.html?searchType=plate&plate=${encodeURIComponent(licensePlate)}`;
+    }
+}
+
+function searchByModel() {
+    const brand = document.getElementById('car-brand').value;
+    const model = document.getElementById('car-model').value;
+    const year = document.getElementById('car-year').value;
+    
+    if (brand && model && year) {
+        window.location.href = `vehicle_search.html?searchType=model&brand=${encodeURIComponent(brand)}&model=${encodeURIComponent(model)}&year=${encodeURIComponent(year)}`;
+    }
+}

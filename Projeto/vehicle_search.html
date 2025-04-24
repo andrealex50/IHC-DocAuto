@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocAuto</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="css/home.css">
+    <script src="home.js" defer></script>
+    <style>
+        .filter-items {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .filter-items h3 {
+            color: #014357;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .filter-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .filter-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .filter-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .filter-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .filter-item h4 {
+            margin: 0 0 5px 0;
+            color: #014357;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .filter-item p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .filter-item .in-stock {
+            color: green;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .price-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-left: auto;
+            padding-left: 20px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #014357;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart {
+            background-color: #014357;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #003147;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="left-icons">
+            <div class="icon-container">
+                <a href="garage.html" class="nav-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/garage.svg" alt="My Garage" class="nav-icon-img">
+                        <span class="notification-badge notification-badge-garage">0</span>
+                    </div>
+                    <span class="nav-text">My Garage</span>
+                </a>
+            </div>
+            
+            <div class="icon-container">
+                
+                <a href="appointments.html" class="nav-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/appointments.svg" alt="Appointments" class="nav-icon-img">
+                        <span class="notification-badge notification-badge-appoint">0</span>
+                    </div>
+                    <span class="nav-text">Appointments</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="logo-box">
+            <a href="home.html">
+                <img src="assets/logo.png" alt="DocAuto" class="logo">
+            </a>
+        </div>
+        
+        <div class="right-icons">
+            <!-- In the right-icons section, update the cart icon container -->
+            <div class="icon-container" id="cart-icon-container">
+                <div class="nav-icon" id="cart-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/shopping-cart.png" alt="Cart" class="nav-icon-img">
+                        <span class="notification-badge notification-badge-cart">0</span>
+                    </div>
+                    <span class="nav-text" id="cart-total">0.00€</span>
+                </div>
+                
+                <!-- Cart Popup -->
+                <div class="cart-popup">
+                    <div class="cart-popup-content" id="cartPopupContent">
+                        <!-- Content will be loaded via JS -->
+                    </div>
+                    <div class="total-section">
+                        <div class="total-row">
+                            <span>Entrega</span>
+                            <span class="delivery-price">0.00€</span>
+                        </div>
+                        <div class="total-row">
+                            <strong>Valor total</strong>
+                            <strong class="total-price">0.00€</strong>
+                        </div>
+                        <div class="tax-note">Inclui IVA de 23%</div>
+                    </div>
+                    <div class="cart-buttons">
+                        <a href="wishlist.html" class="wishlist-link">Ir para a Wishlist</a>
+                        <a href="checkout.html" class="checkout-button">Checkout</a>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="icon-container">
+                <a href="personal.html" class="nav-icon" id="auth-link">
+                    <div class="icon-badge-container profile-icon" >
+                        <img src="assets/profile.svg" alt="Sign In" class="nav-icon-img" id="auth-icon-img">
+                    </div>
+                    <span class="nav-text" id="auth-text">Sign In</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <div class="custom-dropdown">
+            <div class="selected-option" onclick="toggleDropdown()">
+                <img src="assets/car.svg" alt="Car" class="vehicle-icon" id="selected-icon">
+                <span id="selected-text">Car</span>
+            </div>
+            <div class="dropdown-options" id="dropdown-options">
+                <!-- Options will be populated by JavaScript -->
+            </div>
+            <input type="hidden" id="vehicleType" name="type" value="car">
+        </div>
+        
+        <input type="text" id="search-term" placeholder="Insert name or part number" class="search-input">
+        <button class="search-button" onclick="performSearch()">
+            <img src="assets/search.svg" alt="Search" class="vehicle-icon">
+        </button>
+    </div>
+
+    <div class="content">
+        <!-- Add this below the search container -->
+        <div class="search-results-header" id="searchResultsHeader">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <section class="most-searched">
+            <div class="parts">
+                <a class="part-item">
+                    <img src="assets/exhaust.png" alt="Exhaust">
+                    <p>Exhaust</p>
+                </a>
+                <a class="part-item">
+                    <img src="assets/tyres.png" alt="Tyres">
+                    <p>Tyres</p>
+                </a>
+                <a class="part-item">
+                    <img src="assets/breaks.png" alt="Breaks">
+                    <p>Breaks</p>
+                </a>
+                <a class="part-item">
+                    <img src="assets/suspension.png" alt="Suspension">
+                    <p>Suspension</p>
+                </a>
+                <a class="part-item">
+                    <img src="assets/filters.png" alt="Filters">
+                    <p>Filters</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Add this right after the most-searched section -->
+        <section class="filter-items" id="filterItems" style="display: none;">
+            <h3>Filters</h3>
+            <p>For your vehicle:</p>
+            <div class="filter-list" id="filterList">
+                <!-- Filter items will be inserted here by JavaScript -->
+            </div>
+        </section>
+        
+    </div>
+
+    <script src="vehicle_search.js"></script>
+</body>
+</html>
