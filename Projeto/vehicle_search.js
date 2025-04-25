@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const searchType = params.get('searchType');
     const header = document.getElementById('searchResultsHeader');
     
+    // inicializar o contador de whislist do popup cart
+    updateWishlistCounter();
+
     if (searchType === 'plate') {
         const plate = params.get('plate');
         header.innerHTML = `<h2>Searching for parts for license plate: ${plate}</h2>`;
@@ -384,20 +387,35 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
         
-        listElement.innerHTML = items.map(item => `
-            <div class="filter-item">
-                <img src="${item.image}" alt="${item.name}">
-                <div class="filter-content">
-                    <h4>${item.name}</h4>
-                    <p>${item.description}</p>
-                    ${item.inStock ? '<p class="in-stock">In stock</p>' : '<p class="out-of-stock">Out of stock</p>'}
+        listElement.innerHTML = items.map(item => {
+            // Check if item is in wishlist
+            const wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
+            const isInWishlist = wishlistItems.some(wishlistItem => wishlistItem.name === item.name);
+            
+            return `
+                <div class="filter-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="filter-content">
+                        <h4>${item.name}</h4>
+                        <p>${item.description}</p>
+                        ${item.inStock ? '<p class="in-stock">In stock</p>' : '<p class="out-of-stock">Out of stock</p>'}
+                    </div>
+                    <div class="price-section">
+                        <div class="wishlist-heart-container">
+                            <svg class="wishlist-heart ${isInWishlist ? 'active' : ''}" 
+                                 data-name="${item.name}" 
+                                 data-price="${item.priceValue}" 
+                                 data-image="${item.image}"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            <span class="price">${item.price}</span>
+                        </div>
+                        <button class="add-to-cart" ${!item.inStock ? 'disabled' : ''} data-name="${item.name}" data-price="${item.priceValue}" data-image="${item.image}">Add to Cart</button>
+                    </div>
                 </div>
-                <div class="price-section">
-                    <span class="price">${item.price}</span>
-                    <button class="add-to-cart" ${!item.inStock ? 'disabled' : ''} data-name="${item.name}" data-price="${item.priceValue}" data-image="${item.image}">Add to Cart</button>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
         
         // Add click handlers for Add to Cart buttons
         document.querySelectorAll('.add-to-cart').forEach(button => {
@@ -408,6 +426,68 @@ document.addEventListener("DOMContentLoaded", function() {
                 addToCart(itemName, itemPrice, itemImage);
             });
         });
+        
+        // Add click handlers for wishlist hearts
+        document.querySelectorAll('.wishlist-heart').forEach(heart => {
+            heart.addEventListener('click', function() {
+                const itemName = this.getAttribute('data-name');
+                const itemPrice = parseFloat(this.getAttribute('data-price'));
+                const itemImage = this.getAttribute('data-image');
+                
+                toggleWishlistItem(itemName, itemPrice, itemImage, this);
+            });
+        });
+    }
+    
+    function toggleWishlistItem(itemName, itemPrice, itemImage, heartElement) {
+        let wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
+        const itemIndex = wishlistItems.findIndex(item => item.name === itemName);
+        
+        if (itemIndex === -1) {
+            // Add to wishlist
+            wishlistItems.push({
+                name: itemName,
+                price: itemPrice,
+                image: itemImage
+            });
+            heartElement.classList.add('active');
+            
+            // Show notification
+            showWishlistNotification(`${itemName} added to wishlist`);
+        } else {
+            // Remove from wishlist
+            wishlistItems.splice(itemIndex, 1);
+            heartElement.classList.remove('active');
+        }
+        
+        localStorage.setItem('wishlistItems', JSON.stringify(wishlistItems));
+        updateNotificationBadges();
+        updateWishlistCounter();
+    }
+    
+    function showWishlistNotification(message) {
+        let toast = document.getElementById('wishlist-notification-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'wishlist-notification-toast';
+            toast.className = 'notification-toast';
+            document.body.appendChild(toast);
+        }
+        
+        toast.innerHTML = `
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="message">${message}</span>
+        `;
+        
+        setTimeout(() => {
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }, 10);
     }
 
     function addToCart(itemName, itemPrice, itemImage) {
@@ -433,7 +513,32 @@ document.addEventListener("DOMContentLoaded", function() {
         updateNotificationBadges();
         updateCartPopup();
         
-        alert(`${itemName} has been added to your cart!`);
+        // Create or update notification toast
+        let toast = document.getElementById('cart-notification-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'cart-notification-toast';
+            toast.className = 'notification-toast';
+            toast.innerHTML = `
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="message">${itemName} has been added to your cart!</span>
+            `;
+            document.body.appendChild(toast);
+        } else {
+            toast.querySelector('.message').textContent = `${itemName} has been added to your cart!`;
+        }
+        
+        // Show the toast
+        setTimeout(() => {
+            toast.classList.add('show');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }, 10);
     }
 
     // Setup cart popup functionality
@@ -448,8 +553,11 @@ function setupCart() {
     const cartTotalElement = document.getElementById('cart-total');
     const cartPopupContent = document.getElementById('cartPopupContent');
 
+    //////////////////////////////////////////////////////////
+
     // Initial cart update
     updateCartPopup();
+    
 
     // Mobile behavior for cart popup
     function toggleCartPopup(event) {
@@ -499,11 +607,14 @@ function updateCartPopup() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
+
     // Update cart total in header
     const cartTotalElement = document.getElementById('cart-total');
     if (cartTotalElement) {
         cartTotalElement.textContent = `${cartTotal.toFixed(2)}€`;
     }
+
+    updateWishlistCounter();
 
     // Update popup content
     const cartPopupContent = document.getElementById('cartPopupContent');
@@ -568,7 +679,6 @@ function updateNotificationBadges() {
     const garageBadge = document.querySelector('.notification-badge-garage');
     if (garageBadge) {
         garageBadge.textContent = vehicles.length;
-        //garageBadge.style.display = vehicles.length > 0 ? 'flex' : 'none';
     }
 
     // Appointments
@@ -576,7 +686,6 @@ function updateNotificationBadges() {
     const appointBadge = document.querySelector('.notification-badge-appoint');
     if (appointBadge) {
         appointBadge.textContent = appointments.length;
-        //appointBadge.style.display = appointments.length > 0 ? 'flex' : 'none';
     }
 
     // Cart
@@ -585,6 +694,21 @@ function updateNotificationBadges() {
     if (cartBadge) {
         const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
         cartBadge.textContent = totalItems;
-        //cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+
+    // Wishlist
+    const wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
+    const wishlistBadge = document.querySelector('.notification-badge-wishlist');
+    if (wishlistBadge) {
+        wishlistBadge.textContent = wishlistItems.length;
+    }
+}
+
+
+function updateWishlistCounter() {
+    const wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
+    const wishlistBadge = document.querySelector('.notification-badge-wishlist');
+    if (wishlistBadge) {
+        wishlistBadge.textContent = wishlistItems.length;
     }
 }

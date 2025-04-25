@@ -268,3 +268,154 @@
     font-weight: 500;
     text-decoration: none;
 }
+
+
+
+
+
+
+.wishlist-heart {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-top: -10px;
+    margin-right: 10px;
+    fill: #ccc;
+    stroke: #999;
+    transition: all 0.5s;
+}
+
+.wishlist-heart.active {
+    fill: #ff4757;
+    stroke: #ff4757;
+}
+
+.wishlist-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.price {
+    font-weight: 600;
+    color: #014357;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+
+.cart-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.checkout-button {
+    background-color: #014357;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.wishlist-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #014357;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border: 1px solid #014357;
+    border-radius: 6px;
+    transition: all 0.3s;
+    position: relative; /* Adicionado para posicionamento relativo */
+}
+
+.wishlist-button:hover {
+    background-color: #f0f8ff;
+}
+
+.notification-badge-wishlist {
+    background-color: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.checkout-button {
+    background-color: #014357;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.checkout-button:hover {
+    background-color: #003147;
+}
+
+/* Adicione ao vehicle_search.css */
+.wishlist-heart-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wishlist-heart {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    fill: #ccc;
+    stroke: #999;
+    transition: all 0.3s;
+}
+
+.wishlist-heart.active {
+    fill: #ff4757;
+    stroke: #ff4757;
+}
+
+
+/* Adicione ao vehicle_search.css */
+.notification-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #014357;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.notification-toast.show {
+    opacity: 1;
+}
+
+.notification-toast .icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 3;
+}

@@ -111,6 +111,7 @@ function initializePage() {
     updateCartPopup();
 }
 
+
 // Format license plate input
 function formatLicensePlate(e) {
     let value = e.target.value.replace(/-/g, "");
@@ -121,6 +122,8 @@ function formatLicensePlate(e) {
     if (value.length > 8) value = value.slice(0, 8);
 
     e.target.value = value;
+
+
     updateLicensePlateButtonState();
 }
 
@@ -129,6 +132,8 @@ function updateLicensePlateButtonState() {
     const isComplete = licenseInput.value.length === 8;
     searchButtonPlate.disabled = !isComplete;
     searchButtonPlate.style.backgroundColor = isComplete ? "#003aab" : "#a0c4ff";
+
+    
     searchButtonPlate.style.cursor = isComplete ? "pointer" : "not-allowed";
 }
 
@@ -505,6 +510,13 @@ function removeFromCart(index) {
 /* PARA A PESQUISA */
 function searchByPlate() {
     const licensePlate = document.getElementById('license-plate').value;
+    const plateRegex = /^[0-9]{2}-[0-9]{2}-[A-Za-z]{2}$/;
+
+    if (!plateRegex.test(licensePlate)) {
+        alert('Formato de matrícula inválido! Use 00-00-XX');
+        return;
+    }
+
     if (licensePlate.length === 8) {
         window.location.href = `vehicle_search.html?searchType=plate&plate=${encodeURIComponent(licensePlate)}`;
     }

@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cartBadge) {
             const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
             cartBadge.textContent = totalItems;
-            cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+            //cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
         }
 
         // Wishlist badge
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const wishlistBadge = document.querySelector('.notification-badge-wishlist');
         if (wishlistBadge) {
             wishlistBadge.textContent = wishlist.length;
-            wishlistBadge.style.display = wishlist.length > 0 ? 'inline-block' : 'none';
+            //wishlistBadge.style.display = wishlist.length > 0 ? 'inline-block' : 'none';
         }
 
         // Appointments badge
@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const appointBadge = document.querySelector('.notification-badge-appoint');
         if (appointBadge) {
             appointBadge.textContent = appointments.length;
-            appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
+            //appointBadge.style.display = appointments.length > 0 ? 'inline-block' : 'none';
         }
 
         // Garage badge
@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const garageBadge = document.querySelector('.notification-badge-garage');
         if (garageBadge) {
             garageBadge.textContent = vehicles.length;
-            garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
+            //garageBadge.style.display = vehicles.length > 0 ? 'inline-block' : 'none';
         }
     }
 

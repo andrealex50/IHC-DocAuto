@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * Loads and displays wishlist items
      */
     function loadWishlist() {
-        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const wishlist = JSON.parse(localStorage.getItem('wishlistItems')) || [];
         
         if (wishlist.length > 0) {
             elements.wishlistContainer.style.display = 'grid';
@@ -185,9 +185,9 @@ document.addEventListener('DOMContentLoaded', function() {
      * Removes item from wishlist
      */
     function removeFromWishlist(index) {
-        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const wishlist = JSON.parse(localStorage.getItem('wishlistItems')) || [];
         wishlist.splice(index, 1);
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        localStorage.setItem('wishlistItems', JSON.stringify(wishlist));
         document.dispatchEvent(new CustomEvent('wishlistUpdated'));
     }
 
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const searchTerm = elements.searchInput.value.toLowerCase();
         const typeFilter = elements.typeFilter.value;
         
-        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const wishlist = JSON.parse(localStorage.getItem('wishlistItems')) || [];
         const filteredItems = wishlist.filter(item => {
             const matchesSearch = item.name.toLowerCase().includes(searchTerm) || 
                                  item.code.toLowerCase().includes(searchTerm);
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Wishlist badge
-        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        const wishlist = JSON.parse(localStorage.getItem('wishlistItems')) || [];
         const wishlistBadge = document.querySelector('.notification-badge-wishlist');
         if (wishlistBadge) {
             wishlistBadge.textContent = wishlist.length;
@@ -445,12 +445,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Global function to add items to wishlist
 function addToWishlist(product) {
-    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const wishlist = JSON.parse(localStorage.getItem('wishlistItems')) || [];
     
     // Check if product is already in wishlist
     if (!wishlist.some(item => item.id === product.id)) {
         wishlist.push(product);
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        localStorage.setItem('wishlistItems', JSON.stringify(wishlist));
         document.dispatchEvent(new CustomEvent('wishlistUpdated'));
     }
 }
