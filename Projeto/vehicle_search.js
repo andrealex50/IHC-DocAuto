@@ -386,12 +386,13 @@ document.addEventListener("DOMContentLoaded", function() {
             listElement.innerHTML = '<p class="no-results">No items available</p>';
             return;
         }
-        
+        realInStock = false;
         listElement.innerHTML = items.map(item => {
             // Check if item is in wishlist
             const wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
             const isInWishlist = wishlistItems.some(wishlistItem => wishlistItem.name === item.name);
-            
+            realInStock = item.inStock;
+
             return `
                 <div class="filter-item">
                     <img src="${item.image}" alt="${item.name}">
@@ -403,10 +404,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="price-section">
                         <div class="wishlist-heart-container">
                             <svg class="wishlist-heart ${isInWishlist ? 'active' : ''}" 
-                                 data-name="${item.name}" 
-                                 data-price="${item.priceValue}" 
-                                 data-image="${item.image}"
-                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                data-name="${item.name}" 
+                                data-price="${item.priceValue}" 
+                                data-image="${item.image}"
+                                data-description="${item.description}"
+                                data-inStock="${item.inStock}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                             </svg>
                             <span class="price">${item.price}</span>
@@ -429,33 +432,38 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Add click handlers for wishlist hearts
         document.querySelectorAll('.wishlist-heart').forEach(heart => {
+            // No evento de clique do coração, dentro da função displayItems:
             heart.addEventListener('click', function() {
                 const itemName = this.getAttribute('data-name');
                 const itemPrice = parseFloat(this.getAttribute('data-price'));
                 const itemImage = this.getAttribute('data-image');
-                
-                toggleWishlistItem(itemName, itemPrice, itemImage, this);
+                const itemDescription = this.getAttribute('data-description');
+                const itemInStock = realInStock;
+
+                toggleWishlistItem(itemName, itemPrice, itemImage, itemDescription, itemInStock, this);
             });
         });
     }
     
-    function toggleWishlistItem(itemName, itemPrice, itemImage, heartElement) {
+    function toggleWishlistItem(itemName, itemPrice, itemImage, itemDescription, itemInStock, heartElement) {
         let wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
         const itemIndex = wishlistItems.findIndex(item => item.name === itemName);
         
         if (itemIndex === -1) {
-            // Add to wishlist
+            // Adicionar ao wishlist - garantindo que inStock seja booleano
             wishlistItems.push({
                 name: itemName,
                 price: itemPrice,
-                image: itemImage
+                image: itemImage,
+                description: itemDescription,
+                inStock: itemInStock === true || itemInStock === 'true' // Corrige a comparação
             });
             heartElement.classList.add('active');
             
-            // Show notification
+            // Mostrar notificação
             showWishlistNotification(`${itemName} added to wishlist`);
         } else {
-            // Remove from wishlist
+            // Remover do wishlist
             wishlistItems.splice(itemIndex, 1);
             heartElement.classList.remove('active');
         }

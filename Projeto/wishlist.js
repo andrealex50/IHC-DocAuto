@@ -146,22 +146,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     </svg>
                 </button>
             </div>
-            <div class="wishlist-details">
-                <div class="detail-item">
-                    <span class="detail-label">Price</span>
-                    <span class="detail-value">${item.price} €</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Code</span>
-                    <span class="detail-value">${item.code}</span>
-                </div>
-                <div class="detail-item full-width">
-                    <span class="detail-label">Description</span>
-                    <span class="detail-value">${item.description}</span>
+            <div class="wishlist-content">
+                <img src="${item.image}" alt="${item.name}" class="wishlist-image">
+                <div class="wishlist-details">
+                    <div class="wishlist-info">
+                        <div class="detail-item">
+                            <span class="detail-label">Price</span>
+                            <span class="detail-value price-value">${item.price} €</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Stock</span>
+                            <span class="detail-value stock-value ${item.inStock ? '' : 'out-of-stock'}">
+                                ${item.inStock ? 'In Stock' : 'Out of Stock'}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="wishlist-description">${item.description}</p>
+                    <div class="wishlist-actions">
+                        <button class="view-product-btn">View Product Details</button>
+                        <button class="add-to-cart-btn" ${!item.inStock ? 'disabled' : ''}>Add to Cart</button>
+                    </div>
                 </div>
             </div>
-            <button class="view-product-btn">View Product Details</button>
-            <button class="add-to-cart-btn">Add to Cart</button>
         `;
         
         // Add event listeners
@@ -173,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
         card.querySelector('.view-product-btn').addEventListener('click', () => {
             viewProductDetails(item.id);
         });
-
+    
         card.querySelector('.add-to-cart-btn').addEventListener('click', () => {
             addToCart(item);
         });

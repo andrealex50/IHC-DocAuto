@@ -419,3 +419,139 @@
     height: 20px;
     stroke-width: 3;
 }
+
+
+
+
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .filter-sidebar {
+        width: 100%;
+        position: static;
+        margin-bottom: 20px;
+    }
+    
+    .filter-item {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .filter-item img {
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    
+    .filter-content {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .price-section {
+        margin-left: 0;
+        padding-left: 0;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .add-to-cart {
+        width: 100%;
+        padding: 12px;
+    }
+    
+    .wishlist-heart-container {
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    
+    .most-searched .parts {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    
+    
+    .back-arrow-container {
+        margin-left: 10px;
+    }
+    
+    .content {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .most-searched .parts {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-item img {
+        max-width: 150px;
+    }
+    
+    .search-results-header h2 {
+        font-size: 18px;
+        text-align: center;
+    }
+    
+    .filter-items h3 {
+        font-size: 18px;
+    }
+    
+    .filter-sidebar h4 {
+        font-size: 16px;
+    }
+    
+    .filter-group h5 {
+        font-size: 14px;
+    }
+    
+    .notification-toast {
+        width: 90%;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .filter-item h4 {
+        font-size: 15px;
+    }
+    
+    .filter-item p {
+        font-size: 13px;
+    }
+    
+    .price {
+        font-size: 16px;
+    }
+    
+    .add-to-cart {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-select, .apply-filters {
+        font-size: 15px;
+        padding: 12px;
+    }
+    
+    .filter-checkbox label {
+        font-size: 14px;
+    }
+    
+    .filter-items {
+        padding: 15px;
+    }
+}
