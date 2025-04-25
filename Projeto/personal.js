@@ -213,7 +213,7 @@ function updateNotificationBadges() {
     }
 
     // Wishlist badge
-    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const wishlist = JSON.parse(localStorage.getItem('wishlistItems')) || [];
     const wishlistBadge = document.querySelector('.notification-badge-wishlist');
     if (wishlistBadge) {
         wishlistBadge.textContent = wishlist.length;

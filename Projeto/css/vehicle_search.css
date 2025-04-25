@@ -322,6 +322,8 @@
     transition: all 0.3s;
 }
 
+
+
 .wishlist-button {
     display: flex;
     align-items: center;
@@ -341,7 +343,7 @@
 }
 
 .notification-badge-wishlist {
-    background-color: #ff4757;
+    background-color: #4FCB6B;
     color: white;
     border-radius: 50%;
     width: 20px;
@@ -355,7 +357,7 @@
 }
 
 .checkout-button {
-    background-color: #014357;
+    background-color: rgb(79, 203, 107);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -366,7 +368,7 @@
 }
 
 .checkout-button:hover {
-    background-color: #003147;
+    background-color: 45b963;
 }
 
 /* Adicione ao vehicle_search.css */

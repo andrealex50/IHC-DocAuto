@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Browse products button
         if (elements.browseProductsBtn) {
             elements.browseProductsBtn.addEventListener('click', () => {
-                window.location.href = 'products.html';
+                window.location.href = 'products.html'; ///////////////////////////  AJUSTAR
             });
         }
 
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         
         // Check if product already in cart
-        const existingItem = cartItems.find(item => item.id === product.id);
+        const existingItem = cartItems.find(item => item.name === product.name);
         
         if (existingItem) {
             existingItem.quantity += 1;
