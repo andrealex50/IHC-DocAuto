@@ -17,6 +17,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const model = params.get('model');
         const year = params.get('year');
         header.innerHTML = `<h2>Searching for parts for: ${brand} ${model} (${year})</h2>`;
+    } else if (searchType === 'part') {
+        const category = params.get('category');
+        const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+        header.innerHTML = `<h2>Searching for ${categoryName} parts</h2>`;
+        
+        // Automatically show the selected category
+        hideAllPartsSections();
+        showCategoryItems(category);
     }
 
     // Define all items data

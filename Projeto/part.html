@@ -6,8 +6,8 @@
         <title>DocAuto</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
         <link rel="stylesheet" href="css/home.css">
+        <link rel="stylesheet" href="css/part.css">
         <link rel="stylesheet" href="css/vehicle_search.css">
-        <script src="home.js" defer></script>
     </head>
 <body>
     <div class="top-bar">
@@ -103,10 +103,8 @@
         </button>
     </div>
 
+    <!-- In part.html - simplify the content section -->
     <div class="content">
-        <svg id="heart-icon-template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-        </svg>
         <div class="back-arrow-container">
             <a href="home.html" class="back-arrow">
                 <img src="assets/arrow_left.png" alt="Back" class="back-arrow-icon">
@@ -114,42 +112,11 @@
             </a>
         </div>
         
-        <div class="search-results-header" id="searchResultsHeader">
-            <!-- Content will be populated by JavaScript -->
+        <div id="partDetailsContainer" class="filter-container">
+            <!-- Will be populated by JavaScript -->
         </div>
-
-        <section class="most-searched">
-            <div class="parts">
-                <a class="part-item" data-category="exhaust">
-                    <img src="assets/exhaust.png" alt="Exhaust">
-                    <p>Exhaust</p>
-                </a>
-                <a class="part-item" data-category="tyres">
-                    <img src="assets/tyres.png" alt="Tyres">
-                    <p>Tyres</p>
-                </a>
-                <a class="part-item" data-category="breaks">
-                    <img src="assets/breaks.png" alt="Breaks">
-                    <p>Breaks</p>
-                </a>
-                <a class="part-item" data-category="suspension">
-                    <img src="assets/suspension.png" alt="Suspension">
-                    <p>Suspension</p>
-                </a>
-                <a class="part-item" data-category="filters">
-                    <img src="assets/filters.png" alt="Filters">
-                    <p>Filters</p>
-                </a>
-            </div>
-        </section>
     </div>
-
-    <script src="vehicle_search.js"></script>
+    
+    <script src="part.js" defer></script>
 </body>
 </html>
-
-
-
-
-
-

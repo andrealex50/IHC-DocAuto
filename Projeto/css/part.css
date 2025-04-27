@@ -1,0 +1,233 @@
+/* part.css - Updated to match the image style */
+
+/* Base styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+/* Header styles */
+.search-results-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.search-results-header h2 {
+    color: #014357;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+/* Search and filter section */
+.search-filter-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.filter-option input[type="checkbox"] {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    accent-color: #014357;
+}
+
+.filter-option label {
+    cursor: pointer;
+}
+
+.apply-button {
+    background-color: #014357;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.apply-button:hover {
+    background-color: #003147;
+}
+
+/* Parts list */
+.parts-list {
+    display: grid;
+    gap: 25px;
+}
+
+.part-item {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.part-item h3 {
+    color: #014357;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.part-description {
+    color: #666;
+    font-size: 14px;
+    margin: 0 0 15px 0;
+    line-height: 1.5;
+}
+
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.price-item {
+    background-color: #f5f5f5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.price-value {
+    color: #014357;
+    font-size: 16px;
+}
+
+.price-unit {
+    color: #666;
+    font-size: 12px;
+    display: block;
+}
+
+/* Status indicators */
+.in-stock {
+    color: #28a745;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.out-of-stock {
+    color: #dc3545;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Back button */
+.back-arrow-container {
+    margin-bottom: 20px;
+}
+
+.back-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #014357;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-arrow:hover {
+    text-decoration: underline;
+}
+
+.back-arrow-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .content {
+        padding: 15px;
+    }
+
+    .filter-options {
+        flex-direction: column;
+    }
+
+    .price-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .search-results-header h2 {
+        font-size: 20px;
+    }
+
+    .part-item h3 {
+        font-size: 16px;
+    }
+
+    .part-description {
+        font-size: 13px;
+    }
+}
+
+.compatibility-badge {
+    background-color: #f0faf1;
+    color: #2a7d3e;
+    padding: 6px 10px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid #d1e7d8;
+    margin: 4px 0;
+    line-height: 1.2;
+    margin-left: 10px;
+}
+
+.compatibility-badge.detailed {
+    padding: 8px 10px;
+}
+
+.compatibility-icon {
+    width: 14px;
+    height: 14px;
+    color: #2a7d3e;
+}
+
+.compatible-vehicle {
+    font-size: 12px;
+    color: #4a6b57;
+}
