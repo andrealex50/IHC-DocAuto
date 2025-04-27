@@ -47,8 +47,9 @@ function updateCartTotal() {
     }
 }
 
+let cachedCompatibility = null;
 // Get random compatibility status and vehicle
-function getRandomCompatibility() {
+function getRandomCompatibility(part) {
     const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
     if (vehicles.length === 0) {
         return {
@@ -57,12 +58,10 @@ function getRandomCompatibility() {
         };
     }
     
-    // Random number between 0 and 2
+    // Generate random compatibility for THIS part (50% chance)
     const randomNum = Math.floor(Math.random() * 2);
     
-    // Only show compatibility if randomNum is 1 (33% chance)
     if (randomNum === 1) {
-        // Get a random vehicle from garage
         const randomVehicle = vehicles[Math.floor(Math.random() * vehicles.length)];
         return {
             isCompatible: true,
@@ -237,7 +236,7 @@ function displayItems(items, targetId) {
     listElement.innerHTML = items.map(item => {
         const wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
         const isInWishlist = wishlistItems.some(wishlistItem => wishlistItem.name === item.name);
-        const compatibility = getRandomCompatibility();
+        const compatibility = getRandomCompatibility(item);
 
         return `
             <div class="filter-item">
@@ -467,7 +466,7 @@ function applyCategoryFilters(category) {
 function displayPartDetails(part, category) {
     const container = document.getElementById('partDetailsContainer');
     const isInWishlist = isPartInWishlist(part.name);
-    const compatibility = getRandomCompatibility();
+    const compatibility = getRandomCompatibility(part);
     
     container.innerHTML = `
         <div class="filter-sidebar">
@@ -773,6 +772,7 @@ document.addEventListener('click', function(e) {
 
 // Main initialization
 document.addEventListener("DOMContentLoaded", function() {
+    cachedCompatibility = null;
     updateNotificationBadges();
     setupCart();
     
