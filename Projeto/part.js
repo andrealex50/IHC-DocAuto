@@ -47,15 +47,21 @@ function updateCartTotal() {
     }
 }
 
-let cachedCompatibility = null;
+const compatibilityCache = {};
 // Get random compatibility status and vehicle
 function getRandomCompatibility(part) {
+    // Return cached result if available
+    if (compatibilityCache[part.name]) {
+        return compatibilityCache[part.name];
+    }
+
     const vehicles = JSON.parse(localStorage.getItem('garage')) || [];
     if (vehicles.length === 0) {
-        return {
+        compatibilityCache[part.name] = {
             isCompatible: false,
             vehicle: null
         };
+        return compatibilityCache[part.name];
     }
     
     // Generate random compatibility for THIS part (50% chance)
@@ -63,16 +69,25 @@ function getRandomCompatibility(part) {
     
     if (randomNum === 1) {
         const randomVehicle = vehicles[Math.floor(Math.random() * vehicles.length)];
-        return {
+        compatibilityCache[part.name] = {
             isCompatible: true,
             vehicle: randomVehicle
         };
+    } else {
+        compatibilityCache[part.name] = {
+            isCompatible: false,
+            vehicle: null
+        };
     }
     
-    return {
-        isCompatible: false,
-        vehicle: null
-    };
+    return compatibilityCache[part.name];
+}
+
+/* LIMPAR A CACHE */
+function clearCompatibilityCache() {
+    for (let key in compatibilityCache) {
+        delete compatibilityCache[key];
+    }
 }
 
 // Parts data
