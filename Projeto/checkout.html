@@ -3,62 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocAuto</title>
+    <title>DocAuto - Checkout</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="checkout.js" defer></script>
+    <script src="home.js" defer></script>
 </head>
 <body>
     <div class="top-bar">
-        <a href="garage.html" class="my-garage-icon">
-            <img src="assets/my-garage-icon.png" alt="My Garage" class="my-garage-icon-img">
-        </a>
-        <a href="home.html" class="logo-box">
-            <img src="assets/logo.png" alt="DocAuto" class="logo">
-        </a>
-        <a href="profile.html" class="profile-icon">
-            <img src="assets/profile-icon.png" alt="Profile" class="profile-icon-img">
-        </a>
-    </div>
-    <div class="search-container">
-        <label for="type" class="search-label">Type:</label>
-        <select id="type" name="type" class="search-dropdown">
-            <option value="car">Car</option>
-            <option value="motorcycle">Motorcycle</option>
-            <option value="truck">Truck</option>
-            <!-- Add more options as needed -->
-        </select>
-        <input type="text" placeholder="Insert name or part number" class="search-input">
-        <button class="search-button">SEARCH</button>
-    </div>
-    <div class="content">
-        <section class="most-searched">
-            <h2>My Cart</h2>
-            <div class="parts">
-                <a class="part-item">
-                    <img src="assets/filters.png" alt="Filters">
-                    <h1>CarThings A7234 - Air filter</h1>
-                    <p>207mm, 131mm, round, filter cartridge, with integrated grid</p>
+        <div class="left-icons">
+            <div class="icon-container">
+                <a href="garage.html" class="nav-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/garage.svg" alt="My Garage" class="nav-icon-img">
+                        <span class="notification-badge notification-badge-garage">0</span>
+                    </div>
+                    <span class="nav-text">My Garage</span>
                 </a>
             </div>
-        </section>
-        <div>
-            <a href="billing.html" class="checkout-button">Checkout</a> <!-- Adiciona o botão Checkout com link -->
+            <div class="icon-container">
+                <a href="appointments.html" class="nav-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/appointments.svg" alt="Appointments" class="nav-icon-img">
+                        <span class="notification-badge notification-badge-appoint">0</span>
+                    </div>
+                    <span class="nav-text">Appointments</span>
+                </a>
+            </div>
         </div>
-        <div class="horizontal-bar-line" ></div>
-        <div class="align-text">
-            <p>
-                <strong>Subtotal Cart:</strong> 5.30$
-            </p>
-            <p>
-                <strong>Shipping cost:</strong> 2.99$
-            </p>
-            <p>
-                <strong>Total:</strong> 8.29$
-            </p>
+        <div class="logo-box">
+            <a href="home.html">
+                <img src="assets/logo.png" alt="DocAuto" class="logo">
+            </a>
+        </div>
+        <div class="right-icons">
+            <div class="icon-container" id="cart-icon-container">
+                <div class="nav-icon" id="cart-icon">
+                    <div class="icon-badge-container">
+                        <img src="assets/shopping-cart.png" alt="Cart" class="nav-icon-img">
+                        <span class="notification-badge notification-badge-cart">0</span>
+                    </div>
+                    <span class="nav-text" id="cart-total">0.00€</span>
+                </div>
+                <div class="cart-popup">
+                    <div class="cart-popup-content" id="cartPopupContent">
+                        <!-- Content will be loaded via JS -->
+                    </div>
+                    <div class="total-section">
+                        <div class="total-row">
+                            <span>Entrega</span>
+                            <span class="delivery-price">0.00€</span>
+                        </div>
+                        <div class="total-row">
+                            <strong>Valor total</strong>
+                            <strong class="total-price">0.00€</strong>
+                        </div>
+                        <div class="tax-note">Inclui IVA de 23%</div>
+                    </div>
+                    <div class="cart-buttons">
+                        <a href="wishlist.html" class="wishlist-link">Ir para a Wishlist</a>
+                        <a href="checkout.html" class="checkout-button">Checkout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="icon-container">
+                <a href="personal.html" class="nav-icon" id="auth-link">
+                    <div class="icon-badge-container profile-icon">
+                        <img src="assets/profile.svg" alt="Sign In" class="nav-icon-img" id="auth-icon-img">
+                    </div>
+                    <span class="nav-text" id="auth-text">Sign In</span>
+                </a>
+            </div>
         </div>
     </div>
-    
-    
-    
-    
+
+    <div class="search-container">
+        <div class="custom-dropdown">
+            <div class="selected-option" onclick="toggleDropdown()">
+                <img src="assets/car.svg" alt="Car" class="vehicle-icon" id="selected-icon">
+                <span id="selected-text">Car</span>
+            </div>
+            <div class="dropdown-options" id="dropdown-options"></div>
+            <input type="hidden" id="vehicleType" name="type" value="car">
+        </div>
+        <input type="text" id="search-term" placeholder="Insert name or part number" class="search-input">
+        <button class="search-button" onclick="performSearch()">
+            <img src="assets/search.svg" alt="Search" class="vehicle-icon">
+        </button>
+    </div>
+
+    <main class="content container">
+        <section class="cart-section">
+            <div class="section-header">
+                <h1><i class="fas fa-shopping-cart"></i> My Cart</h1>
+                <span class="item-count">0 items</span>
+            </div>
+            
+            <div class="cart-items">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <aside class="order-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-details">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span class="subtotal-price">0.00€</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span class="shipping-price">0.00€</span>
+                </div>
+                <div class="divider"></div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span class="total-price">0.00€</span>
+                </div>
+            </div>
+            <div class="summary-actions">
+                <a href="billing.html" class="checkout-button1">PROCEED TO CHECKOUT</a>
+            </div>
+            <div class="payment-options">
+                <span>We accept:</span>
+                <div class="payment-icons">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fab fa-cc-amex"></i>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                </div>
+                <div class="footer-links">
+                    <div class="links-column">
+                        <h4>Shop</h4>
+                        <a href="#">Auto Parts</a>
+                        <a href="#">Accessories</a>
+                        <a href="#">Tools</a>
+                        <a href="#">Promotions</a>
+                    </div>
+                    <div class="links-column">
+                        <h4>Support</h4>
+                        <a href="#">Contact Us</a>
+                        <a href="#">FAQs</a>
+                        <a href="#">Shipping</a>
+                        <a href="#">Returns</a>
+                    </div>
+                    <div class="links-column">
+                        <h4>Company</h4>
+                        <a href="#">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 DocAuto. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
