@@ -1,3 +1,17 @@
+function handleCheckoutClick(e) {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    
+    if (!currentUser) {
+        e.preventDefault();
+        // You can either redirect to login or show a modal
+        window.location.href = 'login.html?redirect=checkout';
+        // Or show a modal:
+        // alert('Please sign in to proceed to checkout');
+        // window.location.href = 'login.html';
+    }
+    // If user is logged in, the default link behavior will proceed
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     // Initialize cart if it doesn't exist (using 'cartItems' to match parts page)
     if (!localStorage.getItem('cartItems')) {
@@ -34,6 +48,11 @@ document.addEventListener("DOMContentLoaded", function() {
     // Cart popup functionality
     const cartIconContainer = document.getElementById('cart-icon-container');
     const cartPopup = document.querySelector('.cart-popup');
+    // Add checkout button click handler
+    const checkoutButton = document.getElementById('checkout-button1');
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', handleCheckoutClick);
+    }
     
     // Desktop hover behavior
     cartIconContainer.addEventListener('mouseenter', function() {

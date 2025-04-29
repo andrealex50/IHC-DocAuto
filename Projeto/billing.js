@@ -1,68 +1,110 @@
-function getAddressElements() {
-    const addressElement = document.querySelector('.content p:nth-child(2)');
-    const nifElement = document.querySelector('.content p:nth-child(3)');
-    const phoneElement = document.querySelector('.content p:nth-child(4)');
-
-    return { addressElement, nifElement, phoneElement};
-}
-
-window.onload = function() {
-    const { addressElement, nifElement, phoneElement} = getAddressElements();
-
+document.addEventListener("DOMContentLoaded", function() {
+    // Load cart items
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    
+    // Load user data from localStorage (original implementation)
     const savedAddress = localStorage.getItem('address');
     const savedNif = localStorage.getItem('nif');
     const savedPhone = localStorage.getItem('phone');
     const savedEmail = localStorage.getItem('email');
+    
+    // Load current user from sessionStorage (new implementation)
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser')) || {};
 
-    const userInfoElement = document.getElementById('user-info');
-    if (savedEmail) {
-        userInfoElement.innerHTML = `<strong>User:</strong> ${savedEmail}`;
+    // Display user information
+    function displayUserInfo() {
+        const userEmail = document.getElementById('user-email');
+        const userAddress = document.getElementById('user-address');
+        const userNif = document.getElementById('user-nif');
+        const userPhone = document.getElementById('user-phone');
+
+        // Use email from localStorage if available, otherwise from currentUser
+        const email = savedEmail || currentUser.email || "Not specified";
+        // Use name from currentUser if available
+        const name = currentUser.name || "";
+        
+        // Combine both data sources with localStorage having priority
+        const address = savedAddress || (currentUser.address || "Not specified");
+        const nif = savedNif || (currentUser.nif || "Not specified");
+        const phone = savedPhone || (currentUser.phone || "Not specified");
+
+        userEmail.textContent = name ? `${name}, ${email}` : email;
+        userAddress.textContent = address;
+        userNif.textContent = nif;
+        userPhone.textContent = phone;
     }
 
-    addressElement.innerHTML = `<strong>Address:</strong> ${savedAddress}`;
-    nifElement.innerHTML = `<strong>Nif:</strong> ${savedNif}`;
-    phoneElement.innerHTML = `<strong>Phone:</strong> ${savedPhone}`;
-}
+    // Display cart items in order summary
+    function displayCartItems() {
+        const cartItemsContainer = document.querySelector('.order-summary .cart-items');
+        const subtotalElement = document.querySelector('.subtotal-price');
+        const shippingElement = document.querySelector('.shipping-price');
+        const totalElement = document.querySelector('.order-summary .total-price');
+        
+        if (cartItems.length === 0) {
+            cartItemsContainer.innerHTML = '<p>Your cart is empty</p>';
+            document.querySelector('.checkout-button1').style.display = 'none';
+            return;
+        }
 
-function editAddress() {
-    const { addressElement, nifElement, phoneElement } = getAddressElements();
+        // Clear existing items
+        cartItemsContainer.innerHTML = '';
 
-    const savedAddress = localStorage.getItem('address');
-    const savedNif = localStorage.getItem('nif');
-    const savedPhone = localStorage.getItem('phone');
+        // Add each cart item
+        cartItems.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cart-item';
+            itemElement.innerHTML = `
+                <div class="item-image">
+                    <img src="${item.image || 'assets/default-part.png'}" alt="${item.name}">
+                </div>
+                <div class="item-info">
+                    <h4>${item.name}</h4>
+                    <div class="item-meta">
+                        <span>Quantity: ${item.quantity}</span>
+                    </div>
+                </div>
+                <div class="item-price">${(item.price * item.quantity).toFixed(2)}€</div>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+        });
 
-    addressElement.innerHTML = `<strong>Address: </strong><input type="text" value="${savedAddress}">`;
-    nifElement.innerHTML = `<strong>Nif: </strong><input type="text" value="${savedNif}">`;
-    phoneElement.innerHTML = `<strong>Phone: </strong><input type="tel" value="${savedPhone}">`;
+        // Calculate totals
+        const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const shipping = subtotal > 0 ? 2.99 : 0;
+        const total = subtotal + shipping;
 
-    document.querySelector('.edit-button').innerHTML = 'Save Changes';
-    document.querySelector('.edit-button').onclick = saveAddress;
-}
+        // Update summary
+        subtotalElement.textContent = `${subtotal.toFixed(2)}€`;
+        shippingElement.textContent = `${shipping.toFixed(2)}€`;
+        totalElement.textContent = `${total.toFixed(2)}€`;
+    }
 
-function saveAddress() {
-    const { addressElement, nifElement, phoneElement } = getAddressElements();
+    // Initialize notification badges
+    function updateNotificationBadges() {
+        // Cart
+        const cartBadge = document.querySelector('.notification-badge-cart');
+        if (cartBadge) {
+            const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+            cartBadge.textContent = totalItems;
+            cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
 
-    const addressInput = addressElement.querySelector('input');
-    const nifInput = nifElement.querySelector('input');
-    const phoneInput = phoneElement.querySelector('input');
+        // Cart total
+        const cartTotalElement = document.getElementById('cart-total');
+        if (cartTotalElement) {
+            const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalElement.textContent = cartTotal.toFixed(2) + '€';
+        }
+    }
 
-    localStorage.setItem('address', addressInput.value);
-    localStorage.setItem('nif', nifInput.value);
-    localStorage.setItem('phone', phoneInput.value);
+    // Initialize everything
+    displayUserInfo();
+    displayCartItems();
+    updateNotificationBadges();
 
-    addressElement.innerHTML = `<strong>Address:</strong> ${addressInput.value}`;
-    nifElement.innerHTML = `<strong>Nif:</strong> ${nifInput.value}`;
-    phoneElement.innerHTML = `<strong>Phone:</strong> ${phoneInput.value}`;
-
-    document.querySelector('.edit-button').innerHTML = 'Edit Address';
-    document.querySelector('.edit-button').onclick = editAddress;
-}
-
-function remove() {
-    localStorage.removeItem('address');
-    localStorage.removeItem('nif');
-    localStorage.removeItem('phone');
-
-    window.location.href = 'address.html';
-
-}
+    // Set up event listener for edit button
+    document.querySelector('.edit-button').addEventListener('click', function() {
+        window.location.href = 'address.html';
+    });
+});
