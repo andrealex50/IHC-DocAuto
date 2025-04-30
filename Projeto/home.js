@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const authIcon = document.getElementById('auth-icon-img');
     const logoBox = document.querySelector('.logo-box');
 
-
     if (currentUser) {
         authText.textContent = currentUser.name || "user1234";
         authLink.href = "personal.html";
@@ -367,6 +366,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setInterval(nextSlide, slideInterval);
     showSlide(currentSlide);
+
+    // Help button
+    const helpButton = document.getElementById('helpButton');
+    const helpPopup = document.getElementById('helpPopup');
+    const closeHelpPopup = document.getElementById('closeHelpPopup');
+
+    if (helpButton && helpPopup && closeHelpPopup) {
+        helpButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            helpPopup.style.display = helpPopup.style.display === 'block' ? 'none' : 'block';
+        });
+
+        closeHelpPopup.addEventListener('click', function() {
+            helpPopup.style.display = 'none';
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!helpPopup.contains(e.target) && e.target !== helpButton) {
+                helpPopup.style.display = 'none';
+            }
+        });
+
+        // Prevent closing when clicking inside popup
+        helpPopup.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
 });
 
 // Notification badges
@@ -530,4 +557,12 @@ function searchByModel() {
     if (brand && model && year) {
         window.location.href = `vehicle_search.html?searchType=model&brand=${encodeURIComponent(brand)}&model=${encodeURIComponent(model)}&year=${encodeURIComponent(year)}`;
     }
+}
+
+function searchByBrand(brand) {
+    // Get the current vehicle type
+    const vehicleType = document.getElementById('vehicleType').value;
+    
+    // Navigate to the vehicle search page with brand and type parameters
+    window.location.href = `vehicle_search.html?searchType=brand&brand=${encodeURIComponent(brand)}&type=${encodeURIComponent(vehicleType)}`;
 }

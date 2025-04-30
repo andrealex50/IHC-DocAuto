@@ -25,7 +25,13 @@ document.addEventListener("DOMContentLoaded", function() {
         // Automatically show the selected category
         hideAllPartsSections();
         showCategoryItems(category);
-    }
+    } else if (searchType === 'parts') {
+        header.innerHTML = `<h2>All Parts</h2>`;
+    } else if (searchType === 'brand') {
+        const brand = params.get('brand');
+        const vehicleType = params.get('type');
+        header.innerHTML = `<h2>Searching for parts for ${brand} ${vehicleType}s</h2>`;
+    } 
 
     // Define all items data
     const partsData = {
@@ -219,6 +225,13 @@ document.addEventListener("DOMContentLoaded", function() {
             container = document.createElement('div');
             container.id = `${category}Items`;
             container.className = 'filter-items';
+
+            const params = new URLSearchParams(window.location.search);
+            const searchType = params.get('searchType');
+            
+            // Only show "For your vehicle:" if searchType is model or plate
+            const forYourVehicleText = (searchType === 'model' || searchType === 'plate') ? 
+            '<p>For your vehicle:</p>' : '';
             
             let brandFiltersHTML = '';
             if (category === 'filters') {
@@ -306,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function() {
             
             container.innerHTML = `
                 <h3>${category.charAt(0).toUpperCase() + category.slice(1)}</h3>
-                <p>For your vehicle:</p>
+                ${forYourVehicleText}
                 <div class="filter-container">
                     <div class="filter-sidebar">
                         <h4>Filter By</h4>

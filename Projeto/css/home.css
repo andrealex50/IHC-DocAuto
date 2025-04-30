@@ -962,3 +962,83 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* Help Button Styles */
+.help-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #003aab;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.help-button:hover {
+    background-color: #00257a;
+    transform: scale(1.1);
+}
+
+.help-button img {
+    width: 30px;
+    height: 30px;
+    filter: brightness(0) invert(1);
+}
+
+/* Help Popup Styles */
+.help-popup {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    z-index: 1001;
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.help-popup-content h3 {
+    margin-top: 0;
+    color: #003aab;
+}
+
+.contact-info {
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+.contact-info p {
+    margin: 8px 0;
+}
+
+.close-help-popup {
+    background-color: #003aab;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.close-help-popup:hover {
+    background-color: #00257a;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+

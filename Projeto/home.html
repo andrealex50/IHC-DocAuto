@@ -169,7 +169,7 @@
                         <div class="promo-content">
                             <h3>My Garage</h3>
                             <p>Adicione os seus veículos à sua <br> garagem para facilitar a pesquisa de peças</p>
-                            <button class="promo-button" onclick="window.location.href='ofertas-pascoa.html'">VER GARAGEM</button>
+                            <button class="promo-button" onclick="window.location.href='garage.html'">VER GARAGEM</button>
                         </div>
                     </div>
                     
@@ -178,7 +178,7 @@
                         <div class="promo-content">
                             <h3>Appointments</h3>
                             <p>Agende e verifique as datas para </br> as suas inspeções</p>
-                            <button class="promo-button" onclick="window.location.href='download-app.html'">VER APPOINTMENTS</button>
+                            <button class="promo-button" onclick="window.location.href='appointments.html'">VER APPOINTMENTS</button>
                         </div>
                     </div>
                     
@@ -187,7 +187,7 @@
                         <div class="promo-content">
                             <h3>Peças</h3>
                             <p>Encomende as suas peças com facilidade</p>
-                            <button class="promo-button" onclick="window.location.href='pecas-destaque.html'">COMPRAR AGORA</button>
+                            <button class="promo-button" onclick="window.location.href='vehicle_search.html?searchType=parts'">COMPRAR AGORA</button>
                         </div>
                     </div>
                     
@@ -233,36 +233,36 @@
         <section class="search-by-brand">
             <h2>Search by Brand:</h2>
             <div class="brands1">
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('BMW')">
                     <img src="assets/bmw.png" alt="BMW">
                 </a>
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('Audi')">
                     <img src="assets/audi.png" alt="Audi">
                 </a>
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('Volkswagen')">
                     <img src="assets/vw.png" alt="Volkswagen">
                 </a>
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('Ford')">
                     <img src="assets/ford.png" alt="Ford">
                 </a>
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('Mercedes')">
                     <img src="assets/mercedes.png" alt="Mercedes">
                 </a>
             </div>
             <div class="brands2">
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('Seat')">
                     <img src="assets/seat.png" alt="Seat">
                 </a>
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('Renault')">
                     <img src="assets/renault.png" alt="Renault">
                 </a>
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('Fiat')">
                     <img src="assets/fiat.png" alt="Fiat">
                 </a>
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('Peugeot')">
                     <img src="assets/peugeot.png" alt="Peugeot">
                 </a>
-                <a class="brand-item">
+                <a class="brand-item" onclick="searchByBrand('Volvo')">
                     <img src="assets/volvo.png" alt="Volvo">
                 </a>
             </div>
@@ -271,6 +271,24 @@
                 <input type="text" id="custom-model-input" placeholder="Pesquise ou introduza a marca" style="width: 100%; padding: 6px; margin-top: 4px;">
             </div>            
         </section>
+    </div>
+
+    <!-- Help Button -->
+    <div class="help-button" id="helpButton">
+        <img src="assets/help-icon.png" alt="Help" class="help-icon">
+    </div>
+
+    <!-- Help Popup -->
+    <div class="help-popup" id="helpPopup">
+        <div class="help-popup-content">
+            <h3>Precisa de ajuda?</h3>
+            <div class="contact-info">
+                <p><strong>Email:</strong> suporte@docauto.com</p>
+                <p><strong>Telefone:</strong> +351 123 456 789</p>
+                <p><strong>Horário:</strong> Seg-Sex: 9h-18h</p>
+            </div>
+            <button class="close-help-popup" id="closeHelpPopup">Fechar</button>
+        </div>
     </div>
 </body>
 </html>
