@@ -3,63 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocAuto</title>
+    <title>DocAuto - Payment</title>
     <link rel="stylesheet" href="css/payment.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/vehicle_search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Enhanced Modal Button Styles */
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: flex-end;
+        }
+        
+        .modal-actions .modal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.95rem;
+        }
+        
+        .modal-actions .secondary-btn {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 1px solid #ddd;
+        }
+        
+        .modal-actions .secondary-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+        
+        .modal-actions .primary-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .modal-actions .primary-btn:hover {
+            background-color: #3da758;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(79, 203, 107, 0.3);
+        }
+        
+        .modal-actions .primary-btn:disabled {
+            background-color: var(--gray-color);
+            border-color: var(--gray-color);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Confirmation Modal Styles */
+        .confirmation-details {
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .confirmation-details p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+        
+        .order-summary-mini {
+            background-color: var(--light-color);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+        
+        .order-summary-mini .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        /* Make sure modals stack properly */
+        .modal {
+            z-index: 1000;
+        }
+        
+        .modal + .modal {
+            z-index: 1001;
+        }
+        
+        /* Make buttons full width on mobile */
+        @media (max-width: 576px) {
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .modal-actions .modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Modal card hover effect */
+        .modal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+    </style>
 </head>
 <body>
     <div class="top-bar">
-        <a href="garage.html" class="my-garage-icon">
-            <img src="assets/my-garage-icon.png" alt="My Garage" class="my-garage-icon-img">
-        </a>
-        <a href="home.html" class="logo-box">
-            <img src="assets/logo.png" alt="DocAuto" class="logo">
-        </a>
-        <a href="profile.html" class="profile-icon">
-            <img src="assets/profile-icon.png" alt="Profile" class="profile-icon-img">
-        </a>
-    </div>
-    <div class="search-container">
-        <label for="type" class="search-label">Type:</label>
-        <select id="type" name="type" class="search-dropdown">
-            <option value="car">Car</option>
-            <option value="motorcycle">Motorcycle</option>
-            <option value="truck">Truck</option>
-            <!-- Add more options as needed -->
-        </select>
-        <input type="text" placeholder="Insert name or part number" class="search-input">
-        <button class="search-button">SEARCH</button>
-    </div>
-    
-
-    <!-- Novo conteúdo adicionado -->
-    <div class="container">
-        <img src="assets/filters.png" alt="Imagem" class="container-image">
-        <h2 class="container-title">Summary review</h2>
-        <p class="container-text">CarThings A7234 - Air filter</p>
-        <P class="container-text2">Quantity: 1</P>
-        <P class="container-text2">Shipping cost: 2,99$</P>
-        <P class="container-text2">Subtotal cart: 5,30$</P>
-        <P class="container-text3">Total: 8,30$</P>
-        <a href="javascript:void(0);" class="checkout-button" onclick="completePurchase()">Buy</a>
-    </div>
-
-    <div class="payment-container">
-        <h2>Payment method</h2>
-        <p><strong>Name:</strong> Emily</p>
-        <p><strong>Card Number:</strong> 123</p>
-        <p><strong>Expiration Date:</strong>adasd </p>
-        <p><strong>CVV:</strong> </p>
-        <div>
-            <button class="edit-button" onclick="editPaymentData()">Edit Payment Data</button>
-        </div>
-        <div>
-            <button class="remove-button" onclick="remove()">Remove</button>
+        <div class="logo-box">
+            <a href="home.html">
+                <img src="assets/logo.png" alt="DocAuto" class="logo">
+            </a>
         </div>
     </div>
+
+    <main class="content container">
+        <section class="cart-section">
+            <div class="back-arrow-container">
+                <a href="billing.html" class="back-arrow">
+                    <img src="assets/arrow_left.png" alt="Back" class="back-arrow-icon">
+                    <span class="back-arrow-text">Back to Billing</span>
+                </a>
+            </div>
+            
+            <div class="section-header">
+                <h1><i class="fas fa-credit-card"></i> Payment Method</h1>
+            </div>
+            
+            <div class="cart-items">
+                <div class="main-cart-item">
+                    <div class="item-details">
+                        <h2>Payment Method</h2>
+                        <div class="payment-method-display">
+                            <div class="item-description">
+                                Loading payment method...
+                            </div>
+                            <div class="item-actions">
+                                <button class="edit-button" id="changePaymentBtn">
+                                    <i class="fas fa-edit"></i> Change Payment Method
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="order-summary">
+            <h3>Order Summary</h3>
+            <div class="cart-items" id="orderSummaryItems">
+                <!-- Cart items will be inserted here by JavaScript -->
+            </div>
+            <div class="summary-details">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span class="subtotal-price">0.00€</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span class="shipping-price">0.00€</span>
+                </div>
+                <div class="divider"></div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span class="total-price">0.00€</span>
+                </div>
+            </div>
+            <div class="summary-actions">
+                <button class="checkout-button1" id="completePurchaseBtn">
+                    COMPLETE PURCHASE
+                </button>
+            </div>
+            <div class="payment-options">
+                <span>We accept:</span>
+                <div class="payment-icons">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fab fa-cc-amex"></i>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Card Selection Modal -->
+    <div id="cardModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Select Payment Method</h2>
+            <div id="cardSelectionContainer" class="card-selection-container">
+                <!-- Cards will be inserted here by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button id="addNewCardBtn" class="modal-btn secondary-btn">
+                    <i class="fas fa-plus"></i> Add New Card
+                </button>
+                <button id="confirmCardBtn" class="modal-btn primary-btn" disabled>
+                    <i class="fas fa-check"></i> Use Selected Card
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Confirmation Modal -->
+    <div id="confirmPurchaseModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <h2>Confirm Purchase</h2>
+            <div class="confirmation-details">
+                <p>Are you sure you want to complete this purchase?</p>
+                <div class="order-summary-mini">
+                    <div class="summary-row">
+                        <span>Total:</span>
+                        <span class="total-price">0.00€</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="cancelPurchaseBtn" class="modal-btn secondary-btn">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button id="finalizePurchaseBtn" class="modal-btn primary-btn">
+                    <i class="fas fa-check"></i> Confirm Purchase
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <div class="links-column">
+                        <h4>Shop</h4>
+                        <a href="#">Auto Parts</a>
+                        <a href="#">Accessories</a>
+                        <a href="#">Tools</a>
+                        <a href="#">Promotions</a>
+                    </div>
+                    <div class="links-column">
+                        <h4>Support</h4>
+                        <a href="#">Contact Us</a>
+                        <a href="#">FAQs</a>
+                        <a href="#">Shipping</a>
+                        <a href="#">Returns</a>
+                    </div>
+                    <div class="links-column">
+                        <h4>Company</h4>
+                        <a href="#">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 DocAuto. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="payment.js"></script>
-
-    
-    
 </body>
 </html>

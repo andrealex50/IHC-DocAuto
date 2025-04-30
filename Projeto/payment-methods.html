@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOCAUTO - My Wishlist</title>
+    <title>DOCAUTO - Payment Methods</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
-    <link rel="stylesheet" href="css/wishlist.css">
+    <link rel="stylesheet" href="css/payment-methods.css">
+    <link rel="stylesheet" href="css/address.css">
     <link rel="shortcut icon" href="assets/logoicon.png">
 </head>
 <body>
-    <!-- Top Bar -->
+    <!-- Header -->
     <header class="header">
         <button class="sidebar-toggle">
             <span class="toggle-bar"></span>
             <span class="toggle-bar"></span>
             <span class="toggle-bar"></span>
         </button>
-
         <a href="home.html" class="logo">
             <img src="assets/logo.png" alt="DocAuto">
         </a>
-        
         <div class="header-icons">
             <div class="icon-container" id="cart-icon-container">
                 <div class="nav-icon" id="cart-icon">
@@ -59,26 +58,11 @@
         </div>
     </header>
 
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-container">
-            <label for="type" class="search-label">Type:</label>
-            <select id="type" class="search-select">
-                <option value="all">All</option>
-                <option value="car">Car Parts</option>
-                <option value="motorcycle">Motorcycle Parts</option>
-                <option value="truck">Truck Parts</option>
-            </select>
-            <input type="text" class="search-input" placeholder="Search by product name or code">
-            <button class="search-btn">SEARCH</button>
-        </div>
-    </div>
-
     <!-- Sidebar Navigation -->
     <nav class="sidebar">
         <div class="sidebar-header">
             <div class="user-profile">
-                <img src="assets/user-avatar.png" alt="User" class="user-avatar" id = "profile-avatar">
+                <img src="assets/user-avatar.png" alt="User" class="user-avatar" id="profile-avatar">
                 <div class="user-info">
                     <span class="user-name" id="auth-text">John Doe</span>
                     <span class="user-email" id="email-value">john@example.com</span>
@@ -104,11 +88,11 @@
                     <img src="assets/location.svg" alt="">
                     <span>Manage Address</span>
                 </a>
-                <a href="payment-methods.html" class="menu-item">
+                <a href="payment-methods.html" class="menu-item active">
                     <img src="assets/credit-card.svg" alt="">
                     <span>Payment Methods</span>
                 </a>
-                <a href="wishlist.html" class="menu-item active">
+                <a href="wishlist.html" class="menu-item">
                     <img src="assets/wishlist.svg" alt="">
                     <span>My Wishlist</span>
                     <span class="notification-badge-wishlist">0</span>
@@ -149,29 +133,50 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="garage-header">
-            <h1><img src="assets/wishlist-icon.svg" alt=""> My Wishlist</h1>
+        <div class="payment-header">
+            <h1><img src="assets/credit-card.svg" alt=""> Payment Methods</h1>
+            <button id="add-payment-btn" class="primary-btn">+ Add Payment Method</button>
         </div>
-    
-        <!-- Wishlist items container -->
-        <div id="wishlist-container" class="wishlist-grid">
-            <!-- Wishlist items will be inserted here via JavaScript -->
-        </div>
-    
-        <!-- Empty state -->
-        <div id="empty-wishlist" class="empty-garage-state">
-            <h3>Your wishlist is empty</h3>
-            <p>Add products to your wishlist to see them here</p>
-            <button id="browse-products-btn" class="primary-btn">Browse Products</button>
+
+        <div class="payment-container">
+            <!-- Saved cards will be displayed here -->
+            <div id="saved-cards-container"></div>
+            
+            <!-- Add new card form (hidden by default) -->
+            <div id="add-card-form" class="card-form" style="display: none;">
+                <h2>Add New Card</h2>
+                <div class="form-group">
+                    <label for="card-name">Name on Card</label>
+                    <input type="text" id="card-name" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="card-expiry">Expiry Date</label>
+                        <input type="text" id="card-expiry" placeholder="MM/YY">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-cvv">CVV</label>
+                        <input type="text" id="card-cvv" placeholder="123">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="save-card"> Save this card for future purchases
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button id="cancel-add-card" class="secondary-btn">Cancel</button>
+                    <button id="save-card-btn" class="primary-btn">Save Card</button>
+                </div>
+            </div>
         </div>
     </main>
 
-    <script src="wishlist.js" defer></script>
+    <script src="payment-methods.js"></script>
     <div class="sidebar-overlay"></div>
-
-    <!-- Heart icon for wishlist items -->
-    <svg id="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-    </svg>
 </body>
 </html>
