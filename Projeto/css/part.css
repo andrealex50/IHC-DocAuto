@@ -231,3 +231,96 @@ body {
     font-size: 12px;
     color: #4a6b57;
 }
+
+
+/* Footer */
+.footer {
+    background-color: #014357; /* Same as top bar */
+    color: white; /* White text for contrast */
+    padding: 3rem 0 1.5rem;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-logo img {
+    height: 40px;
+    filter: brightness(0) invert(1); /* Keeps logo white */
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.links-column {
+    flex: 1;
+    min-width: 150px;
+}
+
+.links-column h4 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white; /* White headings */
+}
+
+.links-column a {
+    display: block;
+    color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+    padding: 0.2rem 0;
+}
+
+.links-column a:hover {
+    color: white; /* Solid white on hover */
+    text-decoration: underline;
+    transform: translateX(5px);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white divider */
+    font-size: 0.9rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1); /* Light white overlay */
+}
+
+.social-icons a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Brighter on hover */
+    transform: translateY(-2px);
+}

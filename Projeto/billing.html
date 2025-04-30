@@ -5,55 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DocAuto</title>
     <link rel="stylesheet" href="css/billing.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/vehicle_search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="top-bar">
-        <a href="garage.html" class="my-garage-icon">
-            <img src="assets/my-garage-icon.png" alt="My Garage" class="my-garage-icon-img">
-        </a>
-        <a href="home.html" class="logo-box">
-            <img src="assets/logo.png" alt="DocAuto" class="logo">
-        </a>
-        <a href="profile.html" class="profile-icon">
-            <img src="assets/profile-icon.png" alt="Profile" class="profile-icon-img">
-        </a>
+        <div class="logo-box">
+            <a href="home.html">
+                <img src="assets/logo.png" alt="DocAuto" class="logo">
+            </a>
+        </div>
     </div>
-    <div class="search-container">
-        <label for="type" class="search-label">Type:</label>
-        <select id="type" name="type" class="search-dropdown">
-            <option value="car">Car</option>
-            <option value="motorcycle">Motorcycle</option>
-            <option value="truck">Truck</option>
-            <!-- Add more options as needed -->
-        </select>
-        <input type="text" placeholder="Insert name or part number" class="search-input">
-        <button class="search-button">SEARCH</button>
-    </div>
-    <div class="content">
-        <section class="most-searched">
-            <h2>Billing information</h2>
-            <div class="parts">
-                <a class="part-item">
-                    <p id="user-info"><strong>User:</strong>Emily, emily48@gmail.com</p>
-                    <p><strong>Address:</strong>Rua do Bugalho 3555 - 111, Leiria</p>
-                    <p><strong>NIF:</strong> 111111111</p>
-                    <p><strong>Phone:</strong> 222222222</p>
+    <main class="content container">
+        <section class="cart-section">
+            <div class="back-arrow-container">
+                <a href="checkout.html" class="back-arrow">
+                    <img src="assets/arrow_left.png" alt="Back" class="back-arrow-icon">
+                    <span class="back-arrow-text">Back to Cart</span>
                 </a>
-                <a href="address.html" class="bottom-button">Change address</a>
+            </div>
+            <div class="section-header">
+                <h1><i class="fas fa-file-invoice"></i> Billing Information</h1>
+            </div>
+            
+            <div class="cart-items">
+                <div class="main-cart-item">
+                    <div class="item-details">
+                        <h2>Contact Information</h2>
+                        <p class="item-description" id="user-info">
+                            <strong>User:</strong> <span id="user-email">Loading...</span><br>
+                            <strong>Address:</strong> <span id="user-address">Loading...</span><br>
+                            <strong>NIF:</strong> <span id="user-nif">Loading...</span><br>
+                            <strong>Phone:</strong> <span id="user-phone">Loading...</span>
+                        </p>
+                        <div class="item-actions">
+                            <a href="address.html" class="edit-button"><i class="fas fa-edit"></i> Change Information</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-    </div>
 
-    <div class="container">
-        <img src="assets/filters.png" alt="Imagem" class="container-image">
-        <h2 class="container-title">Summary review</h2>
-        <p class="container-text">CarThings A7234 - Air filter</p>
-        <p class="container-text2">Quantity: 1</p>
-        <p class="container-text2">Shipping cost: 2,99$</p>
-        <p class="container-text2">Subtotal cart: 5,30$</p>
-        <p class="container-text3">Total: 8,30$</p>
-        <a href="payment.html" class="checkout-button">Next</a>
-    </div>
+        <aside class="order-summary">
+            <h3>Order Summary</h3>
+            <div class="cart-items">
+                <!-- Cart items will be inserted here by JavaScript -->
+            </div>
+            <div class="summary-details">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span class="subtotal-price">0.00€</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span class="shipping-price">0.00€</span>
+                </div>
+                <div class="divider"></div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span class="total-price">0.00€</span>
+                </div>
+            </div>
+            <div class="summary-actions">
+                <a href="payment.html" class="checkout-button1">PROCEED TO PAYMENT</a>
+            </div>
+            <div class="payment-options">
+                <span>We accept:</span>
+                <div class="payment-icons">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fab fa-cc-amex"></i>
+                </div>
+            </div>
+        </aside>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                </div>
+                <div class="footer-links">
+                    <div class="links-column">
+                        <h4>Shop</h4>
+                        <a href="#">Auto Parts</a>
+                        <a href="#">Accessories</a>
+                        <a href="#">Tools</a>
+                        <a href="#">Promotions</a>
+                    </div>
+                    <div class="links-column">
+                        <h4>Support</h4>
+                        <a href="#">Contact Us</a>
+                        <a href="#">FAQs</a>
+                        <a href="#">Shipping</a>
+                        <a href="#">Returns</a>
+                    </div>
+                    <div class="links-column">
+                        <h4>Company</h4>
+                        <a href="#">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 DocAuto. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="billing.js"></script>
 </body>
 </html>
