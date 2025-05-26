@@ -125,8 +125,7 @@ Para melhor monitorizar e recolher informação adicional, foi utilizada uma tab
 ## Conclusões
 Com base nas respostas dos três utilizadores, pode-se concluir que a maioria das tarefas foi classificada como fácil ou muito fácil, indicando uma boa usabilidade da interface nas funcionalidades testadas. Embora dois dos três utilizadores fossem inexperientes neste tipo de aplicações, o que resultou em algumas discrepâncias, principalmente nos resultados do questionário pós-tarefas, os dados obtidos foram bastante úteis para o aprimoramento do website.
 
-Em suma, os resultados demonstram que o sistema é bem aceite pelos utilizadores, destacando-se apenas um ponto de melhoria: quando o utilizador não possui os dados necessários associados à sua conta, o processo de checkout torna-se um pouco tedioso, exigindo navegação repetida entre a página de finalização de compra e a área do utilizador. Essa observação sugere a necessidade de otimizar esse fluxo para maior eficiência e satisfação do utilizador.
-
+Em suma, os resultados demonstram que o sistema é bem aceite pelos utilizadores. Apesar de se notar que, quando o utilizador não tem os dados necessários previamente associados à sua conta, o processo de checkout exige uma navegação adicional entre a finalização da compra e a área pessoal, esta decisão foi intencional. Optámos por manter este fluxo para garantir que a informação de pagamento e entrega fique vinculada à conta do utilizador, e não apenas a uma compra específica, assegurando maior consistência e segurança nos dados. Esta abordagem, ainda que exija um passo adicional no processo, reforça a integridade das informações e simplifica futuras transações.
 ---
 [Back to main Logbook Page](../hci_logbook.md)
 
