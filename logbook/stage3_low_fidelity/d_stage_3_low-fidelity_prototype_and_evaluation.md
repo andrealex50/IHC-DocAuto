@@ -50,8 +50,6 @@ Com base nestas entrevistas tirámos alguns apontamentos sobre funcionalidades q
 
 - Melhorar o campo de descrição no menu "Appointment" (ex.: usar dropdowns ou destacar a caixa)
 
-- Indicar no "Appointment" que o pedido está “a confirmar pela oficina”
-
 - Adicionar histórico de compras
 
 - Incluir seta ou botão para voltar à página inicial
