@@ -50,8 +50,6 @@ Com base nestas entrevistas tirámos alguns apontamentos sobre funcionalidades q
 
 - Melhorar o campo de descrição no menu "Appointment" (ex.: usar dropdowns ou destacar a caixa)
 
-- Adicionar histórico de compras
-
 - Incluir seta ou botão para voltar à página inicial
 
 - Criar botão que leve ao menu incorporado na página inicial
